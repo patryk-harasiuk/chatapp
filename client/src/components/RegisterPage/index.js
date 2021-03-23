@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { LoginWrapper, LoginBox, Heading, Paragraph, LoginForm, Input, HeadingInput, ButtonSingUp, ButtonLogIn } from './RegisterPageStyles';
 
 
@@ -7,14 +8,23 @@ const RegisterPage = () => {
     const [registerState, setRegisterState] = useState({
         username: '',
         password: '',
-        repeatPassword: '',
         email: ''
     });
     
     const submitHandler = e => {
         e.preventDefault();
 
-        
+        axios.post('/register', {
+            username: registerState.username,
+            password: registerState.password,
+            email: registerState.email
+          })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
     }
 
     return (
@@ -46,14 +56,14 @@ const RegisterPage = () => {
                         value={registerState.password}
                         onChange={e => setRegisterState({...registerState, password: e.target.value})} 
                     />
-                    <HeadingInput>Repeat Password</HeadingInput>
+                    {/* <HeadingInput>Repeat Password</HeadingInput>
                     <Input 
                         type='text'
                         name='password' 
                         placeholder='Repeat password'
                         value={registerState.repeatPassword}
                         onChange={e => setRegisterState({...registerState, repeatPassword: e.target.value})} 
-                    />
+                    /> */}
                     <HeadingInput>E-mail</HeadingInput>
                     <Input 
                         type='email'
@@ -62,10 +72,10 @@ const RegisterPage = () => {
                         value={registerState.email}
                         onChange={e => setRegisterState({...registerState, email: e.target.value})} 
                     />
+                <ButtonSingUp type='submit'>Sign up</ButtonSingUp>
+                <ButtonLogIn>Log in</ButtonLogIn>
                 </LoginForm>
 
-                <ButtonSingUp>Sign up</ButtonSingUp>
-                <ButtonLogIn>Log in</ButtonLogIn>
 
             </LoginBox>
 

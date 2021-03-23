@@ -11,8 +11,6 @@ export const LoginBox = styled.div`
     width: 500px;
     height: 700px;
     font-family: 'Lato', sans-serif;
-    /* border: 2px solid royalblue; */
-/* background-color: royalblue; */
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -38,7 +36,6 @@ export const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-evenly; */
 `;
 
 export const Input = styled.input`
@@ -77,7 +74,8 @@ export const ButtonSingUp = styled.button`
     background: -webkit-linear-gradient(to right, #512DA8, #673AB7);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #512DA8, #673AB7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-
+    margin-bottom: 20px;
+    cursor: pointer;
     width: 300px;
     height: 50px;
     border-radius: 4px;

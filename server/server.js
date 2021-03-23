@@ -1,7 +1,9 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
+const routes = require('./routes/routes');
 
-mongoose.connect('mongodb//localhost:27017/chat_app', {
+mongoose.connect('mongodb://localhost:27017/chat_app', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -13,13 +15,9 @@ mongoose.connect('mongodb//localhost:27017/chat_app', {
         process.exit();
     });
 
-const app = express();
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('<h1>Hello worldd</h1>');
-});
-
-// app.post()
+app.use('/', routes);
 
 const PORT = process.env.PORT || 5000;
 
