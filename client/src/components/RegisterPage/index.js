@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { LoginWrapper, LoginBox, Heading, Paragraph, LoginForm, Input, HeadingInput, ButtonSingUp, ButtonLogIn } from './RegisterPageStyles';
+import { RegisterWrapper, Login, RegisterForm, Input, InputBox, Label, RegisterHeading, ButtonSingUp, LoginLink } from './RegisterPageStyles';
 
 
 const RegisterPage = () => {
@@ -23,63 +24,55 @@ const RegisterPage = () => {
             console.log(response);
           })
           .catch(error => {
-            console.log(error);
+            console.log(error.response);
+            // console.log(error.status);
+            // console.log(error.headers);
           });
     }
 
     return (
-        <LoginWrapper>
+        <RegisterWrapper>
+                <RegisterForm onSubmit={submitHandler}>
+                    <RegisterHeading>Create your account!</RegisterHeading>
+                    <InputBox>
+                        <Label htmlFor='username'>Username</Label>
+                        <Input 
+                            required='required'
+                            type='text'
+                            name='username' 
+                            // placeholder='Username'
+                            value={registerState.username}
+                            onChange={e => setRegisterState({...registerState, username: e.target.value})}
+                            />
+                    </InputBox>
 
-            <LoginBox>
-                <Heading>
-                    Create your account!
-                </Heading>
-                <Paragraph>
-                    Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse
-                </Paragraph>
-
-                <LoginForm onSubmit={submitHandler}>
-                    <HeadingInput>Username</HeadingInput>
-                    <Input 
-                        type='text'
-                        name='username' 
-                        placeholder='Username'
-                        value={registerState.username}
-                        onChange={e => setRegisterState({...registerState, username: e.target.value})}
-                    />
-
-                    <HeadingInput>Password</HeadingInput>
-                    <Input 
-                        type='text'
-                        name='password' 
-                        placeholder='Password'
-                        value={registerState.password}
-                        onChange={e => setRegisterState({...registerState, password: e.target.value})} 
-                    />
-                    {/* <HeadingInput>Repeat Password</HeadingInput>
-                    <Input 
-                        type='text'
-                        name='password' 
-                        placeholder='Repeat password'
-                        value={registerState.repeatPassword}
-                        onChange={e => setRegisterState({...registerState, repeatPassword: e.target.value})} 
-                    /> */}
-                    <HeadingInput>E-mail</HeadingInput>
-                    <Input 
-                        type='email'
-                        name='e-mail' 
-                        placeholder='E-mail'
-                        value={registerState.email}
-                        onChange={e => setRegisterState({...registerState, email: e.target.value})} 
-                    />
+                    <InputBox>
+                    <Label htmlFor='password'>Password</Label>
+                        <Input 
+                            required='required'
+                            type='password'
+                            name='password' 
+                            // placeholder='Password'
+                            value={registerState.password}
+                            onChange={e => setRegisterState({...registerState, password: e.target.value})} 
+                            />
+                        </InputBox>                    
+                  
+                    <InputBox>
+                    <Label htmlFor='e-mail'>Email</Label>
+                        <Input 
+                            required='required'
+                            type='email'
+                            name='e-mail' 
+                            // placeholder='E-mail'
+                            value={registerState.email}
+                            onChange={e => setRegisterState({...registerState, email: e.target.value})} 
+                            />
+                        </InputBox>
                 <ButtonSingUp type='submit'>Sign up</ButtonSingUp>
-                <ButtonLogIn>Log in</ButtonLogIn>
-                </LoginForm>
-
-
-            </LoginBox>
-
-        </LoginWrapper>
+                <Login>Already have an account? <LoginLink to='/login'>Log in</LoginLink></Login>
+                </RegisterForm>
+        </RegisterWrapper>
     );
 }
 
