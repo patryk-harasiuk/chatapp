@@ -32,6 +32,7 @@ export const RegisterHeading = styled.h2`
 export const InputBox = styled.div`
     display: flex;
     flex-direction: column;
+    max-width: 300px;
 `;
 
 export const Label = styled.label`
@@ -63,9 +64,6 @@ export const Input = styled.input`
     :valid {
         border-bottom: 1px solid royalblue;
     }
-
-    
-
 `;
 
 export const ButtonSingUp = styled.button`
@@ -98,3 +96,10 @@ export const LoginLink = styled(Link)`
     appearance: none;
     text-decoration: none;
  `;
+
+export const ErrorInfo = styled.div`
+    text-align: center;
+    padding-top: 5px;
+    font-size: 12px;
+    color: rgb(212, 8, 8);
+`;
