@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 
 export const RegisterWrapper = styled.div`
-min-height: 100vh;
-background-image: linear-gradient(120deg, #3498db, #8e44ad);
-display: flex;
-justify-content: center;
-align-items: center;
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const RegisterForm = styled.form`
@@ -35,14 +35,6 @@ export const InputBox = styled.div`
     max-width: 300px;
 `;
 
-export const Label = styled.label`
-    position: absolute;
-    transform: translateY(-15px);
-    font-size: 14px;
-    pointer-events: none;
-    transition: .3s ease-out;
-    /* width: 100%; */
-`;
 
 export const Input = styled.input`
     outline: none;
@@ -64,6 +56,13 @@ export const Input = styled.input`
     :valid {
         border-bottom: 1px solid royalblue;
     }
+`;
+export const Label = styled.label`
+    position: absolute;
+    transform: translateY(-15px);
+    font-size: 14px;
+    pointer-events: none;
+    transition: .3s ease-out;
 `;
 
 export const ButtonSingUp = styled.button`

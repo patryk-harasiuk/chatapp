@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import LoadingAnimation from '../LoadingAnimation';
 import { RegisterWrapper, 
          Login, 
          RegisterForm, 
@@ -22,7 +24,7 @@ const RegisterPage = () => {
     });
 
     const [error, setError] = useState({});
-    // const [loading, setLoading] = useState(false);
+    const history = useHistory();
     
     const submitHandler = e => {
         e.preventDefault();
@@ -38,6 +40,7 @@ const RegisterPage = () => {
             console.log(response);
             setRegisterState({...registerState, loading: false});
             setError({});
+            history.push('/login');
           })
           .catch(error => {
             console.log(error.response.data);
@@ -45,7 +48,13 @@ const RegisterPage = () => {
             setError(error.response.data);
           });
     }
-// console.log(error.path)
+
+    if (registerState.loading) {
+        return (
+            <LoadingAnimation></LoadingAnimation>
+        );
+    }
+
     return (
         <RegisterWrapper>
                 <RegisterForm onSubmit={submitHandler}>

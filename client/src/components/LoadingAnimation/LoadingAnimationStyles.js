@@ -5,7 +5,12 @@ export const AnimationContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: royalblue;
+`;
+
+const jump = keyframes`
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 `;
 
 export const AnimationDot = styled.div`
@@ -23,9 +28,4 @@ export const AnimationDot = styled.div`
     :nth-of-type(3) {
         animation-delay: .2s;
     }
-`;
-
-const jump = keyframes`
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
 `;
