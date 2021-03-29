@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import {
     RegisterWrapper,
     RegisterForm,
@@ -8,14 +10,42 @@ import {
     Input,
     ButtonSingUp,
     Login,
-    LoginLink
+    LoginLink,
+    ErrorInfo
 } from '../RegisterPage/RegisterPageStyles';
 
-const index = () => {
+const LoginPage = () => {
+
+    const [loginForm, setLoginForm] = useState({
+        email: '',
+        password: ''
+    });
+
+    const [error, setError] = useState({});
+
+    const history = useHistory();
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        axios.post('/login', {
+            email: loginForm.email,
+            password: loginForm.password
+        })
+        .then(response => {
+            setError({});
+            console.log(response);
+            history.push('/');
+        })
+        .catch(error => {
+            setError(error.response.data);
+        });
+    };
+
     return (
         <RegisterWrapper>
 
-            <RegisterForm>
+            <RegisterForm onSubmit={handleSubmit}>
                 <RegisterHeading>Login</RegisterHeading>
 
                 <InputBox>
@@ -25,7 +55,9 @@ const index = () => {
                       required='required'
                       type='text'
                       name='e-mail'
+                      onChange={e => setLoginForm({...loginForm, email: e.target.value})}
                     />
+                    {error.path === 'email' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
                 </InputBox>
 
                 <InputBox>
@@ -33,9 +65,11 @@ const index = () => {
                     <Input 
                       autoComplete='off'
                       required='required'
-                      type='text'
+                      type='password'
                       name='password'
+                      onChange={e => setLoginForm({...loginForm, password: e.target.value})}
                     />
+                    {error.path === 'password' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
                 </InputBox>
                 <ButtonSingUp type='submit'>Login</ButtonSingUp>
                 <Login>Dont have an account? <LoginLink to='/register'>Sign up</LoginLink></Login>
@@ -45,4 +79,4 @@ const index = () => {
     );
 }
 
-export default index;
+export default LoginPage;

@@ -1,11 +1,44 @@
 import React from 'react';
+import {
+    Wrapper,
+    SidebarRooms,
+    HomeCenter,
+    SidebarFriends,
+    SidebarRoomsNav,
+    ProfileCard,
+    Form,
+    InputBox,
+    Input,
+    SubmitMessageButton
+} from './HomePageStyles';
 
-const index = () => {
+const HomePage = () => {
     return (
-        <div>
-            its home page
-        </div>
-    )
+        <Wrapper>
+            <SidebarRooms>
+                <ProfileCard>
+
+                </ProfileCard>
+
+                <SidebarRoomsNav>
+                    Messages
+                </SidebarRoomsNav>
+            </SidebarRooms>
+
+            <HomeCenter>
+                <Form>
+                    <InputBox>
+                        <Input></Input>
+                        <SubmitMessageButton>Submit</SubmitMessageButton>
+                    </InputBox>
+                </Form>
+            </HomeCenter>
+
+            <SidebarFriends>
+
+            </SidebarFriends>
+        </Wrapper>
+    );
 }
 
-export default index;
+export default HomePage;

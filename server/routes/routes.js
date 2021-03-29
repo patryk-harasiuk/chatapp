@@ -9,15 +9,19 @@ router.post('/register', async (req, res) => {
     const { error } = registerValidation(req.body);
     if (error) return res.status(400).send({errorMessage: error.details[0].message, path: error.details[0].path[0]});
 
+    // Checking if email is already in db
     const emailDuplicate = await User.findOne({email: email});
     if (emailDuplicate) return res.status(400).send({errorMessage: 'Email adress already exists', path: 'email'});
 
+    // Checking if username is already in db
     const usernameDuplicate = await User.findOne({username: username});
     if (usernameDuplicate) return res.status(400).send({errorMessage: 'Username already exists', path: 'username'});
 
+    // Hashing the password
     const salt = await bcrypt.genSalt(10);
     const hashPassowrd = await bcrypt.hash(plainTextPassword, salt)
 
+    // Creating new user
     const user = new User({
         username: username,
         password: hashPassowrd,
@@ -39,9 +43,11 @@ router.post('/login', async (req, res) => {
     const { error } = loginValidation(req.body);
     if (error) return res.status(400).send({errorMessage: error.details[0].message, path: error.details[0].path[0]});
 
+    // Checking if email is in db
     const userExists = await User.findOne({email: email});
     if (!userExists) return res.status(400).send({errorMessage: 'Email is not found', path: 'email'});
 
+    // Checking if password is correct
     const validPassword = await bcrypt.compare(password, userExists.password);
     if (!validPassword) return res.status(400).send({errorMessage: 'Password is wrong', path: 'password'});
 
