@@ -1,6 +1,8 @@
+require('dotenv').config();
 const router = require('express').Router();
 const User = require('../model/model');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/validation');
 
 router.post('/register', async (req, res) => {
@@ -51,7 +53,11 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, userExists.password);
     if (!validPassword) return res.status(400).send({errorMessage: 'Password is wrong', path: 'password'});
 
-    res.send('Logged in!');
+
+    const generateToken = jwt.sign({id: userExists._id}, process.env.TOKEN_SECRET, { expiresIn: '86400s' });
+    res.send({accessToken: generateToken});
+
+    
 });
 
 module.exports = router;
