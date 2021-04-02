@@ -15,18 +15,19 @@ import {
     ProfileCardImage,
     ProfileName
 } from './HomePageStyles';
+import testavatar from '../../images/testavatar.jpg';
 
 const HomePage = () => {
 
     const { userData }  = useUserProvider();
-    console.log(userData.username);
+    // console.log(userData.username);
 
     return (
         <Wrapper>
             <SidebarRooms>
                 <ProfileCard>
                     <ProfileCardInfoWrapper>
-                        <ProfileCardImage />
+                        <ProfileCardImage src={testavatar} />
                         <ProfileName>{userData.username}</ProfileName>
                     </ProfileCardInfoWrapper>
                 </ProfileCard>

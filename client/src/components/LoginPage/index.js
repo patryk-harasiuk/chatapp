@@ -17,7 +17,7 @@ import {
 
 const LoginPage = () => {
 
-    const { updateUserData } = useUserProvider()
+    const { updateUserData } = useUserProvider();
 
     const [loginForm, setLoginForm] = useState({
         email: '',

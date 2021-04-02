@@ -36,8 +36,8 @@ export const ProfileCardInfoWrapper = styled.div`
 export const ProfileCardImage = styled.img`
     width: 150px;
     height: 150px;
-    background: black;
-    border-radius: 50%;
+    /* background: black; */
+    border-radius: 75px;
     margin-top: 25px;
 `;
 
