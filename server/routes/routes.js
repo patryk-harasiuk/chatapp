@@ -4,6 +4,7 @@ const User = require('../model/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/validation');
+const authToken = require('./verifyToken');
 
 router.post('/register', async (req, res) => {
     const { username, password: plainTextPassword, email } = req.body;
@@ -53,11 +54,18 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, userExists.password);
     if (!validPassword) return res.status(400).send({errorMessage: 'Password is wrong', path: 'password'});
 
-
     const generateToken = jwt.sign({id: userExists._id}, process.env.TOKEN_SECRET, { expiresIn: '86400s' });
     res.send({accessToken: generateToken});
+});
 
-    
+router.get('/auth/user', authToken, async (req, res) => {
+    try {
+        const userData = await User.findOne({_id: req.user.id});   
+        const {_id, password, ...data} = await userData;
+        res.send(data._doc);
+    } catch (err) {
+        res.status(400).send(err)
+    }
 });
 
 module.exports = router;

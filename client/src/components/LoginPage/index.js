@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -15,6 +16,8 @@ import {
 } from '../RegisterPage/RegisterPageStyles';
 
 const LoginPage = () => {
+
+    const { updateUserData } = useUserProvider()
 
     const [loginForm, setLoginForm] = useState({
         email: '',
@@ -34,7 +37,8 @@ const LoginPage = () => {
         })
         .then(response => {
             setError({});
-            console.log(response);
+            localStorage.setItem('tokenauth', response.data.accessToken);
+            updateUserData();
             history.push('/');
         })
         .catch(error => {

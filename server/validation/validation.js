@@ -28,6 +28,7 @@ const loginValidation = reqBody => {
     const schema = Joi.object({ 
         email:     Joi.string()
         .email({ minDomainSegments: 2})
+        .max(254)
         .required(),
 
         password: Joi.string()

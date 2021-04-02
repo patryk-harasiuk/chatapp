@@ -1,23 +1,34 @@
 import React from 'react';
+import { useUserProvider } from '../../context/UserProvider';
 import {
     Wrapper,
     SidebarRooms,
     HomeCenter,
-    SidebarFriends,
+    // SidebarFriends,
     SidebarRoomsNav,
     ProfileCard,
     Form,
     InputBox,
     Input,
-    SubmitMessageButton
+    SubmitMessageButton,
+    ProfileCardInfoWrapper,
+    ProfileCardImage,
+    ProfileName
 } from './HomePageStyles';
 
 const HomePage = () => {
+
+    const { userData }  = useUserProvider();
+    console.log(userData.username);
+
     return (
         <Wrapper>
             <SidebarRooms>
                 <ProfileCard>
-
+                    <ProfileCardInfoWrapper>
+                        <ProfileCardImage />
+                        <ProfileName>{userData.username}</ProfileName>
+                    </ProfileCardInfoWrapper>
                 </ProfileCard>
 
                 <SidebarRoomsNav>
@@ -34,9 +45,6 @@ const HomePage = () => {
                 </Form>
             </HomeCenter>
 
-            <SidebarFriends>
-
-            </SidebarFriends>
         </Wrapper>
     );
 }
