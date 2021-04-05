@@ -5,6 +5,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/validation');
 const authToken = require('./verifyToken');
+// const fileUpload = require('express-fileupload');
+
+
+
 
 router.post('/register', async (req, res) => {
     const { username, password: plainTextPassword, email } = req.body;
@@ -67,5 +71,23 @@ router.get('/auth/user', authToken, async (req, res) => {
         res.status(400).send(err)
     }
 });
+
+// router.post('/settings',  async (req, res) => {
+//     console.log(req.files);
+//     if(!req.files) return res.status(400).send({errorMessage: 'No file was uploaded'});
+    
+//     const file = req.files.file;
+//     console.log(file);
+
+//     file.mv(`${__dirname}/uploads/${file}`, err => {
+//         if(err) {
+//             console.log('kurwa');
+//             res.status(500).send(err);
+//         }
+
+//         res.send({fileName: file.name, filePath: `/upload/${file.name}`});
+//     });
+// });
+
 
 module.exports = router;

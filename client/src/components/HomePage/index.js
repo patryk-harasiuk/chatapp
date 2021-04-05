@@ -15,7 +15,7 @@ import {
     ProfileCardImage,
     ProfileName
 } from './HomePageStyles';
-import testavatar from '../../images/testavatar.jpg';
+
 
 const HomePage = () => {
 
@@ -27,7 +27,7 @@ const HomePage = () => {
             <SidebarRooms>
                 <ProfileCard>
                     <ProfileCardInfoWrapper>
-                        <ProfileCardImage src={testavatar} />
+                        <ProfileCardImage src={userData.userAvatar} />
                         <ProfileName>{userData.username}</ProfileName>
                     </ProfileCardInfoWrapper>
                 </ProfileCard>

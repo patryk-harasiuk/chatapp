@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import RegisterPage from './components/RegisterPage';
 import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage'
+import LoginPage from './components/LoginPage';
+import ProfileSettings from './components/ProfileSettings';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
 
         <Route path='/login'>
             <LoginPage />
+        </Route>
+
+        <Route path='/settings'>
+            <ProfileSettings />
         </Route>
       </Switch>
     </Router>
