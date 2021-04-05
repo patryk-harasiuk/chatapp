@@ -7,19 +7,15 @@ import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePa
 const ProfileSettings = () => {
 
     const { userData, setUserData } = useUserProvider();
-
-    // const imageInput = useRef();
-
-    const token = localStorage.getItem('authtoken');
-
-    const [file, setFile] = useState();
+    const imageInput = useRef();
+    const token = localStorage.getItem('tokenauth');
     const [error, setError] = useState({});
 
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        // const file = imageInput.current.files[0];
+        const file = imageInput.current.files[0];
         console.log(file);
         setError({});
         if (file) {
@@ -39,9 +35,7 @@ const ProfileSettings = () => {
             });
         } else {
             setError({errorMessage: 'You must upload an image'});
-            console.log('upload an image zjeb')
         }
-
     }
 
     return (
@@ -55,8 +49,7 @@ const ProfileSettings = () => {
                         type='file' 
                         accept='.png, .jpg, .jpeg' 
                         name='file'
-                        onChange={e => setFile(e.target.files[0])} 
-                        // ref={imageInput}
+                        ref={imageInput}
                          />
                         <ChangeAvatarSubmit type='submit'>Change</ChangeAvatarSubmit>
                     </ChangeAvatarForm>
