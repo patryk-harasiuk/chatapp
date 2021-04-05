@@ -39,7 +39,7 @@ const ProfileSettings = () => {
             });
         } else {
             setError({errorMessage: 'You must upload an image'});
-            console.log('upload an image baka')
+            console.log('upload an image zjeb')
         }
 
     }
