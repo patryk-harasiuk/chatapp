@@ -39,6 +39,8 @@ export const ProfileCardImage = styled.img`
     /* background: black; */
     border-radius: 75px;
     margin-top: 25px;
+    object-fit: cover;
+    
 `;
 
 export const ProfileName = styled.h3`

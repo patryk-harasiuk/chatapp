@@ -20,9 +20,10 @@ mongoose.connect('mongodb://localhost:27017/chat_app', {
 app.use(express.json());
 
 app.use(fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 },
+    limits: { fileSize: 16000000 },
+    // abortOnLimit: true,
     useTempFiles : true,
-    tempFileDir : '/tmp/'
+    tempFileDir : '/tmp/',
 }));
 
 app.use(cors());

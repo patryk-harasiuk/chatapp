@@ -1,23 +1,31 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { useUserProvider } from '../../context/UserProvider';
-import { Wrapper, ProfileCardSettings, ChangeAvatar, ChangeAvatarForm, ChangeAvatarSubmit } from './ProfileSettingsStyles';
+import { Wrapper, ProfileCardSettings, ChangeAvatar, ChangeAvatarForm, ChangeAvatarSubmit, ProfileEmail, ChangeAvatarLabel, FileNameInformation } from './ProfileSettingsStyles';
 import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/HomePageStyles';
+
+
 
 const ProfileSettings = () => {
 
-    const { userData, setUserData } = useUserProvider();
+    const { userData, setUserData, updateUserData } = useUserProvider();
     const imageInput = useRef();
     const token = localStorage.getItem('tokenauth');
     const [error, setError] = useState({});
+    const [fileName, setFileName] = useState('');
+    const [click, setClick] = useState(false);
 
+    const handleFileInformation = e => {
+        setFileName(e.target.files[0].name);
+        setClick(false);
+    }
 
     const handleSubmit = async e => {
         e.preventDefault();
 
         const file = imageInput.current.files[0];
-        console.log(file);
         setError({});
+        
         if (file) {
             const formData = new FormData();
             formData.append('file', file);
@@ -26,8 +34,11 @@ const ProfileSettings = () => {
             {withCredentials: true, headers: {'content-type': 'multipart/form-data', 'authorization': `Bearer ${token}`}})
             .then(response => {
                 setError({});
-                // setUserData({...userData, userAvatar: response});
-                console.log(response);
+                setUserData({...userData, userAvatar: response});
+                updateUserData();
+                setFileName('');
+
+                console.log(userData);
             })
             .catch(error => {
                 setError(error.response.data);
@@ -44,14 +55,21 @@ const ProfileSettings = () => {
                 <ProfileCardInfoWrapper>
                     <ProfileCardImage src={userData.userAvatar} />
                     <ProfileName>{userData.username}</ProfileName>
+                    <ProfileEmail>{userData.email}</ProfileEmail>
                     <ChangeAvatarForm onSubmit={handleSubmit} encType='multipart/form-data' >
-                        <ChangeAvatar 
-                        type='file' 
-                        accept='.png, .jpg, .jpeg' 
-                        name='file'
-                        ref={imageInput}
-                         />
-                        <ChangeAvatarSubmit type='submit'>Change</ChangeAvatarSubmit>
+                        <ChangeAvatarLabel htmlFor='file'> Change avatar
+                            <ChangeAvatar 
+                            type='file' 
+                            accept='.png, .jpg, .jpeg' 
+                            name='file'
+                            ref={imageInput}
+                            onChange={handleFileInformation}
+                            />
+                        </ChangeAvatarLabel>
+                            {fileName ? <FileNameInformation>{fileName}</FileNameInformation> : null}
+                            {click ? <FileNameInformation>Upload an image first</FileNameInformation>: null}
+                        <ChangeAvatarSubmit type='submit' onClick={() => (!fileName) ? setClick(true) : null}>Change</ChangeAvatarSubmit>
+
                     </ChangeAvatarForm>
                    
                 </ProfileCardInfoWrapper>

@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/validation');
 const authToken = require('./verifyToken');
+const { v4: uuidv4 } = require('uuid');
 
 
 router.post('/register', async (req, res) => {
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
 router.get('/auth/user', authToken, async (req, res) => {
     try {
         const userData = await User.findOne({_id: req.user.id});   
-        const {_id, password, ...data} = await userData._doc;
+        const {_id, __v, password, ...data} = await userData._doc;
         res.send(data);
     } catch (err) {
         res.status(400).send(err)
@@ -70,17 +71,32 @@ router.get('/auth/user', authToken, async (req, res) => {
 });
 
 router.post('/settings', authToken, async (req, res) => {
-    console.log(req.files);
-    if(!req.files) return res.status(400).send({errorMessage: 'No file was uploaded'});
+
+    if(!req.files || Object.keys(req.files).length === 0) return res.status(400).send({errorMessage: 'No file was uploaded'});
     
     const file = req.files.file;
+    file.name = uuidv4() + file.name;
+    
 
-    file.mv(`${__dirname}/../uploads/${file.name}`, err => {
+    file.mv(`${__dirname}/../../client/public/uploads/${file.name}`, async err => {
         if(err) {
             res.status(500).send(err);
         }
 
-        res.send({fileName: file.name, filePath: `/uploads/${file.name}`});
+        // res.send({fileName: file.name, filePath: `/uploads/${file.name}`});
+    const filePath = `uploads/${file.name}`;
+
+    try {
+         await User.findOneAndUpdate({_id: req.user.id}, {userAvatar: filePath}, async (err, result) => {
+            if (err) return res.status(500).send(err);
+                
+            const {userAvatar} = await result;
+            res.send(userAvatar);
+        });
+    } catch (err) {
+        res.status(400).send(err);
+     }
+
     });
 });
 
