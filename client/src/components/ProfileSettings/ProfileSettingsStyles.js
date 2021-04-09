@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 
 import {
     ProfileCard
@@ -50,7 +50,7 @@ export const ChangeAvatarLabel = styled.label`
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    transition: transform .2s ease-out;
+   
 `;
 
 export const ChangeAvatarSubmit = styled.button`
@@ -67,6 +67,13 @@ export const ChangeAvatarSubmit = styled.button`
     box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
     color: #fff;
     font-weight: 600;
+`;
+
+export const LogoutButton = styled(Link)`
+    text-decoration: none;
+    color: royalblue;
+    font-weight: 600;
+    margin-top: 35px;
 `;
 
 export const ProfileEmail = styled.h5`

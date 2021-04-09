@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { useUserProvider } from '../../context/UserProvider';
-import { Wrapper, ProfileCardSettings, ChangeAvatar, ChangeAvatarForm, ChangeAvatarSubmit, ProfileEmail, ChangeAvatarLabel, FileNameInformation } from './ProfileSettingsStyles';
+import { Wrapper, ProfileCardSettings, ChangeAvatar, ChangeAvatarForm, ChangeAvatarSubmit, ProfileEmail, ChangeAvatarLabel, FileNameInformation, LogoutButton } from './ProfileSettingsStyles';
 import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/HomePageStyles';
 
 
@@ -72,6 +72,7 @@ const ProfileSettings = () => {
 
                     </ChangeAvatarForm>
                    
+                    <LogoutButton to='/login' >Logout</LogoutButton>
                 </ProfileCardInfoWrapper>
             </ProfileCardSettings>
         </Wrapper>

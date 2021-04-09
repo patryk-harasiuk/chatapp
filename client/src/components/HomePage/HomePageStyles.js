@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { IoMdSettings } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
     min-height: 100vh;
@@ -47,11 +49,22 @@ export const ProfileName = styled.h3`
     padding-top: 20px;
 `;
 
+export const SettingsIcon = styled(IoMdSettings)`
+    font-size: 22px;
+    margin-top: 10px;
+    color: royalblue;
+`;
+
+export const SettingsLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+`;
+
+
 export const SidebarRoomsNav = styled.nav`
     height: 60px;
     font-size: 24px;
     font-weight: 600;
-    /* background: papayawhip; */
     display: flex;
     align-items: center;
     width: 100%;

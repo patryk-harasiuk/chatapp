@@ -34,8 +34,6 @@ export const InputBox = styled.div`
     flex-direction: column;
     max-width: 300px;
 `;
-
-
 export const Input = styled.input`
     outline: none;
     background: none;
@@ -54,16 +52,27 @@ export const Input = styled.input`
 
     :focus,
     :valid {
-        border-bottom: 1px solid royalblue;
+        border-bottom: 1px solid #3498db;
     }
+    
 `;
+
 export const Label = styled.label`
     position: absolute;
-    transform: translateY(-15px);
+    transform: translateY(10px);
     font-size: 14px;
     pointer-events: none;
-    transition: .3s ease-out;
+    transition: .2s ease-out;
+
+    ${Input}:focus ~ &,
+    ${Input}:valid ~ & {
+        transform: translateY(-15px);
+        font-size: 11px;
+        color: royalblue;
+        opacity: 0.9;
+    }
 `;
+
 
 export const ButtonSingUp = styled.button`
     outline: none;
@@ -74,6 +83,7 @@ export const ButtonSingUp = styled.button`
     width: 300px;
     height: 50px;
     background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
     color: #f1f1f1;
     font-size: 16px;
     background-size: 200%;

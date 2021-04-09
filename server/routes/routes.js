@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
     });
     try {
         const result = await user.save()
-        const {password, ...data} = await result.toJSON();
+        const {__v, userAvatar, password, ...data} = await result.toJSON();
         res.send(data);
     } catch(err) {
         res.status(400).send(err);

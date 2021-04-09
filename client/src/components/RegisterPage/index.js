@@ -37,13 +37,11 @@ const RegisterPage = () => {
             email: registerState.email
           })
           .then(response => {
-            console.log(response);
             setRegisterState({...registerState, loading: false});
             setError({});
             history.push('/login');
           })
           .catch(error => {
-            console.log(error.response.data);
             setRegisterState({...registerState, loading: false});
             setError(error.response.data);
           });
@@ -60,45 +58,42 @@ const RegisterPage = () => {
                 <RegisterForm onSubmit={submitHandler}>
                     <RegisterHeading>Create your account!</RegisterHeading>
                     <InputBox>
-                        <Label htmlFor='username'>Username</Label>
                         <Input 
                             autoComplete='off'
                             required='required'
                             type='text'
                             name='username' 
-                            // placeholder='Username'
                             value={registerState.username}
                             onChange={e => setRegisterState({...registerState, username: e.target.value})}
                             />
-                            {error.path === 'username' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
+                        {error.path === 'username' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
+                        <Label htmlFor='username'>Username</Label>
                     </InputBox>
 
                     <InputBox>
-                    <Label htmlFor='password'>Password</Label>
                         <Input 
                             autoComplete='off'
                             required='required'
                             type='password'
-                            name='password' 
-                            // placeholder='Password'
+                            name='password'
                             value={registerState.password}
                             onChange={e => setRegisterState({...registerState, password: e.target.value})} 
                             />
-                            {error.path === 'password' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
-                        </InputBox>                    
+                        {error.path === 'password' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
+                        <Label htmlFor='password'>Password</Label>
+                    </InputBox>                    
                   
                     <InputBox>
-                    <Label htmlFor='e-mail'>Email</Label>
                         <Input 
                             autoComplete='off'
                             required='required'
-                            type='email'
-                            name='e-mail' 
-                            // placeholder='E-mail'
+                            type='text'
+                            name='e-mail'
                             value={registerState.email}
                             onChange={e => setRegisterState({...registerState, email: e.target.value})} 
                             />
-                            {error.path === 'email' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
+                        {error.path === 'email' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
+                        <Label htmlFor='e-mail'>Email</Label>
                         </InputBox>
                 <ButtonSingUp type='submit'>Sign up</ButtonSingUp>
                 <Login>Already have an account? <LoginLink to='/login'>Log in</LoginLink></Login>

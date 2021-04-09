@@ -4,7 +4,6 @@ import {
     Wrapper,
     SidebarRooms,
     HomeCenter,
-    // SidebarFriends,
     SidebarRoomsNav,
     ProfileCard,
     Form,
@@ -13,14 +12,15 @@ import {
     SubmitMessageButton,
     ProfileCardInfoWrapper,
     ProfileCardImage,
-    ProfileName
+    ProfileName,
+    SettingsIcon,
+    SettingsLink,
 } from './HomePageStyles';
 
 
 const HomePage = () => {
 
     const { userData }  = useUserProvider();
-    // console.log(userData.username);
 
     return (
         <Wrapper>
@@ -29,6 +29,10 @@ const HomePage = () => {
                     <ProfileCardInfoWrapper>
                         <ProfileCardImage src={userData.userAvatar} />
                         <ProfileName>{userData.username}</ProfileName>
+                        <SettingsLink to='/settings' >
+                            <SettingsIcon />
+                        </SettingsLink>
+
                     </ProfileCardInfoWrapper>
                 </ProfileCard>
 

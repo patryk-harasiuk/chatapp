@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
+import LoadingAnimation from '../LoadingAnimation';
 import axios from 'axios';
 import {
     RegisterWrapper,
@@ -21,7 +22,8 @@ const LoginPage = () => {
 
     const [loginForm, setLoginForm] = useState({
         email: '',
-        password: ''
+        password: '',
+        loading: false
     });
 
     const [error, setError] = useState({});
@@ -30,21 +32,31 @@ const LoginPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
+        setLoginForm({...loginForm, loading: true});
+        setError({});
 
         axios.post('/login', {
             email: loginForm.email,
             password: loginForm.password
         })
         .then(response => {
+            setLoginForm({...loginForm, loading: false});
             setError({});
             localStorage.setItem('tokenauth', response.data.accessToken);
             updateUserData();
             history.push('/');
         })
         .catch(error => {
+            setLoginForm({...loginForm, loading: false});
             setError(error.response.data);
         });
     };
+
+    if (loginForm.loading) {
+        return (
+            <LoadingAnimation></LoadingAnimation>
+        );
+    }
 
     return (
         <RegisterWrapper>
@@ -53,7 +65,6 @@ const LoginPage = () => {
                 <RegisterHeading>Login</RegisterHeading>
 
                 <InputBox>
-                    <Label htmlFor='e-mail'>Email</Label>
                     <Input 
                       autoComplete='off'
                       required='required'
@@ -61,11 +72,11 @@ const LoginPage = () => {
                       name='e-mail'
                       onChange={e => setLoginForm({...loginForm, email: e.target.value})}
                     />
+                    <Label htmlFor='e-mail'>Email</Label>
                     {error.path === 'email' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
                 </InputBox>
 
                 <InputBox>
-                    <Label htmlFor='password'>Password</Label>
                     <Input 
                       autoComplete='off'
                       required='required'
@@ -73,6 +84,7 @@ const LoginPage = () => {
                       name='password'
                       onChange={e => setLoginForm({...loginForm, password: e.target.value})}
                     />
+                    <Label htmlFor='password'>Password</Label>
                     {error.path === 'password' ? <ErrorInfo>{error.errorMessage}</ErrorInfo> : null}
                 </InputBox>
                 <ButtonSingUp type='submit'>Login</ButtonSingUp>
