@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+
 
 const UserContext = React.createContext();
 
 const UserProvider = ({children}) => {
 
     const [userData, setUserData] = useState({});
+    const token = localStorage.getItem('tokenauth');
+
 
     const updateUserData = async () => {
-        const token = localStorage.getItem('tokenauth');
         if (token === null) {
             setUserData({});
         } else {
@@ -22,10 +24,6 @@ const UserProvider = ({children}) => {
             });
         };
     };
-
-        useEffect(() => {
-            updateUserData();
-        }, []);
 
     return (
         <UserContext.Provider value={{userData, setUserData, updateUserData}}>

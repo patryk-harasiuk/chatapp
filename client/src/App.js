@@ -4,10 +4,12 @@ import RegisterPage from './components/RegisterPage';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import ProfileSettings from './components/ProfileSettings';
+import ReactNotification from 'react-notifications-component';
 
 function App() {
   return (
     <Router>
+      <ReactNotification />
       <Switch>
         <Route exact path='/'>
             <HomePage />

@@ -15,6 +15,9 @@ import {
     LoginLink,
     ErrorInfo
 } from '../RegisterPage/RegisterPageStyles';
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
 
 const LoginPage = () => {
 
@@ -45,6 +48,19 @@ const LoginPage = () => {
             localStorage.setItem('tokenauth', response.data.accessToken);
             updateUserData();
             history.push('/');
+
+            store.addNotification({
+                message: 'Succesfully logged in',
+                type: 'success',
+                container: 'top-right',
+                insert: 'top',
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 4000,
+                  onScreen: true
+                }
+            });
         })
         .catch(error => {
             setLoginForm({...loginForm, loading: false});
