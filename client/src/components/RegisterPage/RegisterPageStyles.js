@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 
 export const RegisterWrapper = styled.div`
     min-height: 100vh;
@@ -20,7 +19,6 @@ export const RegisterForm = styled.form`
     background: #f1f1f1;
     height: 600px;
     border-radius: 10px;
-
 `;
 
 export const RegisterHeading = styled.h2`
@@ -34,6 +32,7 @@ export const InputBox = styled.div`
     flex-direction: column;
     max-width: 300px;
 `;
+
 export const Input = styled.input`
     outline: none;
     background: none;
@@ -54,7 +53,6 @@ export const Input = styled.input`
     :valid {
         border-bottom: 1px solid #3498db;
     }
-    
 `;
 
 export const Label = styled.label`
@@ -72,7 +70,6 @@ export const Label = styled.label`
         opacity: 0.9;
     }
 `;
-
 
 export const ButtonSingUp = styled.button`
     outline: none;

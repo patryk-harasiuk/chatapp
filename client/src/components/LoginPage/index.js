@@ -3,6 +3,9 @@ import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
 import LoadingAnimation from '../LoadingAnimation';
 import axios from 'axios';
+import 'react-notifications-component/dist/theme.css';
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
 import {
     RegisterWrapper,
     RegisterForm,
@@ -15,9 +18,6 @@ import {
     LoginLink,
     ErrorInfo
 } from '../RegisterPage/RegisterPageStyles';
-import 'react-notifications-component/dist/theme.css'
-import { store } from 'react-notifications-component';
-import 'animate.css/animate.min.css';
 
 const LoginPage = () => {
 

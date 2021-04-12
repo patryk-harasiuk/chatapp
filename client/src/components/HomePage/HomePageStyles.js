@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export const Wrapper = styled.div`
     min-height: 100vh;
     display: flex;
-    /* margin: 10px; */
 `;
 
 export const SidebarRooms = styled.div`
@@ -15,7 +14,6 @@ export const SidebarRooms = styled.div`
     border-right: 1px solid #ACACAC;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
     flex-direction: column;
 `;
 
@@ -38,11 +36,9 @@ export const ProfileCardInfoWrapper = styled.div`
 export const ProfileCardImage = styled.img`
     width: 150px;
     height: 150px;
-    /* background: black; */
     border-radius: 75px;
     margin-top: 25px;
     object-fit: cover;
-    
 `;
 
 export const ProfileName = styled.h3`
@@ -60,7 +56,6 @@ export const SettingsLink = styled(Link)`
     color: black;
 `;
 
-
 export const SidebarRoomsNav = styled.nav`
     height: 60px;
     font-size: 24px;
@@ -73,7 +68,6 @@ export const SidebarRoomsNav = styled.nav`
 `;
 
 export const HomeCenter = styled.div`
-    /* width: 50vw; */
     width: 100%;
     height: 100vh;
     display: flex;
@@ -106,7 +100,6 @@ export const Input = styled.input`
     outline: none;
     border: 1px solid #ACACAC;
     background: none;
-    /* cursor: pointer; */
 
     width: 1000px;
     height: 40px;
@@ -123,14 +116,12 @@ export const SubmitMessageButton = styled.button`
     outline: none;
     border: none;
     
-    /* width: 5vw; */
     color: #fff;
     height: 40px;
     background: royalblue;
     padding: 10px 15px;
     border-radius: 5px;
     margin-left: 5px;
-
 `;
 
 export const SidebarFriends = styled.div`

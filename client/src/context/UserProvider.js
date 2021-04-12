@@ -1,14 +1,12 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 
-
 const UserContext = React.createContext();
 
 const UserProvider = ({children}) => {
 
     const [userData, setUserData] = useState({});
     const token = localStorage.getItem('tokenauth');
-
 
     const updateUserData = async () => {
         if (token === null) {

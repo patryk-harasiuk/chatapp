@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import 'react-notifications-component/dist/theme.css';
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
 import {
     Wrapper,
     SidebarRooms,
@@ -18,11 +21,6 @@ import {
     SettingsIcon,
     SettingsLink,
 } from './HomePageStyles';
-import 'react-notifications-component/dist/theme.css'
-import { store } from 'react-notifications-component';
-import 'animate.css/animate.min.css';
-
-
 
 const HomePage = () => {
 
@@ -53,12 +51,6 @@ const HomePage = () => {
             });
         });
     }, []);
-
-    // useEffect(() => {
-    //     updateUserData();
-    // }, [])
-
-
    
 
     return (

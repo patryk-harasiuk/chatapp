@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-import {
-    ProfileCard
-} from '../HomePage/HomePageStyles';
+import { ProfileCard } from '../HomePage/HomePageStyles';
 
 export const Wrapper = styled.div`
     min-height: 100vh;
@@ -50,7 +47,6 @@ export const ChangeAvatarLabel = styled.label`
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-   
 `;
 
 export const ChangeAvatarSubmit = styled.button`

@@ -2,11 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useUserProvider } from '../../context/UserProvider';
-import { Wrapper, ProfileCardSettings, ChangeAvatar, ChangeAvatarForm, ChangeAvatarSubmit, ProfileEmail, ChangeAvatarLabel, FileNameInformation, LogoutButton } from './ProfileSettingsStyles';
-import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/HomePageStyles';
-import 'react-notifications-component/dist/theme.css'
+import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
+import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/HomePageStyles';
+import { Wrapper,
+         ProfileCardSettings,
+         ChangeAvatar,
+         ChangeAvatarForm, 
+         ChangeAvatarSubmit, 
+         ProfileEmail, 
+         ChangeAvatarLabel, 
+         FileNameInformation, 
+         LogoutButton } 
+from './ProfileSettingsStyles';
 
 const ProfileSettings = () => {
 

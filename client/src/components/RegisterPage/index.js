@@ -11,7 +11,7 @@ import { RegisterWrapper,
          ButtonSingUp, 
          LoginLink,
          ErrorInfo 
-        } from './RegisterPageStyles';
+} from './RegisterPageStyles';
 
 
 const RegisterPage = () => {
