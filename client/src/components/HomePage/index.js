@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import io from 'socket.io-client';
 import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
@@ -20,13 +21,56 @@ import {
     ProfileName,
     SettingsIcon,
     SettingsLink,
+    MyMessageBox,
+    OtherUserMessageBox,
+    MyMessage,
+    OtherUserMessage
+    // JoinButton
 } from './HomePageStyles';
 
 const HomePage = () => {
 
     const { userData, setUserData, updateUserData }  = useUserProvider();
+    // const [joinMainRoom, setJoinMainRoom] = useState(false);
     const token  = localStorage.getItem('tokenauth');
     const history = useHistory();
+
+    const [yourID, setYourID] = useState();
+    const [chatMessages, setChatMessages] = useState([]);
+    const [chatMessage, setChatMessage] = useState('');
+
+    const socketRef = useRef();
+
+    const receivedMessage = message => {
+        setChatMessages(prevState => [...prevState, message]);
+    }
+
+    const sendMessage = e => {
+        e.preventDefault();
+
+        const messageObject = {
+            body: chatMessage,
+            id: yourID
+        }
+        setChatMessage('');
+        socketRef.current.emit('send message', messageObject);
+    }
+
+    // const handleChange = e => {
+    //     setChatMessage(e.target.value);
+    // }
+
+    useEffect(() => {
+        socketRef.current = io.connect('/');
+
+        socketRef.current.on('your id', id => {
+            setYourID(id);
+        });
+
+        socketRef.current.on('message', message => {
+            receivedMessage(message);
+        });
+    }, []);
 
     useEffect(() => {
         axios.get('auth/user', {withCredentials: true, headers: {'authorization': `Bearer ${token}`}})
@@ -72,11 +116,30 @@ const HomePage = () => {
                 </SidebarRoomsNav>
             </SidebarRooms>
 
-            <HomeCenter>
-                <Form>
+            <HomeCenter >
+                <Form onSubmit={sendMessage}>
+                    {chatMessages.map((message, index) => {
+                        if (message.id === yourID) {
+                            return (
+                                <MyMessageBox key={index}>
+                                    <MyMessage>
+                                        {message.body}
+                                    </MyMessage>
+                                </MyMessageBox>
+                            );
+                        } else {
+                            return (
+                                <OtherUserMessageBox key={index}>
+                                    <OtherUserMessage>
+                                        {message.body}
+                                    </OtherUserMessage>
+                                </OtherUserMessageBox>
+                            )
+                        }
+                    })}
                     <InputBox>
-                        <Input></Input>
-                        <SubmitMessageButton>Submit</SubmitMessageButton>
+                        <Input value={chatMessage} onChange={e => setChatMessage(e.target.value)} />
+                        <SubmitMessageButton type='submit'>Submit</SubmitMessageButton>
                     </InputBox>
                 </Form>
             </HomeCenter>

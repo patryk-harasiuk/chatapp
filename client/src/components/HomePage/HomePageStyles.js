@@ -74,7 +74,25 @@ export const HomeCenter = styled.div`
     background: violet;
     position: relative;
     background: #E8E8F2;
+    
+    /* &.join {
+        opacity: 0.4;
+
+    } */
 `;
+
+// export const JoinButton = styled.button`
+//      appearance: none;
+//     outline: none;
+//     border: none;
+    
+//     color: #fff;
+//     height: 50px;
+//     width: 150px;
+//     background: royalblue;
+//     padding: 10px 15px;
+//     border-radius: 5px;
+// `;
 
 
 export const Form = styled.form`
@@ -128,4 +146,32 @@ export const SidebarFriends = styled.div`
     width: 25vw;
     height: 100vh;
     background: purple;
+`;
+
+export const MyMessageBox = styled.div`
+    /* width: fit-content; */
+    display: flex;
+    justify-content: flex-end;
+`;
+
+export const OtherUserMessageBox = styled.div`
+    /* width: fit-content; */
+    display: flex;
+  
+`;
+
+export const MyMessage = styled.li`
+    color: #fff;
+    padding: 8px;
+    background: royalblue;
+    border-radius: 8px;
+    margin: 1px 10px;
+    font-family: 'Roboto', sans-serif;
+`;
+
+export const OtherUserMessage = styled(MyMessage)`
+    color: black;
+    background: #FFFAFA;
+    /* padding: 5px; */
+    /* border-radius: 6px; */
 `;
