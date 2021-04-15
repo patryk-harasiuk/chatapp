@@ -133,6 +133,7 @@ export const SubmitMessageButton = styled.button`
     appearance: none;
     outline: none;
     border: none;
+    cursor: pointer;
     
     color: #fff;
     height: 40px;
@@ -148,30 +149,42 @@ export const SidebarFriends = styled.div`
     background: purple;
 `;
 
-export const MyMessageBox = styled.div`
-    /* width: fit-content; */
+export const MessageBox = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: ${props => props.otherUser ? 'flex-start' : 'flex-end'};
+    align-items: center;
+    margin: 5px 10px;
 `;
 
-export const OtherUserMessageBox = styled.div`
-    /* width: fit-content; */
-    display: flex;
-  
-`;
-
-export const MyMessage = styled.li`
-    color: #fff;
+export const Message = styled.li`
+    color: ${props => props.otherUser ? 'black' : '#fff'};
     padding: 8px;
-    background: royalblue;
+    background: ${props => props.otherUser ? '#FFFAFA' : 'royalblue'};
     border-radius: 8px;
-    margin: 1px 10px;
+    margin: 5px 10px;
     font-family: 'Roboto', sans-serif;
+    max-width: 500px;
+    word-break: break-all;
+    
 `;
 
-export const OtherUserMessage = styled(MyMessage)`
-    color: black;
-    background: #FFFAFA;
-    /* padding: 5px; */
-    /* border-radius: 6px; */
+export const MessageUsername = styled.p`
+    color: gray;
+    font-size: 9px;
+    transform: translateX(15px);
+`;
+
+export const MessageAvatatr = styled.img`
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+`;
+
+export const ColumnPlacement = styled.div`
+    flex-direction: column;
+`;
+
+export const MessageTimeStamp = styled.span`
+    font-size: xx-small;
+    margin-left: 10px;
 `;

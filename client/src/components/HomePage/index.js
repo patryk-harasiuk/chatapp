@@ -21,10 +21,13 @@ import {
     ProfileName,
     SettingsIcon,
     SettingsLink,
-    MyMessageBox,
+    MessageBox,
     OtherUserMessageBox,
-    MyMessage,
-    OtherUserMessage
+    Message,
+    MessageUsername,
+    MessageAvatatr,
+    ColumnPlacement,
+    MessageTimeStamp
     // JoinButton
 } from './HomePageStyles';
 
@@ -48,17 +51,19 @@ const HomePage = () => {
     const sendMessage = e => {
         e.preventDefault();
 
+        if (!chatMessage) return;
+
         const messageObject = {
             body: chatMessage,
-            id: yourID
+            id: yourID,
+            username: userData.username,
+            userAvatar: userData.userAvatar,
+            messageTimeStamp: new Date().toLocaleTimeString()
         }
         setChatMessage('');
         socketRef.current.emit('send message', messageObject);
     }
 
-    // const handleChange = e => {
-    //     setChatMessage(e.target.value);
-    // }
 
     useEffect(() => {
         socketRef.current = io.connect('/');
@@ -121,20 +126,38 @@ const HomePage = () => {
                     {chatMessages.map((message, index) => {
                         if (message.id === yourID) {
                             return (
-                                <MyMessageBox key={index}>
-                                    <MyMessage>
-                                        {message.body}
-                                    </MyMessage>
-                                </MyMessageBox>
+                                <MessageBox key={index}>
+                                   <ColumnPlacement>
+
+                                        <MessageUsername>
+                                            {message.username}
+                                        </MessageUsername>
+                                        
+                                        <Message>
+                                            {message.body}
+                                            <MessageTimeStamp>{message.messageTimeStamp}</MessageTimeStamp>
+                                        </Message>
+
+                                   </ColumnPlacement>
+                                    <MessageAvatatr src={message.userAvatar} />
+                                </MessageBox>
                             );
                         } else {
                             return (
-                                <OtherUserMessageBox key={index}>
-                                    <OtherUserMessage>
-                                        {message.body}
-                                    </OtherUserMessage>
-                                </OtherUserMessageBox>
-                            )
+                                <MessageBox otherUser key={index}>
+                                    <MessageAvatatr src={message.userAvatar} />
+                                    <ColumnPlacement>
+                                        <MessageUsername>
+                                            {message.username}
+                                        </MessageUsername>
+
+                                        <Message otherUser>
+                                            {message.body}
+                                            <MessageTimeStamp>{message.messageTimeStamp}</MessageTimeStamp>
+                                        </Message>
+                                    </ColumnPlacement>
+                                </MessageBox>
+                            );
                         }
                     })}
                     <InputBox>
