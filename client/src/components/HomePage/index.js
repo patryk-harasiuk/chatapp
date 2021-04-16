@@ -45,8 +45,8 @@ const HomePage = () => {
     const [emojiClick, setEmocjiClick] = useState(false);
     const [activeClick, setActiveClick] = useState(() => {
         return localStorage.getItem('activityStatus') 
-        ? JSON.parse(localStorage.getItem('activityStatus'))
-        : true;
+            ? JSON.parse(localStorage.getItem('activityStatus'))
+            : true;
     });
    
     const socketRef = useRef();
@@ -125,7 +125,7 @@ const HomePage = () => {
                     <ProfileCardInfoWrapper>
                         <ProfileCardImage src={userData.userAvatar} />
                         <ProfileName>{userData.username}</ProfileName>
-                        <ActivityCheckbox type='checkbox' name='checkbox' onClick={activityStatusHandler} checked={activeClick ? false : true} />
+                        <ActivityCheckbox type='checkbox' name='checkbox' onChange={activityStatusHandler} checked={activeClick ? false : true} />
                         <Label 
                             htmlFor='checkbox'
                             style={activeClick ? {color: '#27ae60'} : {color: '#e74c3c'}}>
