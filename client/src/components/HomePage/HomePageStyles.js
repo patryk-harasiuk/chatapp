@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { IoMdSettings } from 'react-icons/io';
+import { GrEmoji } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
+import { HiOutlinePhotograph } from 'react-icons/hi';
 
 export const Wrapper = styled.div`
     min-height: 100vh;
@@ -42,7 +44,45 @@ export const ProfileCardImage = styled.img`
 `;
 
 export const ProfileName = styled.h3`
-    padding-top: 20px;
+    padding-top: 10px;
+`;
+
+export const ActivityCheckbox = styled.input`
+    width: 40px;
+    height: 20px;
+    margin-top: 5px;
+    appearance: none;
+    background: #2ecc71;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    transition: .3s ease-out;
+
+    &:checked {
+        background: #e74c3c;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+        transition: .3s ease-in-out;
+    }
+
+    &:checked::before {
+        transform: translateX(20px);
+    }
+`;
+
+export const Label = styled.label`
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 600;
 `;
 
 export const SettingsIcon = styled(IoMdSettings)`
@@ -74,25 +114,7 @@ export const HomeCenter = styled.div`
     background: violet;
     position: relative;
     background: #E8E8F2;
-    
-    /* &.join {
-        opacity: 0.4;
-
-    } */
 `;
-
-// export const JoinButton = styled.button`
-//      appearance: none;
-//     outline: none;
-//     border: none;
-    
-//     color: #fff;
-//     height: 50px;
-//     width: 150px;
-//     background: royalblue;
-//     padding: 10px 15px;
-//     border-radius: 5px;
-// `;
 
 
 export const Form = styled.form`
@@ -140,7 +162,7 @@ export const SubmitMessageButton = styled.button`
     background: royalblue;
     padding: 10px 15px;
     border-radius: 5px;
-    margin-left: 5px;
+    margin-left: 15px;
 `;
 
 export const SidebarFriends = styled.div`
@@ -165,7 +187,6 @@ export const Message = styled.li`
     font-family: 'Roboto', sans-serif;
     max-width: 500px;
     word-break: break-all;
-    
 `;
 
 export const MessageUsername = styled.p`
@@ -187,4 +208,17 @@ export const ColumnPlacement = styled.div`
 export const MessageTimeStamp = styled.span`
     font-size: xx-small;
     margin-left: 10px;
+`;
+
+export const EmojiIcon = styled(GrEmoji)`
+    font-size: 22px;
+    color: royalblue;
+    cursor: pointer;
+`;
+
+export const FileUploadIcon = styled(HiOutlinePhotograph)`
+    font-size: 22px;
+    color: royalblue;
+    margin-left: 15px;
+    cursor: pointer;
 `;

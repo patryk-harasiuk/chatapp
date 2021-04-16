@@ -3,6 +3,7 @@ import { useUserProvider } from '../../context/UserProvider';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
+import Picker from 'emoji-picker-react';
 import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
@@ -19,29 +20,35 @@ import {
     ProfileCardInfoWrapper,
     ProfileCardImage,
     ProfileName,
+    ActivityCheckbox,
+    Label,
     SettingsIcon,
     SettingsLink,
     MessageBox,
-    OtherUserMessageBox,
     Message,
     MessageUsername,
     MessageAvatatr,
     ColumnPlacement,
-    MessageTimeStamp
-    // JoinButton
+    MessageTimeStamp,
+    EmojiIcon,
+    FileUploadIcon
 } from './HomePageStyles';
 
 const HomePage = () => {
 
     const { userData, setUserData, updateUserData }  = useUserProvider();
-    // const [joinMainRoom, setJoinMainRoom] = useState(false);
-    const token  = localStorage.getItem('tokenauth');
+    const token = localStorage.getItem('tokenauth');
     const history = useHistory();
-
     const [yourID, setYourID] = useState();
     const [chatMessages, setChatMessages] = useState([]);
     const [chatMessage, setChatMessage] = useState('');
-
+    const [emojiClick, setEmocjiClick] = useState(false);
+    const [activeClick, setActiveClick] = useState(() => {
+        return localStorage.getItem('activityStatus') 
+        ? JSON.parse(localStorage.getItem('activityStatus'))
+        : true;
+    });
+   
     const socketRef = useRef();
 
     const receivedMessage = message => {
@@ -62,6 +69,15 @@ const HomePage = () => {
         }
         setChatMessage('');
         socketRef.current.emit('send message', messageObject);
+    }
+
+    const onEmojiClick = (e, emojiObject) => {
+        setChatMessage(prevState => prevState + emojiObject.emoji);
+    }
+
+    const activityStatusHandler = () => {
+        setActiveClick(!activeClick);
+        localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
     }
 
 
@@ -109,6 +125,12 @@ const HomePage = () => {
                     <ProfileCardInfoWrapper>
                         <ProfileCardImage src={userData.userAvatar} />
                         <ProfileName>{userData.username}</ProfileName>
+                        <ActivityCheckbox type='checkbox' name='checkbox' onClick={activityStatusHandler} checked={activeClick ? false : true} />
+                        <Label 
+                            htmlFor='checkbox'
+                            style={activeClick ? {color: '#27ae60'} : {color: '#e74c3c'}}>
+                            {activeClick ? 'Active' : 'Away'}
+                        </Label>
                         <SettingsLink to='/settings' >
                             <SettingsIcon />
                         </SettingsLink>
@@ -161,7 +183,24 @@ const HomePage = () => {
                         }
                     })}
                     <InputBox>
-                        <Input value={chatMessage} onChange={e => setChatMessage(e.target.value)} />
+                        <Input 
+                            value={chatMessage} 
+                            onChange={e => setChatMessage(e.target.value)} 
+                            placeholder='Aa...'
+                            spellCheck='false'
+                        />
+                        <Picker
+                            pickerStyle={emojiClick ? {
+                                    position: 'fixed',
+                                    // top: '-310px'
+                                    bottom: '90px'
+                            } : { display: 'none' }} 
+                            onEmojiClick={onEmojiClick}
+                            disableAutoFocus={true}
+                            />
+                            
+                        <EmojiIcon onClick={() => setEmocjiClick(!emojiClick)} />
+                        <FileUploadIcon />
                         <SubmitMessageButton type='submit'>Submit</SubmitMessageButton>
                     </InputBox>
                 </Form>
