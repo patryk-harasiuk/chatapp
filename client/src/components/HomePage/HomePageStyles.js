@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { IoMdSettings } from 'react-icons/io';
 import { GrEmoji } from 'react-icons/gr';
-import { Link } from 'react-router-dom';
 import { HiOutlinePhotograph } from 'react-icons/hi';
 
 export const Wrapper = styled.div`
@@ -65,7 +65,7 @@ export const ActivityCheckbox = styled.input`
     &::before {
         content: '';
         position: absolute;
-        width: 20px;
+        width: 21px;
         height: 20px;
         border-radius: 50%;
         background: #fff;
@@ -111,16 +111,37 @@ export const HomeCenter = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    background: violet;
-    position: relative;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* align-content: flex-end; */
+    /* overflow-y: scroll; */
+    /* position: relative; */
     background: #E8E8F2;
 `;
 
+export const MessagesWrapper = styled.div`
+    overflow-y: auto;
+    width: 100%;
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #212121;
+    }
+`;
 
 export const Form = styled.form`
     width: 100%;
-    position: absolute;
-    bottom: 0;
 `;
 
 export const InputBox = styled.div`

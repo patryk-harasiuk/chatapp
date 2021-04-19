@@ -31,7 +31,8 @@ import {
     ColumnPlacement,
     MessageTimeStamp,
     EmojiIcon,
-    FileUploadIcon
+    FileUploadIcon,
+    MessagesWrapper
 } from './HomePageStyles';
 
 const HomePage = () => {
@@ -50,6 +51,11 @@ const HomePage = () => {
     });
    
     const socketRef = useRef();
+    const lastMessageRef = useRef();
+
+    useEffect(() => {
+        if (lastMessageRef.current) return lastMessageRef.current.scrollIntoView({ smooth: true });
+    }, [chatMessages]);
 
     const receivedMessage = message => {
         setChatMessages(prevState => [...prevState, message]);
@@ -79,7 +85,6 @@ const HomePage = () => {
         setActiveClick(!activeClick);
         localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
     }
-
 
     useEffect(() => {
         socketRef.current = io.connect('/');
@@ -125,7 +130,12 @@ const HomePage = () => {
                     <ProfileCardInfoWrapper>
                         <ProfileCardImage src={userData.userAvatar} />
                         <ProfileName>{userData.username}</ProfileName>
-                        <ActivityCheckbox type='checkbox' name='checkbox' onChange={activityStatusHandler} checked={activeClick ? false : true} />
+                        <ActivityCheckbox 
+                            type='checkbox' 
+                            name='checkbox' 
+                            onChange={activityStatusHandler} 
+                            checked={activeClick ? false : true} 
+                        />
                         <Label 
                             htmlFor='checkbox'
                             style={activeClick ? {color: '#27ae60'} : {color: '#e74c3c'}}>
@@ -143,12 +153,16 @@ const HomePage = () => {
                 </SidebarRoomsNav>
             </SidebarRooms>
 
-            <HomeCenter >
-                <Form onSubmit={sendMessage}>
+            <HomeCenter>     
+                <MessagesWrapper>
                     {chatMessages.map((message, index) => {
+                        const lastMessage = chatMessages.length - 1 === index;
+                        // console.log(chatMessages.length - 1)
                         if (message.id === yourID) {
                             return (
-                                <MessageBox key={index}>
+                                <MessageBox 
+                                    key={index}
+                                    ref={lastMessage ? lastMessageRef : null}>
                                    <ColumnPlacement>
 
                                         <MessageUsername>
@@ -182,6 +196,8 @@ const HomePage = () => {
                             );
                         }
                     })}
+                </MessagesWrapper>
+                <Form onSubmit={sendMessage}>
                     <InputBox>
                         <Input 
                             value={chatMessage} 
@@ -192,7 +208,6 @@ const HomePage = () => {
                         <Picker
                             pickerStyle={emojiClick ? {
                                     position: 'fixed',
-                                    // top: '-310px'
                                     bottom: '90px'
                             } : { display: 'none' }} 
                             onEmojiClick={onEmojiClick}
