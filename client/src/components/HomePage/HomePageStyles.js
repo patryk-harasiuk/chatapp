@@ -113,15 +113,12 @@ export const HomeCenter = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /* align-content: flex-end; */
-    /* overflow-y: scroll; */
-    /* position: relative; */
     background: #E8E8F2;
 `;
 
 export const MessagesWrapper = styled.div`
-    overflow-y: auto;
     width: 100%;
+    overflow-y: auto;
     ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         border-radius: 10px;

@@ -64,7 +64,7 @@ const HomePage = () => {
     const sendMessage = e => {
         e.preventDefault();
 
-        if (!chatMessage) return;
+        if (!chatMessage || !chatMessage.trim()) return;
 
         const messageObject = {
             body: chatMessage,
