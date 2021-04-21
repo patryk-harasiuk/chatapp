@@ -9,21 +9,11 @@ import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
 import {
     Wrapper,
-    SidebarRooms,
     HomeCenter,
-    SidebarRoomsNav,
-    ProfileCard,
     Form,
     InputBox,
     Input,
     SubmitMessageButton,
-    ProfileCardInfoWrapper,
-    ProfileCardImage,
-    ProfileName,
-    ActivityCheckbox,
-    Label,
-    SettingsIcon,
-    SettingsLink,
     MessageBox,
     Message,
     MessageUsername,
@@ -34,6 +24,7 @@ import {
     FileUploadIcon,
     MessagesWrapper
 } from './HomePageStyles';
+import Sidebar from './Sidebar/index';
 
 const HomePage = () => {
 
@@ -44,11 +35,11 @@ const HomePage = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [chatMessage, setChatMessage] = useState('');
     const [emojiClick, setEmocjiClick] = useState(false);
-    const [activeClick, setActiveClick] = useState(() => {
-        return localStorage.getItem('activityStatus') 
-            ? JSON.parse(localStorage.getItem('activityStatus'))
-            : true;
-    });
+    // const [activeClick, setActiveClick] = useState(() => {
+    //     return localStorage.getItem('activityStatus') 
+    //         ? JSON.parse(localStorage.getItem('activityStatus'))
+    //         : true;
+    // });
    
     const socketRef = useRef();
     const lastMessageRef = useRef();
@@ -81,10 +72,10 @@ const HomePage = () => {
         setChatMessage(prevState => prevState + emojiObject.emoji);
     }
 
-    const activityStatusHandler = () => {
-        setActiveClick(!activeClick);
-        localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
-    }
+    // const activityStatusHandler = () => {
+    //     setActiveClick(!activeClick);
+    //     localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
+    // }
 
     useEffect(() => {
         socketRef.current = io.connect('/');
@@ -125,39 +116,12 @@ const HomePage = () => {
 
     return (
         <Wrapper>
-            <SidebarRooms>
-                <ProfileCard>
-                    <ProfileCardInfoWrapper>
-                        <ProfileCardImage src={userData.userAvatar} />
-                        <ProfileName>{userData.username}</ProfileName>
-                        <ActivityCheckbox 
-                            type='checkbox' 
-                            name='checkbox' 
-                            onChange={activityStatusHandler} 
-                            checked={activeClick ? false : true} 
-                        />
-                        <Label 
-                            htmlFor='checkbox'
-                            style={activeClick ? {color: '#27ae60'} : {color: '#e74c3c'}}>
-                            {activeClick ? 'Active' : 'Away'}
-                        </Label>
-                        <SettingsLink to='/settings' >
-                            <SettingsIcon />
-                        </SettingsLink>
-
-                    </ProfileCardInfoWrapper>
-                </ProfileCard>
-
-                <SidebarRoomsNav>
-                    Messages
-                </SidebarRoomsNav>
-            </SidebarRooms>
+          <Sidebar />
 
             <HomeCenter>     
                 <MessagesWrapper>
                     {chatMessages.map((message, index) => {
                         const lastMessage = chatMessages.length - 1 === index;
-                        // console.log(chatMessages.length - 1)
                         if (message.id === yourID) {
                             return (
                                 <MessageBox 
