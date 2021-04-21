@@ -5,7 +5,7 @@ import { useUserProvider } from '../../context/UserProvider';
 import 'react-notifications-component/dist/theme.css';
 import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
-import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/HomePageStyles';
+import { ProfileCardInfoWrapper, ProfileCardImage, ProfileName } from '../HomePage/Sidebar/SidebarStyles';
 import { Wrapper,
          ProfileCardSettings,
          ChangeAvatar,

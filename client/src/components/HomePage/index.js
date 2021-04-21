@@ -22,8 +22,9 @@ import {
     MessageTimeStamp,
     EmojiIcon,
     FileUploadIcon,
-    MessagesWrapper
+    MessagesWrapper,
 } from './HomePageStyles';
+import Modal from './Modal';
 import Sidebar from './Sidebar/index';
 
 const HomePage = () => {
@@ -35,12 +36,7 @@ const HomePage = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [chatMessage, setChatMessage] = useState('');
     const [emojiClick, setEmocjiClick] = useState(false);
-    // const [activeClick, setActiveClick] = useState(() => {
-    //     return localStorage.getItem('activityStatus') 
-    //         ? JSON.parse(localStorage.getItem('activityStatus'))
-    //         : true;
-    // });
-   
+    const [open, isOpen] = useState(false);
     const socketRef = useRef();
     const lastMessageRef = useRef();
 
@@ -77,8 +73,12 @@ const HomePage = () => {
     //     localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
     // }
 
+    const options = {
+        transports: ['polling']
+    };
+
     useEffect(() => {
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect("http://localhost:5000/", options);
 
         socketRef.current.on('your id', id => {
             setYourID(id);
@@ -116,7 +116,7 @@ const HomePage = () => {
 
     return (
         <Wrapper>
-          <Sidebar />
+          <Sidebar open={open} isOpen={isOpen} />
 
             <HomeCenter>     
                 <MessagesWrapper>
@@ -184,7 +184,7 @@ const HomePage = () => {
                     </InputBox>
                 </Form>
             </HomeCenter>
-
+            {open ? <Modal isOpen={isOpen} /> : null}
         </Wrapper>
     );
 }

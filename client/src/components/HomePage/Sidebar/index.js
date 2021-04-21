@@ -10,13 +10,15 @@ import {
     Label,
     SettingsLink,
     SettingsIcon,
-    SidebarRoomsNav
+    SidebarRoomsNav,
+    CreateRoomButton,
+    ChatRoomsText,
 } from './SidebarStyles';
 
-const Sidebar = () => {
+const Sidebar = ({open, isOpen}) => {
 
-    // const token = localStorage.getItem('tokenauth');
     const { userData }  = useUserProvider();
+    // const [open, isOpen] = useState(false);
     const [activeClick, setActiveClick] = useState(() => {
         return localStorage.getItem('activityStatus') 
             ? JSON.parse(localStorage.getItem('activityStatus'))
@@ -53,7 +55,9 @@ const Sidebar = () => {
                 </ProfileCard>
 
                 <SidebarRoomsNav>
-                    Messages
+                    <ChatRoomsText>Chat rooms</ChatRoomsText>
+
+                        <CreateRoomButton onClick={() => isOpen(true)}>Create room</CreateRoomButton>
                 </SidebarRoomsNav>
             </SidebarRooms>
     );

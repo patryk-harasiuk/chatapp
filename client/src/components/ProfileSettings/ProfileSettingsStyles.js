@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProfileCard } from '../HomePage/HomePageStyles';
+import { ProfileCard } from '../HomePage/Sidebar/SidebarStyles';
 
 export const Wrapper = styled.div`
     min-height: 100vh;

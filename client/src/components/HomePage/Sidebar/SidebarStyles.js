@@ -90,12 +90,39 @@ export const SettingsLink = styled(Link)`
 `;
 
 export const SidebarRoomsNav = styled.nav`
-    height: 60px;
+    height: 100px;
+    width: 100%;
     font-size: 24px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    width: 100%;
-    padding-left: 40px;
+    justify-content: center;
+    flex-direction: column;
+    /* padding-left: 40px; */
     margin-top: 50px;
+`;
+
+export const ChatRoomsText = styled.h3`
+
+`;
+
+export const CreateRoomButton = styled.button`
+    outline: none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+
+    width: 200px;
+    height: 50px;
+    background-image: linear-gradient(120deg, #3498db, #8e44ad);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+    color: #f1f1f1;
+    font-size: 16px;
+    background-size: 200%;
+    transition: .3s ease-out;
+    margin-top: 10px;
+
+    &:hover {
+        background-position: right;
+    }
 `;

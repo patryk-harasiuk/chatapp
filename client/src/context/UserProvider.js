@@ -6,6 +6,7 @@ const UserContext = React.createContext();
 const UserProvider = ({children}) => {
 
     const [userData, setUserData] = useState({});
+    // const [open, isOpen] = useState(false);
     const token = localStorage.getItem('tokenauth');
 
     const updateUserData = async () => {
