@@ -73,12 +73,17 @@ const HomePage = () => {
     //     localStorage.setItem('activityStatus', JSON.stringify(!activeClick));
     // }
 
-    const options = {
-        transports: ['polling']
-    };
+    // const options = {
+    //     transports: ['polling']
+    // };
 
     useEffect(() => {
-        socketRef.current = io.connect("http://localhost:5000/", options);
+        socketRef.current = io.connect('/',
+        {
+            transports: ['polling'],
+            "force new connection": true,
+            reconnectionAttempts: "Infinity"
+        });
 
         socketRef.current.on('your id', id => {
             setYourID(id);
