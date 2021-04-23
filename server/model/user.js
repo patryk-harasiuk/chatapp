@@ -18,7 +18,13 @@ const userSchema = new mongoose.Schema({
     userAvatar: {
         type: String,
         default: 'https://cdn0.iconfinder.com/data/icons/user-pictures/100/unknown_1-512.png'
-    }
+    },
+    rooms: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Room'
+        }
+    ]
 });
 
 module.exports = mongoose.model('User', userSchema);

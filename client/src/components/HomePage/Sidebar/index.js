@@ -11,11 +11,11 @@ import {
     SettingsLink,
     SettingsIcon,
     SidebarRoomsNav,
-    CreateRoomButton,
+    RoomButton,
     ChatRoomsText,
 } from './SidebarStyles';
 
-const Sidebar = ({open, isOpen}) => {
+const Sidebar = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
 
     const { userData }  = useUserProvider();
     // const [open, isOpen] = useState(false);
@@ -57,7 +57,8 @@ const Sidebar = ({open, isOpen}) => {
                 <SidebarRoomsNav>
                     <ChatRoomsText>Chat rooms</ChatRoomsText>
 
-                        <CreateRoomButton onClick={() => isOpen(true)}>Create room</CreateRoomButton>
+                        <RoomButton onClick={() => setCreateRoomPopup(true)}>Create room</RoomButton>
+                        <RoomButton onClick={() => setJoinRoomPopup(true)}>Join room</RoomButton>
                 </SidebarRoomsNav>
             </SidebarRooms>
     );

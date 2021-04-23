@@ -1,6 +1,8 @@
 require('dotenv').config();
 const router = require('express').Router();
-const User = require('../model/model');
+const User = require('../model/user');
+const Room = require('../model/roomModel');
+const addUserToRoom = require("../services/room");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation/validation');
@@ -83,7 +85,6 @@ router.post('/settings', authToken, async (req, res) => {
             res.status(500).send(err);
         }
 
-        // res.send({fileName: file.name, filePath: `/uploads/${file.name}`});
     const filePath = `uploads/${file.name}`;
 
     try {
@@ -98,6 +99,28 @@ router.post('/settings', authToken, async (req, res) => {
      }
 
     });
+});
+
+router.post('/createRoom', authToken,  async (req, res) => {
+    const { roomName, roomPassword } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashPassowrd = await bcrypt.hash(roomPassword, salt);
+
+    const room = new Room({
+        roomName,
+        roomPassword: hashPassowrd,
+        ownerId: req.user.id,
+        users: []
+    }); 
+    try {
+        const result = await room.save();
+        const updatedRoom = await addUserToRoom(req.user.id, result._id);
+        const {roomPassword, __v, _id, ...data} = await updatedRoom.toJSON();
+        data.id = _id;
+        res.status(201).send(data);
+    } catch (err) {
+        res.status(400).send(err);
+    }
 });
 
 

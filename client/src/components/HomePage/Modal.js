@@ -36,10 +36,10 @@ const CloseIcon = styled(AiOutlineClose)`
 `;
 
 
-const Modal = ({ isOpen }) => {
+const Modal = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
     return (
         <CreateRoomPopup>
-            <CloseIcon onClick={() => isOpen(false)} />
+            <CloseIcon onClick={() => setCreateRoomPopup(false)} />
             <CreateRoomForm>
                 <InputBox>
                     <Input 
@@ -59,7 +59,7 @@ const Modal = ({ isOpen }) => {
                     />
                     <Label htmlFor='roomPassword'>Room password</Label>
                 </InputBox>
-                <CreateRoomButton>Create</CreateRoomButton>
+                <CreateRoomButton type='submit'>Create</CreateRoomButton>
             </CreateRoomForm>
         </CreateRoomPopup>
     );

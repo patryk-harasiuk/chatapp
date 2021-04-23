@@ -8,7 +8,17 @@ const roomSchema = new mongoose.Schema({
     roomPassword: {
         type: String,
         required: true
-    }
+    },
+    ownerId: {
+        type: String,
+        required: true
+    },
+    users: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Room', roomSchema);

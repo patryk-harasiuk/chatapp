@@ -90,7 +90,7 @@ export const SettingsLink = styled(Link)`
 `;
 
 export const SidebarRoomsNav = styled.nav`
-    height: 100px;
+    height: 200px;
     width: 100%;
     font-size: 24px;
     font-weight: 600;
@@ -106,7 +106,7 @@ export const ChatRoomsText = styled.h3`
 
 `;
 
-export const CreateRoomButton = styled.button`
+export const RoomButton = styled.button`
     outline: none;
     border: none;
     appearance: none;

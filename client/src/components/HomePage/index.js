@@ -36,7 +36,8 @@ const HomePage = () => {
     const [chatMessages, setChatMessages] = useState([]);
     const [chatMessage, setChatMessage] = useState('');
     const [emojiClick, setEmocjiClick] = useState(false);
-    const [open, isOpen] = useState(false);
+    const [createRoomPopup, setCreateRoomPopup] = useState(false);
+    const [joinRoomPopup, setJoinRoomPopup] = useState(false);
     const socketRef = useRef();
     const lastMessageRef = useRef();
 
@@ -121,8 +122,12 @@ const HomePage = () => {
 
     return (
         <Wrapper>
-          <Sidebar open={open} isOpen={isOpen} />
-
+          <Sidebar 
+            createRoomPopup={createRoomPopup} 
+            setCreateRoomPopup={setCreateRoomPopup} 
+            joinRoomPopup={joinRoomPopup}
+            setJoinRoomPopup={setJoinRoomPopup}
+            />
             <HomeCenter>     
                 <MessagesWrapper>
                     {chatMessages.map((message, index) => {
@@ -189,7 +194,13 @@ const HomePage = () => {
                     </InputBox>
                 </Form>
             </HomeCenter>
-            {open ? <Modal isOpen={isOpen} /> : null}
+            {createRoomPopup ? 
+            <Modal 
+                setCreateRoomPopup={setCreateRoomPopup} 
+                setJoinRoomPopup={setJoinRoomPopup} 
+                createRoomPopup={createRoomPopup} 
+            /> 
+            : null}
         </Wrapper>
     );
 }
