@@ -1,11 +1,11 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 export const AnimationContainer = styled.div`
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: royalblue;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: royalblue;
 `;
 
 const jump = keyframes`
@@ -14,18 +14,18 @@ const jump = keyframes`
 `;
 
 export const AnimationDot = styled.div`
-    background-color: #fff;
-    border-radius: 50%;
-    margin: 2px;
-    height: 10px;
-    width: 10px;
-    animation: ${jump} .5s ease-out infinite;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 2px;
+  height: 10px;
+  width: 10px;
+  animation: ${jump} 0.5s ease-out infinite;
 
-    :nth-of-type(2) {
-        animation-delay: .1s;
-    }
+  :nth-of-type(2) {
+    animation-delay: 0.1s;
+  }
 
-    :nth-of-type(3) {
-        animation-delay: .2s;
-    }
+  :nth-of-type(3) {
+    animation-delay: 0.2s;
+  }
 `;

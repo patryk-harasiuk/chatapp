@@ -1,14 +1,14 @@
-import React from 'react';
-import { AnimationContainer, AnimationDot } from './LoadingAnimationStyles';
+import React from "react";
+import { AnimationContainer, AnimationDot } from "./LoadingAnimationStyles";
 
 const LoadingAnimation = () => {
-    return (
-        <AnimationContainer>
-            <AnimationDot></AnimationDot>
-            <AnimationDot></AnimationDot>
-            <AnimationDot></AnimationDot>
-        </AnimationContainer>
-    );
-}
+  return (
+    <AnimationContainer>
+      <AnimationDot></AnimationDot>
+      <AnimationDot></AnimationDot>
+      <AnimationDot></AnimationDot>
+    </AnimationContainer>
+  );
+};
 
 export default LoadingAnimation;
