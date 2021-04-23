@@ -117,8 +117,8 @@ const HomePage = () => {
     <Wrapper>
       <Sidebar
         createRoomPopup={createRoomPopup}
-        setCreateRoomPopup={setCreateRoomPopup}
         joinRoomPopup={joinRoomPopup}
+        setCreateRoomPopup={setCreateRoomPopup}
         setJoinRoomPopup={setJoinRoomPopup}
       />
       <HomeCenter>
@@ -190,7 +190,7 @@ const HomePage = () => {
           </InputBox>
         </Form>
       </HomeCenter>
-      {createRoomPopup ? (
+      {createRoomPopup || joinRoomPopup ? (
         <Modal
           setCreateRoomPopup={setCreateRoomPopup}
           setJoinRoomPopup={setJoinRoomPopup}

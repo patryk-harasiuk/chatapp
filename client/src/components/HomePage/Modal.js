@@ -40,10 +40,20 @@ const CloseIcon = styled(AiOutlineClose)`
   z-index: 1001;
 `;
 
-const Modal = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
+const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
+  const closeCreateRoomPopup = () => {
+    setCreateRoomPopup(false);
+  };
+
+  const closeJoinRoomPopup = () => {
+    setJoinRoomPopup(false);
+  };
+
   return (
     <CreateRoomPopup>
-      <CloseIcon onClick={() => setCreateRoomPopup(false)} />
+      <CloseIcon
+        onClick={createRoomPopup ? closeCreateRoomPopup : closeJoinRoomPopup}
+      />
       <CreateRoomForm>
         <InputBox>
           <Input
@@ -63,7 +73,9 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
           />
           <Label htmlFor="roomPassword">Room password</Label>
         </InputBox>
-        <CreateRoomButton type="submit">Create</CreateRoomButton>
+        <CreateRoomButton type="submit">
+          {createRoomPopup ? "Create" : "Join"}
+        </CreateRoomButton>
       </CreateRoomForm>
     </CreateRoomPopup>
   );

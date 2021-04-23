@@ -15,7 +15,12 @@ import {
   ChatRoomsText,
 } from "./SidebarStyles";
 
-const Sidebar = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
+const Sidebar = ({
+  setCreateRoomPopup,
+  setJoinRoomPopup,
+  createRoomPopup,
+  joinRoomPopup,
+}) => {
   const { userData } = useUserProvider();
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
@@ -26,6 +31,16 @@ const Sidebar = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
   const activityStatusHandler = () => {
     setActiveClick(!activeClick);
     localStorage.setItem("activityStatus", JSON.stringify(!activeClick));
+  };
+
+  const createRoomClicker = () => {
+    setCreateRoomPopup(true);
+    setJoinRoomPopup(false);
+  };
+
+  const joinRoomClicker = () => {
+    setJoinRoomPopup(true);
+    setCreateRoomPopup(false);
   };
 
   return (
@@ -55,12 +70,8 @@ const Sidebar = ({ setCreateRoomPopup, setJoinRoomPopup }) => {
       <SidebarRoomsNav>
         <ChatRoomsText>Chat rooms</ChatRoomsText>
 
-        <RoomButton onClick={() => setCreateRoomPopup(true)}>
-          Create room
-        </RoomButton>
-        <RoomButton onClick={() => setJoinRoomPopup(true)}>
-          Join room
-        </RoomButton>
+        <RoomButton onClick={createRoomClicker}>Create room</RoomButton>
+        <RoomButton onClick={joinRoomClicker}>Join room</RoomButton>
       </SidebarRoomsNav>
     </SidebarRooms>
   );
