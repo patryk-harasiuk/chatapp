@@ -13,6 +13,9 @@ import {
   SidebarRoomsNav,
   RoomButton,
   ChatRoomsText,
+  RoomList,
+  Room,
+  RoomName,
 } from "./SidebarStyles";
 
 const Sidebar = ({
@@ -73,6 +76,11 @@ const Sidebar = ({
         <RoomButton onClick={createRoomClicker}>Create room</RoomButton>
         <RoomButton onClick={joinRoomClicker}>Join room</RoomButton>
       </SidebarRoomsNav>
+      <RoomList>
+        <Room>
+          <RoomName></RoomName>
+        </Room>
+      </RoomList>
     </SidebarRooms>
   );
 };

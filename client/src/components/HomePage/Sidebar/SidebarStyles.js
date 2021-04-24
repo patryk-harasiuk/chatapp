@@ -126,4 +126,11 @@ export const RoomButton = styled.button`
 
 export const RoomList = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 `;
+
+export const Room = styled.div``;
+
+export const RoomName = styled.h4``;

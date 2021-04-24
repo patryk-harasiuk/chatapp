@@ -70,8 +70,9 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
       )
       .then((response) => {
         setError({});
-        console.log(response);
-        setRoom(response);
+        console.log(response.data);
+        setRoom(response.data);
+        console.log(room);
       })
       .catch((error) => {
         setError(error.response.data);
