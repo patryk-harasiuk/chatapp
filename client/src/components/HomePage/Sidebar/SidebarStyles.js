@@ -123,3 +123,7 @@ export const RoomButton = styled.button`
     background-position: right;
   }
 `;
+
+export const RoomList = styled.div`
+  width: 100%;
+`;

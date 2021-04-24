@@ -17,12 +17,10 @@ router.post("/register", async (req, res) => {
 
   const { error } = registerValidation(req.body);
   if (error)
-    return res
-      .status(400)
-      .send({
-        errorMessage: error.details[0].message,
-        path: error.details[0].path[0],
-      });
+    return res.status(400).send({
+      errorMessage: error.details[0].message,
+      path: error.details[0].path[0],
+    });
 
   // Checking if email is already in db
   const emailDuplicate = await User.findOne({ email: email });
@@ -63,12 +61,10 @@ router.post("/login", async (req, res) => {
 
   const { error } = loginValidation(req.body);
   if (error)
-    return res
-      .status(400)
-      .send({
-        errorMessage: error.details[0].message,
-        path: error.details[0].path[0],
-      });
+    return res.status(400).send({
+      errorMessage: error.details[0].message,
+      path: error.details[0].path[0],
+    });
 
   // Checking if email is in db
   const userExists = await User.findOne({ email: email });
@@ -136,8 +132,9 @@ router.post("/settings", authToken, async (req, res) => {
   );
 });
 
-router.post("/createRoom", authToken, async (req, res) => {
+router.post("/create-room", authToken, async (req, res) => {
   const { roomName, roomPassword } = req.body;
+  console.log(req.body);
   const salt = await bcrypt.genSalt(10);
   const hashPassowrd = await bcrypt.hash(roomPassword, salt);
 
