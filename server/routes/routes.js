@@ -3,6 +3,7 @@ const router = require("express").Router();
 const User = require("../model/user");
 const Room = require("../model/roomModel");
 const addUserToRoom = require("../services/room");
+const addRoomToUser = require("../services/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -147,6 +148,7 @@ router.post("/create-room", authToken, async (req, res) => {
   try {
     const result = await room.save();
     const updatedRoom = await addUserToRoom(req.user.id, result._id);
+    await addRoomToUser(req.user.id, result._id);
     const { roomPassword, __v, _id, ...data } = await updatedRoom.toJSON();
     data.id = _id;
     res.status(201).send(data);

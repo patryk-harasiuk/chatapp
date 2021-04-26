@@ -50,11 +50,11 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
   });
   const token = localStorage.getItem("tokenauth");
 
-  const createRoomHandler = (e) => {
+  const createRoomHandler = async (e) => {
     e.preventDefault();
     setError({});
     console.log(roomData);
-    axios
+    await axios
       .post(
         "/create-room",
         {
