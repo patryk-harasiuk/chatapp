@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useUserProvider } from "../../context/UserProvider";
 import {
   Label,
   RegisterForm,
@@ -42,8 +43,9 @@ const CloseIcon = styled(AiOutlineClose)`
 `;
 
 const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
+  const { updateRoomsData } = useUserProvider();
   const [error, setError] = useState({});
-  const [room, setRoom] = useState({});
+  // const [room, setRoom] = useState({});
   const [roomData, setRoomData] = useState({
     roomName: "",
     roomPassword: "",
@@ -70,9 +72,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
       )
       .then((response) => {
         setError({});
-        console.log(response.data);
-        setRoom(response.data);
-        console.log(room);
+        updateRoomsData();
       })
       .catch((error) => {
         setError(error.response.data);

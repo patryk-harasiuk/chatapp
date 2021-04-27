@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useUserProvider } from "../../../context/UserProvider";
 import {
   SidebarRooms,
@@ -24,12 +24,16 @@ const Sidebar = ({
   createRoomPopup,
   joinRoomPopup,
 }) => {
-  const { userData } = useUserProvider();
+  const { userData, userRoomsData, updateRoomsData } = useUserProvider();
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
       : true;
   });
+
+  // useEffect(() => {
+  //   updateRoomsData();
+  // }, []);
 
   const activityStatusHandler = () => {
     setActiveClick(!activeClick);
@@ -77,9 +81,15 @@ const Sidebar = ({
         <RoomButton onClick={joinRoomClicker}>Join room</RoomButton>
       </SidebarRoomsNav>
       <RoomList>
-        <Room>
-          <RoomName></RoomName>
-        </Room>
+        {userRoomsData
+          ? userRoomsData.map((room, index) => {
+              return (
+                <Room key={index} to={room._id}>
+                  <RoomName>{room.roomName}</RoomName>
+                </Room>
+              );
+            })
+          : null}
       </RoomList>
     </SidebarRooms>
   );

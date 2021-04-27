@@ -125,12 +125,27 @@ export const RoomButton = styled.button`
 `;
 
 export const RoomList = styled.div`
+  max-height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 `;
 
-export const Room = styled.div``;
+export const Room = styled(Link)`
+  height: 70px;
+  width: 100%;
+  background: #dcdde1;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background: #353b48;
+    color: #f1f1f1;
+  }
+`;
 
 export const RoomName = styled.h4``;

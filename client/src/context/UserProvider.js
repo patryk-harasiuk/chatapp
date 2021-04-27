@@ -5,6 +5,7 @@ const UserContext = React.createContext();
 
 const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
+  const [userRoomsData, setUserRoomsData] = useState([]);
   const token = localStorage.getItem("tokenauth");
 
   const updateUserData = async () => {
@@ -26,8 +27,30 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const updateRoomsData = async () => {
+    await axios
+      .get("/get-rooms", {
+        withCredentials: true,
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setUserRoomsData(response.data);
+      })
+      .catch((error) => {
+        setUserRoomsData({});
+      });
+  };
+
   return (
-    <UserContext.Provider value={{ userData, setUserData, updateUserData }}>
+    <UserContext.Provider
+      value={{
+        userData,
+        setUserData,
+        updateUserData,
+        updateRoomsData,
+        userRoomsData,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

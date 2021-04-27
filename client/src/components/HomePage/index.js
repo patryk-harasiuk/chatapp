@@ -28,10 +28,16 @@ import Modal from "./Modal";
 import Sidebar from "./Sidebar/index";
 
 const HomePage = () => {
-  const { userData, setUserData, updateUserData } = useUserProvider();
+  const {
+    userData,
+    setUserData,
+    updateUserData,
+    updateRoomsData,
+  } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
-  const [yourID, setYourID] = useState();
+  // const [yourID, setYourID] = useState();
+  // const [connectionInfo, setConnectionInfo] = useState({});
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
@@ -45,9 +51,9 @@ const HomePage = () => {
       return lastMessageRef.current.scrollIntoView({ smooth: true });
   }, [chatMessages]);
 
-  const receivedMessage = (message) => {
-    setChatMessages((prevState) => [...prevState, message]);
-  };
+  // const receivedMessage = (message) => {
+  //   setChatMessages((prevState) => [...prevState, message]);
+  // };
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -56,33 +62,38 @@ const HomePage = () => {
 
     const messageObject = {
       body: chatMessage,
-      id: yourID,
+      senderId: socketRef.current.id,
       username: userData.username,
       userAvatar: userData.userAvatar,
       messageTimeStamp: new Date().toLocaleTimeString(),
     };
     setChatMessage("");
-    socketRef.current.emit("send message", messageObject);
+    socketRef.current.emit("send-message", messageObject);
   };
 
   const onEmojiClick = (e, emojiObject) => {
     setChatMessage((prevState) => prevState + emojiObject.emoji);
   };
 
+  // useEffect(() => {
+  //   socketRef.current.on("user-connection", (text) => {
+  //     setChatMessages((prevState) => [...prevState, text]);
+  //   });
+  // });
+
   useEffect(() => {
-    socketRef.current = io.connect("/", {
-      transports: ["polling"],
-      "force new connection": true,
-      reconnectionAttempts: "Infinity",
+    socketRef.current = io("http://localhost:5000");
+
+    socketRef.current.on("send-message", (message) => {
+      const incomingMessage = {
+        ...message,
+        isOwner: message.senderId === socketRef.current.id,
+      };
+      setChatMessages((prevState) => [...prevState, incomingMessage]);
+      // receivedMessage(message);
     });
 
-    socketRef.current.on("your id", (id) => {
-      setYourID(id);
-    });
-
-    socketRef.current.on("message", (message) => {
-      receivedMessage(message);
-    });
+    return () => socketRef.current.disconnect();
   }, []);
 
   useEffect(() => {
@@ -93,6 +104,7 @@ const HomePage = () => {
       })
       .then((response) => {
         setUserData(response.data);
+        updateRoomsData();
       })
       .catch((error) => {
         updateUserData();
@@ -125,7 +137,7 @@ const HomePage = () => {
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
-            if (message.id === yourID) {
+            if (message.senderId === socketRef.current.id) {
               return (
                 <MessageBox
                   key={index}

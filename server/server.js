@@ -1,9 +1,15 @@
 const express = require("express");
+const cors = require("cors");
+const http = require("http");
 const app = express();
+const server = http.createServer(app);
 const mongoose = require("mongoose");
 const routes = require("./routes/routes");
-const cors = require("cors");
 const socket = require("socket.io");
+const io = socket(server, {
+  cors: true,
+  origins: ["localhost:5000"],
+});
 const fileUpload = require("express-fileupload");
 
 mongoose
@@ -34,19 +40,26 @@ app.use(
 
 app.use(cors());
 
+const room = "general";
+
+io.on("connection", (socket) => {
+  socket.join(room);
+
+  socket.on("send-message", (body) => {
+    io.in(room).emit("send-message", body);
+  });
+
+  socket.on("disconnect", () => {
+    socket.leave(room);
+  });
+  // socket.emit("your id", socket.id);
+  // socket.on("send message", (body) => {
+  //   io.emit("message", body);
+  // });
+});
+
 app.use("/", routes);
 
 const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () =>
-  console.log(`server is running on ${PORT}`)
-);
-
-const io = socket(server);
-
-io.on("connection", (socket) => {
-  socket.emit("your id", socket.id);
-  socket.on("send message", (body) => {
-    io.emit("message", body);
-  });
-});
+server.listen(PORT, () => console.log(`server is running on ${PORT}`));

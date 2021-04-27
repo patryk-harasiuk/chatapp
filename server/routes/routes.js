@@ -4,6 +4,7 @@ const User = require("../model/user");
 const Room = require("../model/roomModel");
 const addUserToRoom = require("../services/room");
 const addRoomToUser = require("../services/user");
+const getRoomsWithPopulate = require("../services/getRooms");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -93,6 +94,7 @@ router.get("/auth/user", authToken, async (req, res) => {
   try {
     const userData = await User.findOne({ _id: req.user.id });
     const { _id, __v, password, ...data } = await userData._doc;
+    // console.log(rooms);
     res.send(data);
   } catch (err) {
     res.status(400).send(err);
@@ -153,6 +155,15 @@ router.post("/create-room", authToken, async (req, res) => {
     data.id = _id;
     res.status(201).send(data);
   } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.get("/get-rooms", authToken, async (req, res) => {
+  try {
+    const roomData = await getRoomsWithPopulate(req.user.id);
+    res.status(200).send(roomData.rooms);
+  } catch (error) {
     res.status(400).send(err);
   }
 });
