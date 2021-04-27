@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const roomSchema = new mongoose.Schema({
-  roomName: {
+  name: {
     type: String,
     required: true,
   },
-  roomPassword: {
+  password: {
     type: String,
     required: true,
   },

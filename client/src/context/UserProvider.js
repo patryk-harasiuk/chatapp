@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [userRoomsData, setUserRoomsData] = useState([]);
   const token = localStorage.getItem("tokenauth");
-
+  console.log(token);
   const updateUserData = async () => {
     if (token === null) {
       setUserData({});

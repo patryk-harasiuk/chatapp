@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken");
 const {
   registerValidation,
   loginValidation,
+  createRoomValidation,
 } = require("../validation/validation");
 const authToken = require("./verifyToken");
 const { v4: uuidv4 } = require("uuid");
@@ -136,14 +137,22 @@ router.post("/settings", authToken, async (req, res) => {
 });
 
 router.post("/create-room", authToken, async (req, res) => {
-  const { roomName, roomPassword } = req.body;
+  const { name, password } = req.body;
+
+  const { error } = createRoomValidation(req.body);
+  if (error)
+    return res.status(400).send({
+      errorMessage: error.details[0].message,
+      path: error.details[0].path[0],
+    });
+
   console.log(req.body);
   const salt = await bcrypt.genSalt(10);
-  const hashPassowrd = await bcrypt.hash(roomPassword, salt);
+  const hashPassowrd = await bcrypt.hash(password, salt);
 
   const room = new Room({
-    roomName,
-    roomPassword: hashPassowrd,
+    name,
+    password: hashPassowrd,
     ownerId: req.user.id,
     users: [],
   });
@@ -151,7 +160,7 @@ router.post("/create-room", authToken, async (req, res) => {
     const result = await room.save();
     const updatedRoom = await addUserToRoom(req.user.id, result._id);
     await addRoomToUser(req.user.id, result._id);
-    const { roomPassword, __v, _id, ...data } = await updatedRoom.toJSON();
+    const { password, __v, _id, ...data } = await updatedRoom.toJSON();
     data.id = _id;
     res.status(201).send(data);
   } catch (err) {

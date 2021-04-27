@@ -36,8 +36,6 @@ const HomePage = () => {
   } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
-  // const [yourID, setYourID] = useState();
-  // const [connectionInfo, setConnectionInfo] = useState({});
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
@@ -75,12 +73,6 @@ const HomePage = () => {
     setChatMessage((prevState) => prevState + emojiObject.emoji);
   };
 
-  // useEffect(() => {
-  //   socketRef.current.on("user-connection", (text) => {
-  //     setChatMessages((prevState) => [...prevState, text]);
-  //   });
-  // });
-
   useEffect(() => {
     socketRef.current = io("http://localhost:5000");
 
@@ -90,7 +82,6 @@ const HomePage = () => {
         isOwner: message.senderId === socketRef.current.id,
       };
       setChatMessages((prevState) => [...prevState, incomingMessage]);
-      // receivedMessage(message);
     });
 
     return () => socketRef.current.disconnect();

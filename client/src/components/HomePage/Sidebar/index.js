@@ -81,11 +81,11 @@ const Sidebar = ({
         <RoomButton onClick={joinRoomClicker}>Join room</RoomButton>
       </SidebarRoomsNav>
       <RoomList>
-        {userRoomsData
+        {userRoomsData.length !== 0
           ? userRoomsData.map((room, index) => {
               return (
                 <Room key={index} to={room._id}>
-                  <RoomName>{room.roomName}</RoomName>
+                  <RoomName>{room.name}</RoomName>
                 </Room>
               );
             })

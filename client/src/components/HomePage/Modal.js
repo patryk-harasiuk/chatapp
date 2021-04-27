@@ -8,6 +8,7 @@ import {
   InputBox,
   Input,
   ButtonSingUp,
+  ErrorInfo,
 } from "../RegisterPage/RegisterPageStyles";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -46,8 +47,8 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
   const { updateRoomsData } = useUserProvider();
   const [error, setError] = useState({});
   const [roomData, setRoomData] = useState({
-    roomName: "",
-    roomPassword: "",
+    name: "",
+    password: "",
   });
   const token = localStorage.getItem("tokenauth");
 
@@ -59,8 +60,8 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
       .post(
         "/create-room",
         {
-          roomName: roomData.roomName,
-          roomPassword: roomData.roomPassword,
+          name: roomData.name,
+          password: roomData.password,
         },
         {
           withCredentials: true,
@@ -70,6 +71,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         }
       )
       .then((response) => {
+        setRoomData({ name: "", password: "" });
         setError({});
         updateRoomsData();
       })
@@ -77,6 +79,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         setError(error.response.data);
       });
   };
+  console.log(error);
 
   const closeCreateRoomPopup = () => {
     setCreateRoomPopup(false);
@@ -98,14 +101,17 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
             name="roomName"
             required="required"
             autoComplete="off"
-            value={roomData.roomName}
+            value={roomData.name}
             onChange={(e) =>
               setRoomData({
                 ...roomData,
-                roomName: e.target.value,
+                name: e.target.value,
               })
             }
           />
+          {error.path === "roomName" ? (
+            <ErrorInfo>{error.errorMessage}</ErrorInfo>
+          ) : null}
           <Label htmlFor="roomName">Room name</Label>
         </InputBox>
         <InputBox>
@@ -114,14 +120,17 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
             name="roomPassword"
             required="required"
             autoComplete="off"
-            value={roomData.roomPassword}
+            value={roomData.password}
             onChange={(e) =>
               setRoomData({
                 ...roomData,
-                roomPassword: e.target.value,
+                password: e.target.value,
               })
             }
           />
+          {error.path === "roomPassword" ? (
+            <ErrorInfo>{error.errorMessage}</ErrorInfo>
+          ) : null}
           <Label htmlFor="roomPassword">Room password</Label>
         </InputBox>
         <CreateRoomButton type="submit">
