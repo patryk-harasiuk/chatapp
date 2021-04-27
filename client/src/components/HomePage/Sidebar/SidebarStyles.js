@@ -98,7 +98,7 @@ export const SidebarRoomsNav = styled.nav`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 export const ChatRoomsText = styled.h3``;
@@ -125,15 +125,32 @@ export const RoomButton = styled.button`
 `;
 
 export const RoomList = styled.div`
-  max-height: 100%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
   overflow-y: auto;
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #212121;
+  }
 `;
 
 export const Room = styled(Link)`
-  height: 70px;
+  min-height: 70px;
   width: 100%;
   background: #dcdde1;
   text-decoration: none;
@@ -142,6 +159,7 @@ export const Room = styled(Link)`
   align-items: center;
   padding-left: 25px;
   transition: 0.2s ease-in-out;
+
   &:hover {
     background: #353b48;
     color: #f1f1f1;

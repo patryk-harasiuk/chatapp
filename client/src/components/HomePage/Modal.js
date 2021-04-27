@@ -45,7 +45,6 @@ const CloseIcon = styled(AiOutlineClose)`
 const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
   const { updateRoomsData } = useUserProvider();
   const [error, setError] = useState({});
-  // const [room, setRoom] = useState({});
   const [roomData, setRoomData] = useState({
     roomName: "",
     roomPassword: "",
@@ -78,13 +77,6 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         setError(error.response.data);
       });
   };
-
-  // const joinRoomHandler = (e) => {
-  //   e.preventDefault();
-  //   setError({});
-
-  //   axios.patch
-  // }
 
   const closeCreateRoomPopup = () => {
     setCreateRoomPopup(false);

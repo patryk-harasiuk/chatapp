@@ -31,9 +31,9 @@ const Sidebar = ({
       : true;
   });
 
-  // useEffect(() => {
-  //   updateRoomsData();
-  // }, []);
+  useEffect(() => {
+    updateRoomsData();
+  }, []);
 
   const activityStatusHandler = () => {
     setActiveClick(!activeClick);

@@ -104,7 +104,7 @@ const HomePage = () => {
       })
       .then((response) => {
         setUserData(response.data);
-        updateRoomsData();
+        // updateRoomsData();
       })
       .catch((error) => {
         updateUserData();
