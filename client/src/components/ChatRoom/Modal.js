@@ -36,10 +36,11 @@ const CreateRoomButton = styled(ButtonSingUp)`
 
 const CloseIcon = styled(AiOutlineClose)`
   cursor: pointer;
-  font-size: 24px;
+  font-size: 28px;
+  color: royalblue;
   position: absolute;
   right: 0;
-  margin: 5px;
+  margin: 10px;
   z-index: 1001;
 `;
 
@@ -80,13 +81,32 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
       });
   };
 
-  const joinRoomHandler = (e) => {
+  const joinRoomHandler = async (e) => {
     e.preventDefault();
     setError({});
 
-    // await axios.post(
-    //   '/join-room'
-    // )
+    await axios
+      .post(
+        "/join-room",
+        {
+          name: roomData.name,
+          passowrd: roomData.passowrd,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setRoomData({ name: "", password: "" });
+        setError({});
+        updateRoomsData();
+      })
+      .catch((error) => {
+        setError(error.response.data);
+      });
   };
 
   const closeCreateRoomPopup = () => {
@@ -102,7 +122,9 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
       <CloseIcon
         onClick={createRoomPopup ? closeCreateRoomPopup : closeJoinRoomPopup}
       />
-      <CreateRoomForm onSubmit={createRoomHandler}>
+      <CreateRoomForm
+        onSubmit={createRoomPopup ? createRoomHandler : joinRoomHandler}
+      >
         <InputBox>
           <Input
             type="text"
@@ -120,7 +142,9 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
           {error.path === "name" ? (
             <ErrorInfo>{error.errorMessage}</ErrorInfo>
           ) : null}
-          <Label htmlFor="roomName">Room name</Label>
+          <Label htmlFor="roomName">
+            {createRoomPopup ? "Room name" : "Room ID"}
+          </Label>
         </InputBox>
         <InputBox>
           <Input

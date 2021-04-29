@@ -95,7 +95,7 @@ router.get("/auth/user", authToken, async (req, res) => {
   try {
     const userData = await User.findOne({ _id: req.user.id });
     const { _id, __v, password, ...data } = await userData._doc;
-    // console.log(rooms);
+
     res.send(data);
   } catch (err) {
     res.status(400).send(err);
@@ -177,6 +177,37 @@ router.get("/get-rooms", authToken, async (req, res) => {
   }
 });
 
-router.post("/join-room", authToken, async (req, res) => {});
+router.post("/join-room", authToken, async (req, res) => {
+  const { name, password } = req.body;
+  try {
+    const room = await Room.findById({ _id: name }, (err) => {
+      if (err)
+        return res
+          .status(400)
+          .send({ errorMessage: "Room is not found", path: "name" });
+    });
+
+    const validPassword = await bcrypt.compare(password, room.password);
+    if (!validPassword)
+      return res
+        .status(400)
+        .send({ errorMessage: "Password is wrong", path: "password" });
+    // console.log(Room.findById({ _id: "60885f2e9af6ba07a83c2ad7" }));
+
+    console.log(room.password);
+    console.log(password);
+
+    const isUserInRoom = await room.users.includes(req.user.id);
+    if (isUserInRoom)
+      return res
+        .status(400)
+        .send({ errorMessage: "You are already in this room", path: "name" });
+
+    await addUserToRoom(req.user.id, room._id);
+    res.send({ statusMessage: "You were added to the room" });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
 
 module.exports = router;
