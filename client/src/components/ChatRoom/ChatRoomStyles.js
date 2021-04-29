@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   min-height: 100vh;
@@ -140,4 +141,14 @@ export const FileUploadIcon = styled(HiOutlinePhotograph)`
   color: royalblue;
   margin-left: 15px;
   cursor: pointer;
+`;
+
+export const JoinGlobalRoomButton = styled(Link)`
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  width: 50px;
+  height: 50px;
+  background: royalblue;
 `;

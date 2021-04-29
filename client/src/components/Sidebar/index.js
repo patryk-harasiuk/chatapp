@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useUserProvider } from "../../../context/UserProvider";
+import { useUserProvider } from "../../context/UserProvider";
 import {
   SidebarRooms,
   ProfileCard,

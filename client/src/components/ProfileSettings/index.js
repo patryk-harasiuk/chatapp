@@ -9,7 +9,7 @@ import {
   ProfileCardInfoWrapper,
   ProfileCardImage,
   ProfileName,
-} from "../HomePage/Sidebar/SidebarStyles";
+} from "../Sidebar/SidebarStyles";
 import {
   Wrapper,
   ProfileCardSettings,

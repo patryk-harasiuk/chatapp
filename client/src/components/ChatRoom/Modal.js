@@ -55,7 +55,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
   const createRoomHandler = async (e) => {
     e.preventDefault();
     setError({});
-    console.log(roomData);
+
     await axios
       .post(
         "/create-room",
@@ -79,7 +79,15 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         setError(error.response.data);
       });
   };
-  console.log(error);
+
+  const joinRoomHandler = (e) => {
+    e.preventDefault();
+    setError({});
+
+    // await axios.post(
+    //   '/join-room'
+    // )
+  };
 
   const closeCreateRoomPopup = () => {
     setCreateRoomPopup(false);
@@ -109,7 +117,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
               })
             }
           />
-          {error.path === "roomName" ? (
+          {error.path === "name" ? (
             <ErrorInfo>{error.errorMessage}</ErrorInfo>
           ) : null}
           <Label htmlFor="roomName">Room name</Label>
@@ -128,7 +136,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
               })
             }
           />
-          {error.path === "roomPassword" ? (
+          {error.path === "password" ? (
             <ErrorInfo>{error.errorMessage}</ErrorInfo>
           ) : null}
           <Label htmlFor="roomPassword">Room password</Label>

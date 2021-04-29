@@ -177,4 +177,6 @@ router.get("/get-rooms", authToken, async (req, res) => {
   }
 });
 
+router.post("/join-room", authToken, async (req, res) => {});
+
 module.exports = router;

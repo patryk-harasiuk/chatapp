@@ -23,11 +23,12 @@ import {
   EmojiIcon,
   FileUploadIcon,
   MessagesWrapper,
-} from "./HomePageStyles";
+  JoinGlobalRoomButton,
+} from "./ChatRoomStyles";
 import Modal from "./Modal";
-import Sidebar from "./Sidebar/index";
+import Sidebar from "../Sidebar";
 
-const HomePage = () => {
+const ChatRoom = () => {
   const {
     userData,
     setUserData,
@@ -36,6 +37,7 @@ const HomePage = () => {
   } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
+  const [isGlobalRoomActive, setIsGlobalRoomActive] = useState(false);
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
@@ -48,10 +50,6 @@ const HomePage = () => {
     if (lastMessageRef.current)
       return lastMessageRef.current.scrollIntoView({ smooth: true });
   }, [chatMessages]);
-
-  // const receivedMessage = (message) => {
-  //   setChatMessages((prevState) => [...prevState, message]);
-  // };
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -75,7 +73,7 @@ const HomePage = () => {
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5000");
-
+    console.log("socket");
     socketRef.current.on("send-message", (message) => {
       const incomingMessage = {
         ...message,
@@ -204,4 +202,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default ChatRoom;

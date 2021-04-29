@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
   const [userRoomsData, setUserRoomsData] = useState([]);
   const token = localStorage.getItem("tokenauth");
-  console.log(token);
+
   const updateUserData = async () => {
     if (token === null) {
       setUserData({});
@@ -26,8 +26,9 @@ const UserProvider = ({ children }) => {
         });
     }
   };
-
+  // console.log(userRoomsData);
   const updateRoomsData = async () => {
+    setUserRoomsData([]);
     await axios
       .get("/get-rooms", {
         withCredentials: true,
