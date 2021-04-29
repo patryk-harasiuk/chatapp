@@ -90,7 +90,7 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         "/join-room",
         {
           name: roomData.name,
-          passowrd: roomData.passowrd,
+          password: roomData.password,
         },
         {
           withCredentials: true,

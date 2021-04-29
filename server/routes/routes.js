@@ -192,10 +192,6 @@ router.post("/join-room", authToken, async (req, res) => {
       return res
         .status(400)
         .send({ errorMessage: "Password is wrong", path: "password" });
-    // console.log(Room.findById({ _id: "60885f2e9af6ba07a83c2ad7" }));
-
-    console.log(room.password);
-    console.log(password);
 
     const isUserInRoom = await room.users.includes(req.user.id);
     if (isUserInRoom)
