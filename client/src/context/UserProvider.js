@@ -59,6 +59,8 @@ const UserProvider = ({ children }) => {
       value={{
         createRoomPopup,
         joinRoomPopup,
+        setCreateRoomPopup,
+        setJoinRoomPopup,
         createRoomClicker,
         joinRoomClicker,
         userData,
