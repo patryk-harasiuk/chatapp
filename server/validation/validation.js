@@ -24,7 +24,7 @@ const loginValidation = (reqBody) => {
 
 const createRoomValidation = (reqBody) => {
   const schema = Joi.object({
-    name: Joi.string().alphanum().min(3).max(32).required(),
+    name: Joi.string().alphanum().min(3).max(24).required(),
 
     password: Joi.string().min(6).max(32).required(),
   });

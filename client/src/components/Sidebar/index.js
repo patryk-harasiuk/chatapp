@@ -23,14 +23,14 @@ import {
   GetIdIcon,
 } from "./SidebarStyles";
 
-const Sidebar = ({
-  setCreateRoomPopup,
-  setJoinRoomPopup,
-  createRoomPopup,
-  joinRoomPopup,
-}) => {
-  const { userData, userRoomsData, updateRoomsData } = useUserProvider();
-  // const [isCopied, setIsCopied] = useState(false);
+const Sidebar = () => {
+  const {
+    userData,
+    userRoomsData,
+    updateRoomsData,
+    createRoomClicker,
+    joinRoomClicker,
+  } = useUserProvider();
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
@@ -46,19 +46,17 @@ const Sidebar = ({
     localStorage.setItem("activityStatus", JSON.stringify(!activeClick));
   };
 
-  const createRoomClicker = () => {
-    setCreateRoomPopup(true);
-    setJoinRoomPopup(false);
-  };
+  // const createRoomClicker = () => {
+  //   setCreateRoomPopup(true);
+  //   setJoinRoomPopup(false);
+  // };
 
-  const joinRoomClicker = () => {
-    setJoinRoomPopup(true);
-    setCreateRoomPopup(false);
-  };
+  // const joinRoomClicker = () => {
+  //   setJoinRoomPopup(true);
+  //   setCreateRoomPopup(false);
+  // };
 
   const copyIdHandler = () => {
-    // setIsCopied(true);
-
     store.addNotification({
       message: "Room id copied to clipboard",
       type: "success",
@@ -71,8 +69,6 @@ const Sidebar = ({
         onScreen: true,
       },
     });
-
-    // setIsCopied(false);
   };
 
   return (
@@ -109,7 +105,7 @@ const Sidebar = ({
         {userRoomsData.length !== 0
           ? userRoomsData.map((room, index) => {
               return (
-                <Room key={index} to={room._id}>
+                <Room key={index} to={`/room/${room._id}`}>
                   <RoomName>{room.name}</RoomName>
                   <CopyToClipboard text={room._id} onCopy={copyIdHandler}>
                     <GetIdIcon />

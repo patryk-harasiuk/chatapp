@@ -3,12 +3,6 @@ import { GrEmoji } from "react-icons/gr";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-export const Wrapper = styled.div`
-  min-height: 100vh;
-  display: flex;
-  z-index: 1;
-`;
-
 export const HomeCenter = styled.div`
   width: 100%;
   height: 100vh;

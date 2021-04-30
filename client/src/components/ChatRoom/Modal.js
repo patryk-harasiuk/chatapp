@@ -47,8 +47,13 @@ const CloseIcon = styled(AiOutlineClose)`
   z-index: 1001;
 `;
 
-const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
-  const { updateRoomsData } = useUserProvider();
+const Modal = () => {
+  const {
+    updateRoomsData,
+    setCreateRoomPopup,
+    setJoinRoomPopup,
+    createRoomPopup,
+  } = useUserProvider();
   const [error, setError] = useState({});
   const [roomData, setRoomData] = useState({
     name: "",

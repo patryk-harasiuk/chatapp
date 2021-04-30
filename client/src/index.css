@@ -7,3 +7,9 @@
   font-family: "Montserrat", sans-serif;
   list-style: none;
 }
+
+.content-wrapper {
+  min-height: 100vh;
+  display: flex;
+  z-index: 1;
+}

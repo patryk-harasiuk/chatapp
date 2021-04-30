@@ -8,7 +8,6 @@ import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
 import {
-  Wrapper,
   HomeCenter,
   Form,
   InputBox,
@@ -26,7 +25,6 @@ import {
   JoinGlobalRoomButton,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
-import Sidebar from "../Sidebar";
 
 const ChatRoom = () => {
   const {
@@ -34,6 +32,8 @@ const ChatRoom = () => {
     setUserData,
     updateUserData,
     updateRoomsData,
+    createRoomPopup,
+    joinRoomPopup,
   } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
@@ -41,8 +41,6 @@ const ChatRoom = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
-  const [createRoomPopup, setCreateRoomPopup] = useState(false);
-  const [joinRoomPopup, setJoinRoomPopup] = useState(false);
   const socketRef = useRef();
   const lastMessageRef = useRef();
 
@@ -115,13 +113,7 @@ const ChatRoom = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Sidebar
-        createRoomPopup={createRoomPopup}
-        joinRoomPopup={joinRoomPopup}
-        setCreateRoomPopup={setCreateRoomPopup}
-        setJoinRoomPopup={setJoinRoomPopup}
-      />
+    <>
       <HomeCenter>
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
@@ -191,14 +183,8 @@ const ChatRoom = () => {
           </InputBox>
         </Form>
       </HomeCenter>
-      {createRoomPopup || joinRoomPopup ? (
-        <Modal
-          setCreateRoomPopup={setCreateRoomPopup}
-          setJoinRoomPopup={setJoinRoomPopup}
-          createRoomPopup={createRoomPopup}
-        />
-      ) : null}
-    </Wrapper>
+      {createRoomPopup || joinRoomPopup ? <Modal /> : null}
+    </>
   );
 };
 
