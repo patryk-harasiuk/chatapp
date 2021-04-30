@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useUserProvider } from "../../context/UserProvider";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
+import "animate.css/animate.min.css";
 import {
   Label,
   RegisterForm,
@@ -75,6 +78,19 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         setRoomData({ name: "", password: "" });
         setError({});
         updateRoomsData();
+
+        store.addNotification({
+          message: "Successfully created room",
+          type: "success",
+          container: "top-right",
+          insert: "top",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            onScreen: true,
+          },
+        });
       })
       .catch((error) => {
         setError(error.response.data);
@@ -103,6 +119,19 @@ const Modal = ({ setCreateRoomPopup, setJoinRoomPopup, createRoomPopup }) => {
         setRoomData({ name: "", password: "" });
         setError({});
         updateRoomsData();
+
+        store.addNotification({
+          message: "You were added to the room",
+          type: "success",
+          container: "top-right",
+          insert: "top",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+            onScreen: true,
+          },
+        });
       })
       .catch((error) => {
         setError(error.response.data);

@@ -12,6 +12,7 @@
     "emoji-picker-react": "^3.4.4",
     "framer-motion": "^4.0.3",
     "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
     "react-notifications-component": "^3.1.0",

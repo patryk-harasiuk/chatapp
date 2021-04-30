@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useUserProvider } from "../../context/UserProvider";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
+import "animate.css/animate.min.css";
 import {
   SidebarRooms,
   ProfileCard,
@@ -16,6 +20,7 @@ import {
   RoomList,
   Room,
   RoomName,
+  GetIdIcon,
 } from "./SidebarStyles";
 
 const Sidebar = ({
@@ -25,6 +30,7 @@ const Sidebar = ({
   joinRoomPopup,
 }) => {
   const { userData, userRoomsData, updateRoomsData } = useUserProvider();
+  // const [isCopied, setIsCopied] = useState(false);
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
@@ -48,6 +54,25 @@ const Sidebar = ({
   const joinRoomClicker = () => {
     setJoinRoomPopup(true);
     setCreateRoomPopup(false);
+  };
+
+  const copyIdHandler = () => {
+    // setIsCopied(true);
+
+    store.addNotification({
+      message: "Room id copied to clipboard",
+      type: "success",
+      container: "top-right",
+      insert: "top",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 3000,
+        onScreen: true,
+      },
+    });
+
+    // setIsCopied(false);
   };
 
   return (
@@ -86,6 +111,9 @@ const Sidebar = ({
               return (
                 <Room key={index} to={room._id}>
                   <RoomName>{room.name}</RoomName>
+                  <CopyToClipboard text={room._id} onCopy={copyIdHandler}>
+                    <GetIdIcon />
+                  </CopyToClipboard>
                 </Room>
               );
             })

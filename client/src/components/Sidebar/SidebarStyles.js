@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IoMdSettings } from "react-icons/io";
+import { IoCopy } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export const SidebarRooms = styled.div`
@@ -157,7 +158,8 @@ export const Room = styled(Link)`
   color: black;
   display: flex;
   align-items: center;
-  padding-left: 25px;
+  justify-content: space-between;
+  /* padding-left: 25px; */
   transition: 0.2s ease-in-out;
 
   &:hover {
@@ -166,4 +168,12 @@ export const Room = styled(Link)`
   }
 `;
 
-export const RoomName = styled.h4``;
+export const RoomName = styled.h4`
+  padding-left: 20px;
+`;
+
+export const GetIdIcon = styled(IoCopy)`
+  font-size: 24px;
+  color: royalblue;
+  margin-right: 5px;
+`;
