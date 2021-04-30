@@ -31,33 +31,33 @@ const ProfileSettings = () => {
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
 
-  useEffect(() => {
-    axios
-      .get("auth/user", {
-        withCredentials: true,
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        updateUserData();
-        history.push("/login");
+  // useEffect(() => {
+  //   axios
+  //     .get("auth/user", {
+  //       withCredentials: true,
+  //       headers: { authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       setUserData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       updateUserData();
+  //       history.push("/login");
 
-        store.addNotification({
-          message: "Access denied",
-          type: "danger",
-          container: "top-right",
-          insert: "top",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 4000,
-            onScreen: true,
-          },
-        });
-      });
-  }, []);
+  //       store.addNotification({
+  //         message: "Access denied",
+  //         type: "danger",
+  //         container: "top-right",
+  //         insert: "top",
+  //         animationIn: ["animate__animated", "animate__fadeIn"],
+  //         animationOut: ["animate__animated", "animate__fadeOut"],
+  //         dismiss: {
+  //           duration: 4000,
+  //           onScreen: true,
+  //         },
+  //       });
+  //     });
+  // }, []);
 
   const logoutHandler = () => {
     localStorage.removeItem("tokenauth");

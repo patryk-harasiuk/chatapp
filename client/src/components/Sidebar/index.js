@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { useUserProvider } from "../../context/UserProvider";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
@@ -31,6 +32,7 @@ const Sidebar = () => {
     createRoomClicker,
     joinRoomClicker,
   } = useUserProvider();
+
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
@@ -45,16 +47,6 @@ const Sidebar = () => {
     setActiveClick(!activeClick);
     localStorage.setItem("activityStatus", JSON.stringify(!activeClick));
   };
-
-  // const createRoomClicker = () => {
-  //   setCreateRoomPopup(true);
-  //   setJoinRoomPopup(false);
-  // };
-
-  // const joinRoomClicker = () => {
-  //   setJoinRoomPopup(true);
-  //   setCreateRoomPopup(false);
-  // };
 
   const copyIdHandler = () => {
     store.addNotification({

@@ -55,6 +55,7 @@ const Modal = () => {
     createRoomPopup,
   } = useUserProvider();
   const [error, setError] = useState({});
+
   const [roomData, setRoomData] = useState({
     name: "",
     password: "",

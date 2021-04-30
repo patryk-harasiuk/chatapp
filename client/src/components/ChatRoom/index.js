@@ -22,7 +22,6 @@ import {
   EmojiIcon,
   FileUploadIcon,
   MessagesWrapper,
-  JoinGlobalRoomButton,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
 
@@ -37,12 +36,13 @@ const ChatRoom = () => {
   } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
-  const [isGlobalRoomActive, setIsGlobalRoomActive] = useState(false);
+
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
   const socketRef = useRef();
   const lastMessageRef = useRef();
+  // console.log(socketRef.current.id);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -71,6 +71,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     socketRef.current = io("http://localhost:5000");
+
     console.log("socket");
     socketRef.current.on("send-message", (message) => {
       const incomingMessage = {
@@ -81,11 +82,12 @@ const ChatRoom = () => {
     });
 
     return () => socketRef.current.disconnect();
+    // }
   }, []);
 
   useEffect(() => {
     axios
-      .get("auth/user", {
+      .get("/auth", {
         withCredentials: true,
         headers: { authorization: `Bearer ${token}` },
       })

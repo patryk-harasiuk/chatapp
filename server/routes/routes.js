@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
   res.send({ accessToken: generateToken });
 });
 
-router.get("/auth/user", authToken, async (req, res) => {
+router.get("/auth", authToken, async (req, res) => {
   try {
     const userData = await User.findOne({ _id: req.user.id });
     const { _id, __v, password, ...data } = await userData._doc;
