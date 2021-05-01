@@ -13,7 +13,7 @@ function App() {
       <ReactNotification />
 
       <Switch>
-        <Route exact path="/">
+        <Route exact path={["/", "/room/:id"]}>
           <div className="content-wrapper">
             <Sidebar />
             <ChatRoom />
