@@ -32,7 +32,6 @@ app.use(express.json());
 app.use(
   fileUpload({
     limits: { fileSize: 16000000 },
-    // abortOnLimit: true,
     useTempFiles: true,
     tempFileDir: "/tmp/",
   })
@@ -52,11 +51,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     socket.leave(room);
   });
-
-  // socket.emit("your id", socket.id);
-  // socket.on("send message", (body) => {
-  //   io.emit("message", body);
-  // });
 });
 
 app.use("/", routes);

@@ -1,4 +1,3 @@
-require("dotenv").config();
 const router = require("express").Router();
 const User = require("../model/user");
 const Room = require("../model/roomModel");
@@ -14,6 +13,7 @@ const {
 } = require("../validation/validation");
 const authToken = require("./verifyToken");
 const { v4: uuidv4 } = require("uuid");
+require("dotenv").config();
 
 router.post("/register", async (req, res) => {
   const { username, password: plainTextPassword, email } = req.body;
@@ -171,7 +171,6 @@ router.post("/create-room", authToken, async (req, res) => {
 router.get("/get-rooms", authToken, async (req, res) => {
   try {
     const roomData = await getRoomsWithPopulate(req.user.id);
-    // console.log(roomData.rooms);
     res.status(200).send(roomData.rooms);
   } catch (error) {
     res.status(400).send(err);
@@ -180,8 +179,7 @@ router.get("/get-rooms", authToken, async (req, res) => {
 
 router.post("/join-room", authToken, async (req, res) => {
   const { name, password } = req.body;
-  // const test = await Room.findById({ _id: "60885f2e9af6ba07a83c2ad7" });
-  // console.log(test.users);
+
   const room = await Room.findById({ _id: name }, (err) => {
     if (err)
       return res

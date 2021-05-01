@@ -102,7 +102,7 @@ export const SidebarRoomsNav = styled.nav`
   margin-top: 30px;
 `;
 
-export const ChatRoomsText = styled.h3``;
+export const ChatRoomsText = styled.h3;
 
 export const RoomButton = styled.button`
   outline: none;
@@ -159,7 +159,6 @@ export const Room = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding-left: 25px; */
   transition: 0.2s ease-in-out;
 
   &:hover {

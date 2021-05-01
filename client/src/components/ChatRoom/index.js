@@ -36,13 +36,11 @@ const ChatRoom = () => {
   } = useUserProvider();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
-
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
   const socketRef = useRef();
   const lastMessageRef = useRef();
-  // console.log(socketRef.current.id);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -82,7 +80,6 @@ const ChatRoom = () => {
     });
 
     return () => socketRef.current.disconnect();
-    // }
   }, []);
 
   useEffect(() => {
@@ -93,7 +90,6 @@ const ChatRoom = () => {
       })
       .then((response) => {
         setUserData(response.data);
-        // updateRoomsData();
       })
       .catch((error) => {
         updateUserData();

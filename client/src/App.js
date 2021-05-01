@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import RegisterPage from "./components/RegisterPage";
+import ReactNotification from "react-notifications-component";
 import Sidebar from "./components/Sidebar";
+import ChatRoom from "./components/ChatRoom";
+import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
 import ProfileSettings from "./components/ProfileSettings";
 import NotFoundPage from "./components/NotFoundPage";
-import ReactNotification from "react-notifications-component";
-import ChatRoom from "./components/ChatRoom";
 
 function App() {
   return (
