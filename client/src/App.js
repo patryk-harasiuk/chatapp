@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import ReactNotification from "react-notifications-component";
 import Sidebar from "./components/Sidebar";
 import ChatRoom from "./components/ChatRoom";
@@ -13,11 +18,16 @@ function App() {
       <ReactNotification />
 
       <Switch>
-        <Route exact path={["/", "/room/:id"]}>
+        <Route exact path="/">
           <div className="content-wrapper">
             <Sidebar />
-            <ChatRoom />
+            {/* <ChatRoom /> */}
           </div>
+        </Route>
+
+        <Route path="/room/:roomId">
+          <Sidebar />
+          <ChatRoom />
         </Route>
 
         <Route path="/register">

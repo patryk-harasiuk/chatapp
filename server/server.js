@@ -39,17 +39,18 @@ app.use(
 
 app.use(cors());
 
-const room = "general";
+// const room = "general";
 
 io.on("connection", (socket) => {
-  socket.join(room);
+  const { roomId } = socket.handshake.query;
+  socket.join(roomId);
 
   socket.on("send-message", (body) => {
-    io.in(room).emit("send-message", body);
+    io.in(roomId).emit("send-message", body);
   });
 
   socket.on("disconnect", () => {
-    socket.leave(room);
+    socket.leave(roomId);
   });
 });
 

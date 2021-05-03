@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+
 import axios from "axios";
 
 const UserContext = React.createContext();
@@ -9,7 +9,6 @@ const UserProvider = ({ children }) => {
   const [userRoomsData, setUserRoomsData] = useState([]);
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
-  const { id } = useParams();
   const token = localStorage.getItem("tokenauth");
 
   const createRoomClicker = () => {
@@ -49,11 +48,11 @@ const UserProvider = ({ children }) => {
         headers: { authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        response.map((room) => id === room._id);
+        // console.log(response);
         setUserRoomsData(response.data);
       })
       .catch((error) => {
-        setUserRoomsData({});
+        setUserRoomsData([]);
       });
   };
 

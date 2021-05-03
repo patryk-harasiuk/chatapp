@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useUserProvider } from "../../context/UserProvider";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
@@ -34,6 +34,8 @@ const ChatRoom = () => {
     createRoomPopup,
     joinRoomPopup,
   } = useUserProvider();
+  let { roomId } = useParams();
+  // const roomId =
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
   const [chatMessages, setChatMessages] = useState([]);
@@ -68,7 +70,9 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:5000");
+    socketRef.current = io("http://localhost:5000", {
+      query: { roomId },
+    });
 
     console.log("socket");
     socketRef.current.on("send-message", (message) => {

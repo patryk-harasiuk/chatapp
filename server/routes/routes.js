@@ -146,7 +146,6 @@ router.post("/create-room", authToken, async (req, res) => {
       path: error.details[0].path[0],
     });
 
-  console.log(req.body);
   const salt = await bcrypt.genSalt(10);
   const hashPassowrd = await bcrypt.hash(password, salt);
 

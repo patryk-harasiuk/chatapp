@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+// import axios from "axios";
 import { useUserProvider } from "../../context/UserProvider";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
@@ -30,8 +32,11 @@ const Sidebar = () => {
     updateRoomsData,
     createRoomClicker,
     joinRoomClicker,
+    // setUserRoomsData,
   } = useUserProvider();
 
+  // const { id } = useParams();
+  // const token = localStorage.getItem("tokenauth");
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))

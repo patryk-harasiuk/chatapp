@@ -102,7 +102,7 @@ export const SidebarRoomsNav = styled.nav`
   margin-top: 30px;
 `;
 
-export const ChatRoomsText = styled.h3;
+export const ChatRoomsText = styled.h3``;
 
 export const RoomButton = styled.button`
   outline: none;
