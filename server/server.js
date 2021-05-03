@@ -11,6 +11,7 @@ const io = socket(server, {
   origins: ["localhost:5000"],
 });
 const fileUpload = require("express-fileupload");
+const Room = require("./model/roomModel");
 
 mongoose
   .connect("mongodb://localhost:27017/chat_app", {
@@ -43,6 +44,7 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   const { roomId } = socket.handshake.query;
+  console.log(roomId);
   socket.join(roomId);
 
   socket.on("send-message", (body) => {

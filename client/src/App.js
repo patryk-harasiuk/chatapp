@@ -19,15 +19,15 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <div className="content-wrapper">
-            <Sidebar />
-            {/* <ChatRoom /> */}
-          </div>
+          <Sidebar />
+          {/* <ChatRoom /> */}
         </Route>
 
         <Route path="/room/:roomId">
-          <Sidebar />
-          <ChatRoom />
+          <div className="content-wrapper">
+            <Sidebar />
+            <ChatRoom />
+          </div>
         </Route>
 
         <Route path="/register">

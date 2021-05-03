@@ -74,7 +74,6 @@ const ChatRoom = () => {
       query: { roomId },
     });
 
-    console.log("socket");
     socketRef.current.on("send-message", (message) => {
       const incomingMessage = {
         ...message,
@@ -83,8 +82,11 @@ const ChatRoom = () => {
       setChatMessages((prevState) => [...prevState, incomingMessage]);
     });
 
-    return () => socketRef.current.disconnect();
-  }, []);
+    return () => {
+      socketRef.current.disconnect();
+      setChatMessages([]);
+    };
+  }, [roomId]);
 
   useEffect(() => {
     axios

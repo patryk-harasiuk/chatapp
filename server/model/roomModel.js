@@ -19,6 +19,12 @@ const roomSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  messages: [
+    {
+      user: String,
+      data: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Room", roomSchema);
