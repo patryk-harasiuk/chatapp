@@ -21,8 +21,8 @@ const roomSchema = new mongoose.Schema({
   ],
   messages: [
     {
-      user: String,
-      data: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
     },
   ],
 });

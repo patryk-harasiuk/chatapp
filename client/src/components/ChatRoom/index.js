@@ -43,6 +43,7 @@ const ChatRoom = () => {
   const [emojiClick, setEmocjiClick] = useState(false);
   const socketRef = useRef();
   const lastMessageRef = useRef();
+  const [testState, setTestState] = useState([]);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -74,6 +75,11 @@ const ChatRoom = () => {
       query: { roomId },
     });
 
+    socketRef.current.on("message-history", (messagesHistory) => {
+      setTestState(messagesHistory);
+      console.log(testState);
+    });
+
     socketRef.current.on("send-message", (message) => {
       const incomingMessage = {
         ...message,
@@ -85,6 +91,7 @@ const ChatRoom = () => {
     return () => {
       socketRef.current.disconnect();
       setChatMessages([]);
+      console.log("socket disconnectioed");
     };
   }, [roomId]);
 
@@ -115,7 +122,7 @@ const ChatRoom = () => {
         });
       });
   }, []);
-
+  console.log(chatMessages);
   return (
     <>
       <HomeCenter>

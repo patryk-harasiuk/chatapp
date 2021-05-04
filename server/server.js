@@ -11,7 +11,10 @@ const io = socket(server, {
   origins: ["localhost:5000"],
 });
 const fileUpload = require("express-fileupload");
+const Message = require("./model/messageModel");
 const Room = require("./model/roomModel");
+const createMessage = require("./services/createMessage");
+const getMessagesWithPopulate = require("./services/getMessages");
 
 mongoose
   .connect("mongodb://localhost:27017/chat_app", {
@@ -40,15 +43,30 @@ app.use(
 
 app.use(cors());
 
-// const room = "general";
-
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   const { roomId } = socket.handshake.query;
-  console.log(roomId);
   socket.join(roomId);
 
-  socket.on("send-message", (body) => {
-    io.in(roomId).emit("send-message", body);
+  try {
+    const messagesHistory = await getMessagesWithPopulate(roomId);
+
+    socket.emit("message-history", messagesHistory);
+  } catch (error) {
+    console.log(error);
+  }
+
+  socket.on("send-message", async (body) => {
+    try {
+      await createMessage(roomId, {
+        body: body.body,
+        username: body.username,
+        date: Date.now(),
+      });
+
+      io.in(roomId).emit("send-message", body);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on("disconnect", () => {
