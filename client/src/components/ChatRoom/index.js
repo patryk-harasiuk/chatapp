@@ -76,8 +76,9 @@ const ChatRoom = () => {
     });
 
     socketRef.current.on("message-history", (messagesHistory) => {
-      setTestState(messagesHistory);
-      console.log(testState);
+      // setTestState(messagesHistory);
+      // console.log(testState);
+      setChatMessages(messagesHistory.messages);
     });
 
     socketRef.current.on("send-message", (message) => {
@@ -122,14 +123,17 @@ const ChatRoom = () => {
         });
       });
   }, []);
-  console.log(chatMessages);
+  // console.log(chatMessages);
   return (
     <>
       <HomeCenter>
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
-            if (message.senderId === socketRef.current.id) {
+            if (
+              message.senderId === socketRef.current.id ||
+              userData.username === message.username
+            ) {
               return (
                 <MessageBox
                   key={index}
