@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const UserContext = React.createContext();
@@ -10,6 +10,7 @@ const UserProvider = ({ children }) => {
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
   const token = localStorage.getItem("tokenauth");
+  const history = useHistory();
 
   const createRoomClicker = () => {
     setCreateRoomPopup(true);
@@ -36,6 +37,7 @@ const UserProvider = ({ children }) => {
         .catch((error) => {
           setUserData({});
           localStorage.removeItem("tokenauth");
+          history.push("/");
         });
     }
   };

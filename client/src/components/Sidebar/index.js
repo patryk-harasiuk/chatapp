@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 // import axios from "axios";
+
 import { useUserProvider } from "../../context/UserProvider";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
@@ -32,16 +33,21 @@ const Sidebar = () => {
     updateRoomsData,
     createRoomClicker,
     joinRoomClicker,
-    // setUserRoomsData,
+    setUserData,
+    updateUserData,
   } = useUserProvider();
 
-  // const { id } = useParams();
+  // const history = useHistory();
   // const token = localStorage.getItem("tokenauth");
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
       : true;
   });
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
 
   useEffect(() => {
     updateRoomsData();
@@ -66,12 +72,14 @@ const Sidebar = () => {
       },
     });
   };
-
+  // const image = "uploads/97dd72cd-526c-473e-8746-86eb922130253.jpg";
+  // console.log(userData);
   return (
     <SidebarRooms>
       <ProfileCard>
         <ProfileCardInfoWrapper>
-          <ProfileCardImage src={userData.userAvatar} />
+          <ProfileCardImage src={`/${userData.userAvatar}`} />
+          {/* <img src={image} /> */}
           <ProfileName>{userData.username}</ProfileName>
           <ActivityCheckbox
             type="checkbox"

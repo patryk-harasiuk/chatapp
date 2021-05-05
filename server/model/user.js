@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   userAvatar: {
     type: String,
-    default:
-      "https://cdn0.iconfinder.com/data/icons/user-pictures/100/unknown_1-512.png",
+    default: "uploads/defaultUserAvatar.jpg",
   },
   rooms: [
     {

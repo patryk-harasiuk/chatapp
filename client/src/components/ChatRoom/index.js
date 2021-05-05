@@ -96,33 +96,6 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
-  useEffect(() => {
-    axios
-      .get("/auth", {
-        withCredentials: true,
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        updateUserData();
-        history.push("/login");
-
-        store.addNotification({
-          message: "Access denied",
-          type: "danger",
-          container: "top-right",
-          insert: "top",
-          animationIn: ["animate__animated", "animate__fadeIn"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 4000,
-            onScreen: true,
-          },
-        });
-      });
-  }, []);
   // console.log(chatMessages);
   return (
     <>
@@ -149,13 +122,13 @@ const ChatRoom = () => {
                       </MessageTimeStamp>
                     </Message>
                   </ColumnPlacement>
-                  <MessageAvatatr src={message.userAvatar} />
+                  <MessageAvatatr src={`/${message.userAvatar}`} />
                 </MessageBox>
               );
             } else {
               return (
                 <MessageBox otherUser key={index}>
-                  <MessageAvatatr src={message.userAvatar} />
+                  <MessageAvatatr src={`/${message.userAvatar}`} />
                   <ColumnPlacement>
                     <MessageUsername>{message.username}</MessageUsername>
 
