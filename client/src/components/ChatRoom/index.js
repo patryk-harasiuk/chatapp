@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useUserProvider } from "../../context/UserProvider";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
-import "react-notifications-component/dist/theme.css";
-import { store } from "react-notifications-component";
-import "animate.css/animate.min.css";
+// import "react-notifications-component/dist/theme.css";
+// import { store } from "react-notifications-component";
+// import "animate.css/animate.min.css";
 import {
   HomeCenter,
   Form,
@@ -28,9 +28,9 @@ import Modal from "./Modal";
 const ChatRoom = () => {
   const {
     userData,
-    setUserData,
-    updateUserData,
-    updateRoomsData,
+    // setUserData,
+    // updateUserData,
+    // updateRoomsData,
     createRoomPopup,
     joinRoomPopup,
   } = useUserProvider();
@@ -43,7 +43,6 @@ const ChatRoom = () => {
   const [emojiClick, setEmocjiClick] = useState(false);
   const socketRef = useRef();
   const lastMessageRef = useRef();
-  const [testState, setTestState] = useState([]);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -76,9 +75,7 @@ const ChatRoom = () => {
     });
 
     socketRef.current.on("message-history", (messagesHistory) => {
-      // setTestState(messagesHistory);
-      // console.log(testState);
-      setChatMessages(messagesHistory.messages);
+      setChatMessages(messagesHistory.messages.reverse());
     });
 
     socketRef.current.on("send-message", (message) => {
@@ -96,7 +93,7 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
-  // console.log(chatMessages);
+  console.log(chatMessages);
   return (
     <>
       <HomeCenter>
@@ -166,7 +163,7 @@ const ChatRoom = () => {
             />
 
             <EmojiIcon onClick={() => setEmocjiClick(!emojiClick)} />
-            <FileUploadIcon />
+            {/* <FileUploadIcon /> */}
             <SubmitMessageButton type="submit">Submit</SubmitMessageButton>
           </InputBox>
         </Form>

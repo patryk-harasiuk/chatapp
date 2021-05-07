@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { useHistory } from "react-router-dom";
-// import axios from "axios";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 import { useUserProvider } from "../../context/UserProvider";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -37,8 +37,8 @@ const Sidebar = () => {
     updateUserData,
   } = useUserProvider();
 
-  // const history = useHistory();
-  // const token = localStorage.getItem("tokenauth");
+  const history = useHistory();
+  const token = localStorage.getItem("tokenauth");
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
@@ -46,7 +46,19 @@ const Sidebar = () => {
   });
 
   useEffect(() => {
-    updateUserData();
+    axios
+      .get("/auth", {
+        withCredentials: true,
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        setUserData({});
+        localStorage.removeItem("tokenauth");
+        history.push("/");
+      });
   }, []);
 
   useEffect(() => {
@@ -72,14 +84,12 @@ const Sidebar = () => {
       },
     });
   };
-  // const image = "uploads/97dd72cd-526c-473e-8746-86eb922130253.jpg";
-  // console.log(userData);
+
   return (
     <SidebarRooms>
       <ProfileCard>
         <ProfileCardInfoWrapper>
           <ProfileCardImage src={`/${userData.userAvatar}`} />
-          {/* <img src={image} /> */}
           <ProfileName>{userData.username}</ProfileName>
           <ActivityCheckbox
             type="checkbox"

@@ -49,17 +49,18 @@ io.on("connection", async (socket) => {
 
   try {
     const messagesHistory = await getMessagesWithPopulate(roomId);
-
     socket.emit("message-history", messagesHistory);
   } catch (error) {
     console.log(error);
   }
 
   socket.on("send-message", async (body) => {
+    // console.log(body);
     try {
       await createMessage(roomId, {
         body: body.body,
         username: body.username,
+        userAvatar: body.userAvatar,
         date: Date.now(),
       });
 

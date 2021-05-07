@@ -36,8 +36,8 @@ const UserProvider = ({ children }) => {
         })
         .catch((error) => {
           setUserData({});
-          localStorage.removeItem("tokenauth");
-          history.push("/");
+          // localStorage.removeItem("tokenauth");
+          // history.push("/");
         });
     }
   };
