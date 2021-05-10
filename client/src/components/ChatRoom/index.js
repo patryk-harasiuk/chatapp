@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useUserProvider } from "../../context/UserProvider";
 import { useHistory, useParams } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
 // import "react-notifications-component/dist/theme.css";
@@ -20,29 +20,25 @@ import {
   ColumnPlacement,
   MessageTimeStamp,
   EmojiIcon,
-  FileUploadIcon,
   MessagesWrapper,
+  LoadMoreMessagesIcon,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
+// import { Room } from "../Sidebar/SidebarStyles";
 
 const ChatRoom = () => {
-  const {
-    userData,
-    // setUserData,
-    // updateUserData,
-    // updateRoomsData,
-    createRoomPopup,
-    joinRoomPopup,
-  } = useUserProvider();
+  const { userData, createRoomPopup, joinRoomPopup } = useUserProvider();
+
   let { roomId } = useParams();
-  // const roomId =
-  const token = localStorage.getItem("tokenauth");
-  const history = useHistory();
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
+  const [skipValue, setSkipValue] = useState(35);
   const socketRef = useRef();
   const lastMessageRef = useRef();
+  const firstMessageRef = useRef();
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -93,10 +89,21 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
-  console.log(chatMessages);
+  const MessageLoader = () => {
+    setLoading(true);
+    setError({});
+
+    axios.get("/get-messages", {
+      roomId: roomId,
+      skipValue: skipValue,
+    });
+  };
+
+  // console.log(chatMessages.length);
   return (
     <>
       <HomeCenter>
+        {/* <LoadMoreMessagesIcon /> */}
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
@@ -163,7 +170,7 @@ const ChatRoom = () => {
             />
 
             <EmojiIcon onClick={() => setEmocjiClick(!emojiClick)} />
-            {/* <FileUploadIcon /> */}
+
             <SubmitMessageButton type="submit">Submit</SubmitMessageButton>
           </InputBox>
         </Form>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { CgMoreO } from "react-icons/cg";
 
 export const HomeCenter = styled.div`
   width: 100%;
@@ -145,4 +146,10 @@ export const JoinGlobalRoomButton = styled(Link)`
   width: 50px;
   height: 50px;
   background: royalblue;
+`;
+
+export const LoadMoreMessagesIcon = styled(CgMoreO)`
+  /* position: sticky; */
+  font-size: 60px;
+  color: royalblue;
 `;

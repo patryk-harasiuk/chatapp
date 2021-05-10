@@ -15,6 +15,7 @@ const Message = require("./model/messageModel");
 const Room = require("./model/roomModel");
 const createMessage = require("./services/createMessage");
 const getMessagesWithPopulate = require("./services/getMessages");
+const getMoreMessages = require("./services/getMoreMessages");
 
 mongoose
   .connect("mongodb://localhost:27017/chat_app", {
@@ -55,13 +56,12 @@ io.on("connection", async (socket) => {
   }
 
   socket.on("send-message", async (body) => {
-    // console.log(body);
     try {
       await createMessage(roomId, {
         body: body.body,
         username: body.username,
         userAvatar: body.userAvatar,
-        date: Date.now(),
+        createdAt: Date.now(),
       });
 
       io.in(roomId).emit("send-message", body);

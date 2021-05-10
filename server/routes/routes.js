@@ -4,6 +4,7 @@ const Room = require("../model/roomModel");
 const addUserToRoom = require("../services/room");
 const addRoomToUser = require("../services/user");
 const getRoomsWithPopulate = require("../services/getRooms");
+const getMoreMessages = require("../services/getMoreMessages");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
@@ -203,6 +204,15 @@ router.post("/join-room", authToken, async (req, res) => {
     res.send({ statusMessage: "You were added to the room" });
   } catch (error) {
     res.status(400).send(error);
+  }
+});
+
+router.get("/get-messages", authToken, async (req, res) => {
+  const { roomId, skipValue } = req.body;
+  try {
+    await getMoreMessages(roomId, skipValue);
+  } catch (error) {
+    console.log(error);
   }
 });
 

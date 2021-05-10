@@ -57,7 +57,7 @@ const Sidebar = () => {
       .catch((error) => {
         setUserData({});
         localStorage.removeItem("tokenauth");
-        history.push("/");
+        history.push("/login");
       });
   }, []);
 
