@@ -147,9 +147,3 @@ export const JoinGlobalRoomButton = styled(Link)`
   height: 50px;
   background: royalblue;
 `;
-
-export const LoadMoreMessagesIcon = styled(CgMoreO)`
-  /* position: sticky; */
-  font-size: 60px;
-  color: royalblue;
-`;

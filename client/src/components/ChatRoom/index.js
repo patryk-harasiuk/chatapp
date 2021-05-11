@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useUserProvider } from "../../context/UserProvider";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
@@ -21,7 +21,6 @@ import {
   MessageTimeStamp,
   EmojiIcon,
   MessagesWrapper,
-  LoadMoreMessagesIcon,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
 // import { Room } from "../Sidebar/SidebarStyles";
@@ -35,10 +34,57 @@ const ChatRoom = () => {
   const [emojiClick, setEmocjiClick] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [skipValue, setSkipValue] = useState(35);
+  const [pageIndex, setPageIndex] = useState(1);
   const socketRef = useRef();
   const lastMessageRef = useRef();
-  const firstMessageRef = useRef();
+
+  const handleMessageLoad = () => {
+    setLoading(true);
+    setError({});
+    // console.log(pageIndex, roomId);
+
+    axios
+      .get("/get-messages", {
+        params: {
+          roomId: roomId,
+          pageIndex: pageIndex,
+        },
+      })
+
+      .then((response) => {
+        console.log(response.data.messages);
+        setLoading(false);
+        response.data.messages.sort((a, b) => {
+          return a.createdAt.localeCompare(b.createdAt);
+        });
+        setChatMessages((prevState) => {
+          return [...response.data.messages, ...prevState];
+        });
+
+        setPageIndex((prevState) => prevState + 1);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setError(error);
+      });
+  };
+  console.log(chatMessages);
+
+  const observer = useRef();
+  const firstMessageRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) return observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          handleMessageLoad();
+        }
+      });
+      if (node) return observer.current.observe(node);
+    },
+    [loading]
+  );
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -71,7 +117,10 @@ const ChatRoom = () => {
     });
 
     socketRef.current.on("message-history", (messagesHistory) => {
-      setChatMessages(messagesHistory.messages.reverse());
+      const sortByDate = messagesHistory.messages.sort((a, b) => {
+        return a.createdAt.localeCompare(b.createdAt);
+      });
+      setChatMessages(sortByDate);
     });
 
     socketRef.current.on("send-message", (message) => {
@@ -89,21 +138,9 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
-  const MessageLoader = () => {
-    setLoading(true);
-    setError({});
-
-    axios.get("/get-messages", {
-      roomId: roomId,
-      skipValue: skipValue,
-    });
-  };
-
-  // console.log(chatMessages.length);
   return (
     <>
       <HomeCenter>
-        {/* <LoadMoreMessagesIcon /> */}
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
@@ -119,7 +156,7 @@ const ChatRoom = () => {
                   <ColumnPlacement>
                     <MessageUsername>{message.username}</MessageUsername>
 
-                    <Message>
+                    <Message ref={index === 0 ? firstMessageRef : null}>
                       {message.body}
                       <MessageTimeStamp>
                         {message.messageTimeStamp}
@@ -136,7 +173,10 @@ const ChatRoom = () => {
                   <ColumnPlacement>
                     <MessageUsername>{message.username}</MessageUsername>
 
-                    <Message otherUser>
+                    <Message
+                      otherUser
+                      ref={index === 0 ? firstMessageRef : null}
+                    >
                       {message.body}
                       <MessageTimeStamp>
                         {message.messageTimeStamp}

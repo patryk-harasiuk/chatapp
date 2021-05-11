@@ -33,6 +33,7 @@ mongoose
   });
 
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 
 app.use(
   fileUpload({
@@ -50,6 +51,7 @@ io.on("connection", async (socket) => {
 
   try {
     const messagesHistory = await getMessagesWithPopulate(roomId);
+
     socket.emit("message-history", messagesHistory);
   } catch (error) {
     console.log(error);

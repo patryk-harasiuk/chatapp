@@ -173,7 +173,7 @@ router.get("/get-rooms", authToken, async (req, res) => {
     const roomData = await getRoomsWithPopulate(req.user.id);
     res.status(200).send(roomData.rooms);
   } catch (error) {
-    res.status(400).send(err);
+    res.status(400).send(error);
   }
 });
 
@@ -207,10 +207,13 @@ router.post("/join-room", authToken, async (req, res) => {
   }
 });
 
-router.get("/get-messages", authToken, async (req, res) => {
-  const { roomId, skipValue } = req.body;
+router.get("/get-messages", async (req, res) => {
+  const { roomId, pageIndex } = req.query;
+
   try {
-    await getMoreMessages(roomId, skipValue);
+    const oldMessages = await getMoreMessages(roomId, pageIndex);
+
+    res.send(oldMessages);
   } catch (error) {
     console.log(error);
   }
