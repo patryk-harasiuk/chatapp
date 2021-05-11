@@ -35,7 +35,10 @@ const ChatRoom = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
+  // const [countMessages, setCountMessages] = useState(35);
+  const [hasMore, setHasMore] = useState(false);
   const socketRef = useRef();
+  const observer = useRef();
   const lastMessageRef = useRef();
 
   useEffect(() => {
@@ -58,6 +61,7 @@ const ChatRoom = () => {
         setChatMessages((prevState) => {
           return [...sortByDate, ...prevState];
         });
+        setHasMore(response.data.length > 0);
       })
       .catch((error) => {
         console.log(error);
@@ -66,26 +70,26 @@ const ChatRoom = () => {
       });
   }, [pageIndex]);
 
-  const observer = useRef();
   const firstMessageRef = useCallback(
     (node) => {
       if (loading) return;
-      if (observer.current) return observer.current.disconnect();
+      if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && hasMore) {
           setPageIndex((prevState) => prevState + 1);
+          console.log("ds2 bad");
         }
       });
       if (node) return observer.current.observe(node);
     },
-    [loading]
+    [loading, hasMore]
   );
 
   useEffect(() => {
     if (lastMessageRef.current)
       return lastMessageRef.current.scrollIntoView({ smooth: true });
   }, [chatMessages]);
-  console.log(chatMessages);
+
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -129,9 +133,12 @@ const ChatRoom = () => {
     return () => {
       socketRef.current.disconnect();
       setChatMessages([]);
-      console.log("socket disconnectioed");
     };
   }, [roomId]);
+
+  // console.log(pageIndex);
+  // console.log(chatMessages.length);
+  // console.log(hasMore);
 
   return (
     <>
