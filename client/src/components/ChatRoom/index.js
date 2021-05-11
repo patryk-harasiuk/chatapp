@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useUserProvider } from "../../context/UserProvider";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
-// import "react-notifications-component/dist/theme.css";
-// import { store } from "react-notifications-component";
-// import "animate.css/animate.min.css";
 import {
   HomeCenter,
   Form,
@@ -52,7 +49,6 @@ const ChatRoom = () => {
           pageIndex: pageIndex,
         },
       })
-
       .then((response) => {
         setLoading(false);
         const sortByDate = response.data.sort((a, b) => {
@@ -77,7 +73,6 @@ const ChatRoom = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPageIndex((prevState) => prevState + 1);
-          console.log("ds2 bad");
         }
       });
       if (node) return observer.current.observe(node);
@@ -135,10 +130,6 @@ const ChatRoom = () => {
       setChatMessages([]);
     };
   }, [roomId]);
-
-  // console.log(pageIndex);
-  // console.log(chatMessages.length);
-  // console.log(hasMore);
 
   return (
     <>
