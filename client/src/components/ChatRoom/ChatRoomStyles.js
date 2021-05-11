@@ -147,3 +147,12 @@ export const JoinGlobalRoomButton = styled(Link)`
   height: 50px;
   background: royalblue;
 `;
+
+export const LoadingMessage = styled.span`
+  font-size: 14px;
+  color: gray;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(50%, 50%);
+`;

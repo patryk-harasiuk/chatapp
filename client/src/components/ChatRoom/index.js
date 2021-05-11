@@ -21,9 +21,9 @@ import {
   MessageTimeStamp,
   EmojiIcon,
   MessagesWrapper,
+  LoadingMessage,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
-// import { Room } from "../Sidebar/SidebarStyles";
 
 const ChatRoom = () => {
   const { userData, createRoomPopup, joinRoomPopup } = useUserProvider();
@@ -34,11 +34,11 @@ const ChatRoom = () => {
   const [emojiClick, setEmocjiClick] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
-  const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
   const socketRef = useRef();
   const lastMessageRef = useRef();
 
-  const handleMessageLoad = () => {
+  useEffect(() => {
     setLoading(true);
     setError({});
 
@@ -51,7 +51,6 @@ const ChatRoom = () => {
       })
 
       .then((response) => {
-        console.log(response.data);
         setLoading(false);
         const sortByDate = response.data.sort((a, b) => {
           return a.createdAt.localeCompare(b.createdAt);
@@ -59,16 +58,13 @@ const ChatRoom = () => {
         setChatMessages((prevState) => {
           return [...sortByDate, ...prevState];
         });
-
-        setPageIndex((prevState) => prevState + 1);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
         setError(error);
       });
-  };
-  console.log(chatMessages);
+  }, [pageIndex]);
 
   const observer = useRef();
   const firstMessageRef = useCallback(
@@ -77,7 +73,7 @@ const ChatRoom = () => {
       if (observer.current) return observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          handleMessageLoad();
+          setPageIndex((prevState) => prevState + 1);
         }
       });
       if (node) return observer.current.observe(node);
@@ -89,7 +85,7 @@ const ChatRoom = () => {
     if (lastMessageRef.current)
       return lastMessageRef.current.scrollIntoView({ smooth: true });
   }, [chatMessages]);
-
+  console.log(chatMessages);
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -140,6 +136,7 @@ const ChatRoom = () => {
   return (
     <>
       <HomeCenter>
+        {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
         <MessagesWrapper>
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
