@@ -212,10 +212,12 @@ router.get("/get-messages", async (req, res) => {
 
   try {
     const oldMessages = await getMoreMessages(roomId, pageIndex);
-
-    res.send(oldMessages);
+    res.send(oldMessages.messages);
   } catch (error) {
     console.log(error);
+    res
+      .status(400)
+      .send({ errorMessage: "There was an error retrieving your messages" });
   }
 });
 

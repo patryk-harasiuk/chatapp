@@ -41,7 +41,6 @@ const ChatRoom = () => {
   const handleMessageLoad = () => {
     setLoading(true);
     setError({});
-    // console.log(pageIndex, roomId);
 
     axios
       .get("/get-messages", {
@@ -52,13 +51,13 @@ const ChatRoom = () => {
       })
 
       .then((response) => {
-        console.log(response.data.messages);
+        console.log(response.data);
         setLoading(false);
-        response.data.messages.sort((a, b) => {
+        const sortByDate = response.data.sort((a, b) => {
           return a.createdAt.localeCompare(b.createdAt);
         });
         setChatMessages((prevState) => {
-          return [...response.data.messages, ...prevState];
+          return [...sortByDate, ...prevState];
         });
 
         setPageIndex((prevState) => prevState + 1);
