@@ -119,8 +119,8 @@ const Sidebar = () => {
         {userRoomsData.length !== 0
           ? userRoomsData.map((room, index) => {
               return (
-                <Room key={index} to={`/room/${room._id}`}>
-                  <RoomName>{room.name}</RoomName>
+                <Room key={index}>
+                  <RoomName to={`/room/${room._id}`}>{room.name}</RoomName>
                   <CopyToClipboard text={room._id} onCopy={copyIdHandler}>
                     <GetIdIcon />
                   </CopyToClipboard>

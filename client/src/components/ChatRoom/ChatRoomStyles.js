@@ -1,7 +1,24 @@
 import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
 import { HiOutlinePhotograph } from "react-icons/hi";
+import { BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+
+// export const ChatRoomWrapper = styled.div`
+//   height: 100vh;
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+// export const RoomNav = styled.div`
+//   display: flex;
+//   position: relative;
+//   flex: 0 0 auto;
+//   width: 100%;
+//   min-height: 50px;
+//   background: pink;
+// `;
 
 export const HomeCenter = styled.div`
   width: 100%;
@@ -9,12 +26,15 @@ export const HomeCenter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  /* align-items: flex-end; */
   background: #36393f;
 `;
 
 export const MessagesWrapper = styled.div`
   width: 100%;
+  /* height: 100%; */
   overflow-y: auto;
+
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -74,31 +94,27 @@ export const SubmitMessageButton = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-  background: #36393f;
+  background: #3ba55c;
 
   color: #fff;
   height: 40px;
   padding: 10px 15px;
   border-radius: 5px;
   margin-left: 15px;
-  transition: 0.3s ease-out;
-
-  &:hover {
-    background: #3ba55c;
-  }
 `;
 
-export const SidebarFriends = styled.div`
-  width: 25vw;
-  height: 100vh;
-  background: purple;
-`;
+// export const SidebarFriends = styled.div`
+//   width: 25vw;
+//   height: 100vh;
+//   background: purple;
+// `;
 
 export const MessageBox = styled.div`
   display: flex;
   justify-content: ${(props) => (props.otherUser ? "flex-start" : "flex-end")};
   align-items: center;
   margin: 5px 10px;
+  /* z-index: 1; */
 `;
 
 export const Message = styled.li`
@@ -151,9 +167,14 @@ export const JoinGlobalRoomButton = styled(Link)`
 
 export const LoadingMessage = styled.span`
   font-size: 14px;
-  color: gray;
+  color: #3ba55c;
   position: absolute;
   top: 0;
   left: 50%;
   transform: translate(50%, 50%);
+`;
+
+export const TrashIcon = styled(BsTrashFill)`
+  font-size: 22px;
+  color: #3ba55c;
 `;

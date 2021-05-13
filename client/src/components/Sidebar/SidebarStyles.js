@@ -156,13 +156,12 @@ export const RoomList = styled.div`
   }
 `;
 
-export const Room = styled(Link)`
+export const Room = styled.div`
   min-height: 70px;
   width: 100%;
   background: #40444b;
   text-decoration: none;
   font-size: 16px;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -170,15 +169,17 @@ export const Room = styled(Link)`
 
   &:hover {
     background: rgb(54 57 63);
-    /* color: #f1f1f1; */
   }
 `;
 
-export const RoomName = styled.h4`
-  padding-left: 20px;
+export const RoomName = styled(Link)`
+  margin-left: 20px;
+  text-decoration: none;
+  color: #fff;
 `;
 
 export const GetIdIcon = styled(IoCopy)`
+  cursor: pointer;
   font-size: 24px;
   color: #3ba55c;
   margin-right: 5px;

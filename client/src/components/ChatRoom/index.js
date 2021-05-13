@@ -19,6 +19,7 @@ import {
   EmojiIcon,
   MessagesWrapper,
   LoadingMessage,
+  RoomNav,
 } from "./ChatRoomStyles";
 import Modal from "./Modal";
 
@@ -39,32 +40,33 @@ const ChatRoom = () => {
   const lastMessageRef = useRef();
 
   useEffect(() => {
-    setLoading(true);
-    setError({});
+    if (chatMessages.length >= 35) {
+      setLoading(true);
+      setError({});
+      axios
+        .get("/get-messages", {
+          params: {
+            roomId: roomId,
+            pageIndex: pageIndex,
+          },
+        })
+        .then((response) => {
+          setLoading(false);
+          const sortByDate = response.data.sort((a, b) => {
+            return a.createdAt.localeCompare(b.createdAt);
+          });
 
-    axios
-      .get("/get-messages", {
-        params: {
-          roomId: roomId,
-          pageIndex: pageIndex,
-        },
-      })
-      .then((response) => {
-        setLoading(false);
-        const sortByDate = response.data.sort((a, b) => {
-          return a.createdAt.localeCompare(b.createdAt);
+          setChatMessages((prevState) => {
+            return [...sortByDate, ...prevState];
+          });
+          setHasMore(response.data.length > 0);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          setError(error);
         });
-
-        setChatMessages((prevState) => {
-          return [...sortByDate, ...prevState];
-        });
-        setHasMore(response.data.length > 0);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        setError(error);
-      });
+    }
   }, [pageIndex]);
 
   const firstMessageRef = useCallback(
@@ -139,9 +141,11 @@ const ChatRoom = () => {
 
   return (
     <>
+      {/* <ChatRoomWrapper> */}
+      {/* <RoomNav>rthrt</RoomNav> */}
       <HomeCenter>
-        {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
         <MessagesWrapper>
+          {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
           {chatMessages.map((message, index) => {
             const lastMessage = chatMessages.length - 1 === index;
             if (
@@ -216,6 +220,7 @@ const ChatRoom = () => {
         </Form>
       </HomeCenter>
       {createRoomPopup || joinRoomPopup ? <Modal /> : null}
+      {/* </ChatRoomWrapper> */}
     </>
   );
 };
