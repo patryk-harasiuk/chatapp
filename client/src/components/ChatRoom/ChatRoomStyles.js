@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import { CgMoreO } from "react-icons/cg";
 
 export const HomeCenter = styled.div`
   width: 100%;
@@ -10,7 +9,7 @@ export const HomeCenter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background: #e8e8f2;
+  background: #36393f;
 `;
 
 export const MessagesWrapper = styled.div`
@@ -19,12 +18,12 @@ export const MessagesWrapper = styled.div`
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: #f5f5f5;
+    background-color: #38404c;
   }
 
   ::-webkit-scrollbar {
     width: 10px;
-    background-color: #f5f5f5;
+    background-color: #38404c;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -39,7 +38,7 @@ export const Form = styled.form`
 `;
 
 export const InputBox = styled.div`
-  background: #fff;
+  background: #202225;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -53,17 +52,22 @@ export const InputBox = styled.div`
 export const Input = styled.input`
   appearance: none;
   outline: none;
-  border: 1px solid #acacac;
-  background: none;
+  border: none;
+  background: #36393f;
 
   width: 1000px;
   height: 40px;
-  background: #fff;
+  color: #fff;
   border-radius: 4px;
   padding: 10px;
   margin: 5px 20px;
   font-size: 14px;
-  font-weight: 600;
+  transition: 0.2s ease-out;
+
+  &:focus {
+    /* outline: 1px solid #3ba55c; */
+    box-shadow: 0 0 2px 1px #3ba55c;
+  }
 `;
 
 export const SubmitMessageButton = styled.button`
@@ -71,13 +75,18 @@ export const SubmitMessageButton = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  background: #36393f;
 
   color: #fff;
   height: 40px;
-  background: royalblue;
   padding: 10px 15px;
   border-radius: 5px;
   margin-left: 15px;
+  transition: 0.3s ease-out;
+
+  &:hover {
+    background: #3ba55c;
+  }
 `;
 
 export const SidebarFriends = styled.div`
@@ -94,9 +103,9 @@ export const MessageBox = styled.div`
 `;
 
 export const Message = styled.li`
-  color: ${(props) => (props.otherUser ? "black" : "#fff")};
+  color: #fff;
   padding: 8px;
-  background: ${(props) => (props.otherUser ? "#FFFAFA" : "royalblue")};
+  background: ${(props) => (props.otherUser ? "#676063" : "#7289da")};
   border-radius: 8px;
   margin: 5px 10px;
   font-family: "Roboto", sans-serif;
@@ -105,7 +114,7 @@ export const Message = styled.li`
 `;
 
 export const MessageUsername = styled.p`
-  color: gray;
+  color: #fff;
   font-size: 9px;
   transform: translateX(15px);
 `;
@@ -127,14 +136,7 @@ export const MessageTimeStamp = styled.span`
 
 export const EmojiIcon = styled(GrEmoji)`
   font-size: 22px;
-  color: royalblue;
-  cursor: pointer;
-`;
-
-export const FileUploadIcon = styled(HiOutlinePhotograph)`
-  font-size: 22px;
-  color: royalblue;
-  margin-left: 15px;
+  color: #3ba55c;
   cursor: pointer;
 `;
 

@@ -99,7 +99,7 @@ const Sidebar = () => {
           />
           <Label
             htmlFor="checkbox"
-            style={activeClick ? { color: "#27ae60" } : { color: "#e74c3c" }}
+            style={activeClick ? { color: "#3ba55c" } : { color: "#e74c3c" }}
           >
             {activeClick ? "Active" : "Away"}
           </Label>

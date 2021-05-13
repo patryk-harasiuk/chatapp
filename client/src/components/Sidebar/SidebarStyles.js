@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { IoMdSettings } from "react-icons/io";
+// import { IoMdAdd } from 'react-icons/io';
 import { IoCopy } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export const SidebarRooms = styled.div`
   width: 450px;
   height: 100vh;
-  background: whitesmoke;
-  border-right: 1px solid #acacac;
+  background: #2f3136;
+  /* border-right: 1px solid #acacac; */
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -16,7 +17,7 @@ export const SidebarRooms = styled.div`
 export const ProfileCard = styled.div`
   height: 300px;
   width: 250px;
-  background: #e8e8f2;
+  background: rgb(79, 84, 92, 0.32);
   margin-top: 50px;
   border-radius: 15px;
   -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.5);
@@ -39,6 +40,7 @@ export const ProfileCardImage = styled.img`
 
 export const ProfileName = styled.h3`
   padding-top: 10px;
+  color: #fff;
 `;
 
 export const ActivityCheckbox = styled.input`
@@ -46,7 +48,7 @@ export const ActivityCheckbox = styled.input`
   height: 20px;
   margin-top: 5px;
   appearance: none;
-  background: #2ecc71;
+  background: #3ba55c;
   outline: none;
   border-radius: 20px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
@@ -82,7 +84,7 @@ export const Label = styled.label`
 export const SettingsIcon = styled(IoMdSettings)`
   font-size: 22px;
   margin-top: 10px;
-  color: royalblue;
+  color: #3ba55c;
 `;
 
 export const SettingsLink = styled(Link)`
@@ -102,7 +104,10 @@ export const SidebarRoomsNav = styled.nav`
   margin-top: 30px;
 `;
 
-export const ChatRoomsText = styled.h3``;
+export const ChatRoomsText = styled.h3`
+  font-size: 22px;
+  color: #fff;
+`;
 
 export const RoomButton = styled.button`
   outline: none;
@@ -110,18 +115,18 @@ export const RoomButton = styled.button`
   appearance: none;
   cursor: pointer;
 
-  width: 200px;
+  width: 175px;
   height: 50px;
-  background-image: linear-gradient(120deg, #3498db, #8e44ad);
+  background: rgb(79, 84, 92, 0.32);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-  color: #f1f1f1;
+  color: #fff;
   font-size: 16px;
   background-size: 200%;
   transition: 0.3s ease-out;
   margin-top: 10px;
 
   &:hover {
-    background-position: right;
+    background: #7289da;
   }
 `;
 
@@ -130,12 +135,13 @@ export const RoomList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
   margin-top: 30px;
   overflow-y: auto;
 
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #f5f5f5;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+    background-color: #38404c;
   }
 
   ::-webkit-scrollbar {
@@ -153,17 +159,17 @@ export const RoomList = styled.div`
 export const Room = styled(Link)`
   min-height: 70px;
   width: 100%;
-  background: #dcdde1;
+  background: #40444b;
   text-decoration: none;
-  color: black;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background: #353b48;
-    color: #f1f1f1;
+    background: rgb(54 57 63);
+    /* color: #f1f1f1; */
   }
 `;
 
@@ -173,6 +179,6 @@ export const RoomName = styled.h4`
 
 export const GetIdIcon = styled(IoCopy)`
   font-size: 24px;
-  color: royalblue;
+  color: #3ba55c;
   margin-right: 5px;
 `;

@@ -32,7 +32,7 @@ const ChatRoom = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
-  // const [countMessages, setCountMessages] = useState(35);
+  // const [scrollToBottom, setScrollToBottom] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   const socketRef = useRef();
   const observer = useRef();
@@ -54,6 +54,7 @@ const ChatRoom = () => {
         const sortByDate = response.data.sort((a, b) => {
           return a.createdAt.localeCompare(b.createdAt);
         });
+
         setChatMessages((prevState) => {
           return [...sortByDate, ...prevState];
         });
@@ -73,12 +74,14 @@ const ChatRoom = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPageIndex((prevState) => prevState + 1);
+          console.log("paginated!");
         }
       });
-      if (node) return observer.current.observe(node);
+      if (node) observer.current.observe(node);
     },
     [loading, hasMore]
   );
+  console.log(pageIndex);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -128,8 +131,11 @@ const ChatRoom = () => {
     return () => {
       socketRef.current.disconnect();
       setChatMessages([]);
+      setPageIndex(0);
     };
   }, [roomId]);
+
+  console.log(chatMessages);
 
   return (
     <>
