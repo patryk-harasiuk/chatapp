@@ -161,6 +161,7 @@ export const Room = styled(Link)`
   width: 100%;
   background: #40444b;
   text-decoration: none;
+  font-size: 16px;
   color: #fff;
   display: flex;
   align-items: center;

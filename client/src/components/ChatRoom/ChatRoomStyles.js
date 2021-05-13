@@ -65,7 +65,6 @@ export const Input = styled.input`
   transition: 0.2s ease-out;
 
   &:focus {
-    /* outline: 1px solid #3ba55c; */
     box-shadow: 0 0 2px 1px #3ba55c;
   }
 `;

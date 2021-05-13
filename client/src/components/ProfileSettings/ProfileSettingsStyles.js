@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ProfileCard } from "../Sidebar/SidebarStyles";
 
 export const Wrapper = styled.div`
+  background: #2f3136;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -38,7 +39,7 @@ export const ChangeAvatarLabel = styled.label`
   width: 150px;
   height: 50px;
   border-radius: 25px;
-  background: linear-gradient(40deg, #ff6ec4, #7873f5);
+  background: #7289da;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -53,12 +54,12 @@ export const ChangeAvatarSubmit = styled.button`
   appearance: none;
   outline: none;
   cursor: pointer;
+  background: #7289da;
 
   margin-top: 20px;
   width: 80px;
   height: 35px;
   border-radius: 25px;
-  background: linear-gradient(40deg, #ff6ec4, #7873f5);
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   color: #fff;
   font-weight: 600;
@@ -66,13 +67,15 @@ export const ChangeAvatarSubmit = styled.button`
 
 export const LogoutButton = styled(Link)`
   text-decoration: none;
-  color: royalblue;
+  color: #3ba55c;
   font-weight: 600;
   margin-top: 35px;
 `;
 
-export const ProfileEmail = styled.h5`
+export const ProfileEmail = styled.p`
+  font-size: 14px;
   padding-top: 20px;
+  color: #fff;
 `;
 
 export const FileNameInformation = styled.h5`
