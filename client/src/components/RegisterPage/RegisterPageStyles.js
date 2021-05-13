@@ -16,7 +16,7 @@ export const RegisterForm = styled.form`
   flex-direction: column;
   position: relative;
   width: 450px;
-  background: #f1f1f1;
+  background: #2f3136;
   height: 600px;
   border-radius: 10px;
 `;
@@ -24,6 +24,7 @@ export const RegisterForm = styled.form`
 export const RegisterHeading = styled.h2`
   text-align: center;
   font-size: 28px;
+  color: #fff;
 `;
 
 export const InputBox = styled.div`
@@ -41,22 +42,22 @@ export const Input = styled.input`
 
   width: 300px;
   display: block;
-  border-bottom: 1px solid #212121;
+  border-bottom: 1px solid #fff;
   font-size: 14px;
-  font-weight: 600;
-  color: #212121;
+  color: #fff;
   padding: 8px 5px;
   transition: 0.3s ease-out;
 
   :focus,
   :valid {
-    border-bottom: 1px solid #3498db;
+    border-bottom: 1px solid #3ba55c;
   }
 `;
 
 export const Label = styled.label`
   position: absolute;
   transform: translateY(10px);
+  color: #fff;
   font-size: 14px;
   pointer-events: none;
   transition: 0.2s ease-out;
@@ -65,7 +66,7 @@ export const Label = styled.label`
     ${Input}:valid ~ & {
     transform: translateY(-15px);
     font-size: 11px;
-    color: royalblue;
+    color: #3ba55c;
     opacity: 0.9;
   }
 `;
@@ -91,12 +92,12 @@ export const ButtonSingUp = styled.button`
 `;
 
 export const Login = styled.p`
+  color: #fff;
   font-size: 14px;
-  font-weight: 600;
 `;
 
 export const LoginLink = styled(Link)`
-  color: royalblue;
+  color: #3ba55c;
   outline: none;
   appearance: none;
   text-decoration: none;
@@ -106,5 +107,5 @@ export const ErrorInfo = styled.div`
   text-align: center;
   padding-top: 5px;
   font-size: 12px;
-  color: rgb(212, 8, 8);
+  color: #ed4245;
 `;
