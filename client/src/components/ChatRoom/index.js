@@ -76,7 +76,6 @@ const ChatRoom = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPageIndex((prevState) => prevState + 1);
-          console.log("paginated!");
         }
       });
       if (node) observer.current.observe(node);
@@ -133,7 +132,9 @@ const ChatRoom = () => {
     return () => {
       socketRef.current.disconnect();
       setChatMessages([]);
-      setPageIndex(0);
+      if (chatMessages.length >= 35) {
+        setPageIndex(0);
+      }
     };
   }, [roomId]);
 
