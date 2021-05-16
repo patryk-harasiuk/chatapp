@@ -1,24 +1,7 @@
 import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
-import { HiOutlinePhotograph } from "react-icons/hi";
 import { BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
-// export const ChatRoomWrapper = styled.div`
-//   height: 100vh;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// export const RoomNav = styled.div`
-//   display: flex;
-//   position: relative;
-//   flex: 0 0 auto;
-//   width: 100%;
-//   min-height: 50px;
-//   background: pink;
-// `;
 
 export const HomeCenter = styled.div`
   width: 100%;
@@ -26,13 +9,12 @@ export const HomeCenter = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  /* align-items: flex-end; */
   background: #36393f;
 `;
 
 export const MessagesWrapper = styled.div`
   width: 100%;
-  /* height: 100%; */
+
   overflow-y: auto;
 
   ::-webkit-scrollbar-track {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useUserProvider } from "../context/UserProvider";
@@ -21,11 +21,12 @@ const CreateRoomPopup = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #202225;
-  width: 500px;
-  height: 450px;
-  z-index: 10000 !important;
+  width: 450px;
+  height: 520px;
+  z-index: 10000;
   pointer-events: all;
-  opacity: 1 !important;
+  opacity: 1;
+  border-radius: 6px;
 `;
 
 const CreateRoomForm = styled(RegisterForm)`
@@ -55,14 +56,15 @@ const Modal = () => {
     setCreateRoomPopup,
     setJoinRoomPopup,
     createRoomPopup,
+    joinRoomPopup,
   } = useUserProvider();
   const [error, setError] = useState({});
-
   const [roomData, setRoomData] = useState({
     name: "",
     password: "",
   });
   const token = localStorage.getItem("tokenauth");
+  const closePopupRef = useRef();
 
   const createRoomHandler = async (e) => {
     e.preventDefault();
@@ -146,18 +148,30 @@ const Modal = () => {
       });
   };
 
-  const closeCreateRoomPopup = () => {
+  const handleClosePopup = () => {
     setCreateRoomPopup(false);
-  };
-
-  const closeJoinRoomPopup = () => {
     setJoinRoomPopup(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (closePopupRef.current && !closePopupRef.current.contains(e.target)) {
+        // handleClosePopup();
+        setCreateRoomPopup(false);
+        setJoinRoomPopup(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closePopupRef, setJoinRoomPopup, setCreateRoomPopup]);
+
   return (
-    <CreateRoomPopup>
+    <CreateRoomPopup ref={closePopupRef}>
       <CloseIcon
-        onClick={createRoomPopup ? closeCreateRoomPopup : closeJoinRoomPopup}
+        onClick={createRoomPopup || joinRoomPopup ? handleClosePopup : null}
       />
       <CreateRoomForm
         onSubmit={createRoomPopup ? createRoomHandler : joinRoomHandler}

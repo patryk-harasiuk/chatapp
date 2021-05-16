@@ -12,15 +12,8 @@
   display: flex;
 }
 
-body {
-  /* background-color: black;
-  opacity: 0.5; */
-  /* z-index: 9999; */
-}
-
 .modal {
+  z-index: 999;
   opacity: 0.85;
-  background-color: black;
   pointer-events: none;
-  /* z-index: 10000; */
 }

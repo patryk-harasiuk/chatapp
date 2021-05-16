@@ -79,7 +79,6 @@ const ChatRoom = () => {
     },
     [loading, hasMore]
   );
-  console.log(pageIndex);
 
   useEffect(() => {
     if (lastMessageRef.current)
@@ -134,8 +133,6 @@ const ChatRoom = () => {
       }
     };
   }, [roomId]);
-
-  console.log(chatMessages);
 
   return (
     <>
