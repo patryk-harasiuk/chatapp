@@ -19,12 +19,10 @@ import {
   EmojiIcon,
   MessagesWrapper,
   LoadingMessage,
-  RoomNav,
 } from "./ChatRoomStyles";
-import Modal from "./Modal";
 
 const ChatRoom = () => {
-  const { userData, createRoomPopup, joinRoomPopup } = useUserProvider();
+  const { userData } = useUserProvider();
 
   let { roomId } = useParams();
   const [chatMessages, setChatMessages] = useState([]);
@@ -33,7 +31,6 @@ const ChatRoom = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
-  // const [scrollToBottom, setScrollToBottom] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   const socketRef = useRef();
   const observer = useRef();
@@ -142,8 +139,6 @@ const ChatRoom = () => {
 
   return (
     <>
-      {/* <ChatRoomWrapper> */}
-      {/* <RoomNav>rthrt</RoomNav> */}
       <HomeCenter>
         <MessagesWrapper>
           {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
@@ -220,8 +215,6 @@ const ChatRoom = () => {
           </InputBox>
         </Form>
       </HomeCenter>
-      {createRoomPopup || joinRoomPopup ? <Modal /> : null}
-      {/* </ChatRoomWrapper> */}
     </>
   );
 };

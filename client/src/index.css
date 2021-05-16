@@ -6,12 +6,21 @@
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
   list-style: none;
-  /* overflow-y: hidden; */
-  /* overflow-x: hidden; */
 }
 
 .content-wrapper {
-  /* height: 100vh; */
   display: flex;
-  /* z-index: 1; */
+}
+
+body {
+  /* background-color: black;
+  opacity: 0.5; */
+  /* z-index: 9999; */
+}
+
+.modal {
+  opacity: 0.85;
+  background-color: black;
+  pointer-events: none;
+  /* z-index: 10000; */
 }

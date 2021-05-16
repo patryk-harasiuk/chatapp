@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useUserProvider } from "../../context/UserProvider";
+import { useUserProvider } from "../context/UserProvider";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
@@ -12,7 +12,7 @@ import {
   Input,
   ButtonSingUp,
   ErrorInfo,
-} from "../RegisterPage/RegisterPageStyles";
+} from "./RegisterPage/RegisterPageStyles";
 import { AiOutlineClose } from "react-icons/ai";
 
 const CreateRoomPopup = styled.div`
@@ -20,10 +20,12 @@ const CreateRoomPopup = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: #202225;
   width: 500px;
   height: 450px;
-  z-index: 1000;
+  z-index: 10000 !important;
+  pointer-events: all;
+  opacity: 1 !important;
 `;
 
 const CreateRoomForm = styled(RegisterForm)`
@@ -40,10 +42,10 @@ const CreateRoomButton = styled(ButtonSingUp)`
 const CloseIcon = styled(AiOutlineClose)`
   cursor: pointer;
   font-size: 28px;
-  color: royalblue;
+  color: #3ba55c;
   position: absolute;
   right: 0;
-  margin: 10px;
+  margin: 14px;
   z-index: 1001;
 `;
 
