@@ -24,7 +24,7 @@ import {
 } from "./ChatRoomStyles";
 
 const ChatRoom = () => {
-  const { userData } = useUserProvider();
+  const { userData, userRoomsData } = useUserProvider();
 
   let { roomId } = useParams();
   const [chatMessages, setChatMessages] = useState([]);
@@ -34,6 +34,7 @@ const ChatRoom = () => {
   const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [currentRoomData, setCurrentRoomData] = useState();
   const socketRef = useRef();
   const observer = useRef();
   const lastMessageRef = useRef();
@@ -112,6 +113,7 @@ const ChatRoom = () => {
       query: { roomId },
     });
 
+    setCurrentRoomData(userRoomsData.find((room) => room._id === roomId));
     socketRef.current.on("message-history", (messagesHistory) => {
       const sortByDate = messagesHistory.messages.sort((a, b) => {
         return a.createdAt.localeCompare(b.createdAt);
@@ -136,10 +138,11 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
+  console.log(currentRoomData);
   return (
     <HomeCenter>
       <ChatNav>
-        <RoomName>{}</RoomName>
+        <RoomName>{currentRoomData.name}</RoomName>
       </ChatNav>
       <MessagesWrapper>
         {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}

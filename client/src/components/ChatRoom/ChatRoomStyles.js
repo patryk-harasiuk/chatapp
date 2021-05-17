@@ -25,8 +25,10 @@ export const ChatNav = styled.nav`
 `;
 
 export const RoomName = styled.p`
-  font-size: 22px;
+  font-size: 16px;
   color: #fff;
+  padding-left: 25px;
+  font-weight: 600;
 `;
 
 export const MessagesWrapper = styled.div`
