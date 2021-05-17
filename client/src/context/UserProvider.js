@@ -39,8 +39,6 @@ const UserProvider = ({ children }) => {
         })
         .catch((error) => {
           setUserData({});
-          // localStorage.removeItem("tokenauth");
-          // history.push("/");
         });
     }
   };
@@ -53,7 +51,6 @@ const UserProvider = ({ children }) => {
         headers: { authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        // console.log(response);
         setUserRoomsData(response.data);
       })
       .catch((error) => {

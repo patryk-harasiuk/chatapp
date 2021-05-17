@@ -156,7 +156,6 @@ const Modal = () => {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (closePopupRef.current && !closePopupRef.current.contains(e.target)) {
-        // handleClosePopup();
         setCreateRoomPopup(false);
         setJoinRoomPopup(false);
       }

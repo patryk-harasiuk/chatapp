@@ -8,14 +8,35 @@ export const HomeCenter = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   background: #36393f;
 `;
 
-export const MessagesWrapper = styled.div`
+export const ChatNav = styled.nav`
   width: 100%;
+  min-height: 50px;
+  background: #36393f;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
 
+  /* -webkit-box-shadow: 0px 1px 9px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 9px 3px rgba(0, 0, 0, 0.75); */
+`;
+
+export const RoomName = styled.p`
+  font-size: 22px;
+  color: #fff;
+`;
+
+export const MessagesWrapper = styled.div`
+  flex: 1;
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  padding-top: 10px;
 
   ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -26,6 +47,7 @@ export const MessagesWrapper = styled.div`
   ::-webkit-scrollbar {
     width: 10px;
     background-color: #38404c;
+    border-radius: 10px;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -96,7 +118,10 @@ export const MessageBox = styled.div`
   justify-content: ${(props) => (props.otherUser ? "flex-start" : "flex-end")};
   align-items: center;
   margin: 5px 10px;
-  /* z-index: 1; */
+
+  &:first-child {
+    margin-top: auto;
+  }
 `;
 
 export const Message = styled.li`
@@ -112,7 +137,7 @@ export const Message = styled.li`
 
 export const MessageUsername = styled.p`
   color: #fff;
-  font-size: 9px;
+  font-size: 8px;
   transform: translateX(15px);
 `;
 

@@ -17,3 +17,9 @@
   opacity: 0.85;
   pointer-events: none;
 }
+
+.dupsko {
+  width: 100%;
+  min-height: 50px;
+  background: pink;
+}

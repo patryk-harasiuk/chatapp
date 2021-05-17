@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { IoMdSettings } from "react-icons/io";
-// import { IoMdAdd } from 'react-icons/io';
 import { IoCopy } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
@@ -8,7 +7,6 @@ export const SidebarRooms = styled.div`
   width: 450px;
   height: 100vh;
   background-color: #2f3136;
-  /* border-right: 1px solid #acacac; */
   display: flex;
   align-items: center;
   flex-direction: column;
