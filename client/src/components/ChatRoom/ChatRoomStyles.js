@@ -19,22 +19,21 @@ export const ChatNav = styled.nav`
   border-bottom: 1px solid black;
   display: flex;
   align-items: center;
-
-  /* -webkit-box-shadow: 0px 1px 9px 3px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 1px 9px 3px rgba(0, 0, 0, 0.75); */
+  justify-content: space-between;
+  -webkit-box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.75);
 `;
 
 export const RoomName = styled.p`
   font-size: 16px;
   color: #fff;
-  padding-left: 25px;
+  margin-left: 25px;
   font-weight: 600;
 `;
 
 export const MessagesWrapper = styled.div`
   flex: 1;
   width: 100%;
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -109,12 +108,6 @@ export const SubmitMessageButton = styled.button`
   margin-left: 15px;
 `;
 
-// export const SidebarFriends = styled.div`
-//   width: 25vw;
-//   height: 100vh;
-//   background: purple;
-// `;
-
 export const MessageBox = styled.div`
   display: flex;
   justify-content: ${(props) => (props.otherUser ? "flex-start" : "flex-end")};
@@ -177,13 +170,16 @@ export const JoinGlobalRoomButton = styled(Link)`
 export const LoadingMessage = styled.span`
   font-size: 14px;
   color: #3ba55c;
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 50%;
-  transform: translate(50%, 50%);
+  left: 50%; */
+  /* transform: translate(50%, 50%); */
+  text-align: center;
 `;
 
 export const TrashIcon = styled(BsTrashFill)`
   font-size: 22px;
   color: #3ba55c;
+  margin-right: 25px;
+  cursor: pointer;
 `;

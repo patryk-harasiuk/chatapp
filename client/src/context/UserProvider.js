@@ -9,7 +9,7 @@ const UserProvider = ({ children }) => {
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
   const token = localStorage.getItem("tokenauth");
-
+  console.log(userRoomsData);
   const createRoomClicker = () => {
     setCreateRoomPopup(true);
     setJoinRoomPopup(false);

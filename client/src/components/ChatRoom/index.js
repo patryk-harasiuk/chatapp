@@ -21,6 +21,7 @@ import {
   LoadingMessage,
   ChatNav,
   RoomName,
+  TrashIcon,
 } from "./ChatRoomStyles";
 
 const ChatRoom = () => {
@@ -34,7 +35,7 @@ const ChatRoom = () => {
   const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const [currentRoomData, setCurrentRoomData] = useState();
+  const [currentRoomData, setCurrentRoomData] = useState({});
   const socketRef = useRef();
   const observer = useRef();
   const lastMessageRef = useRef();
@@ -113,7 +114,10 @@ const ChatRoom = () => {
       query: { roomId },
     });
 
-    setCurrentRoomData(userRoomsData.find((room) => room._id === roomId));
+    // userRoomsData.length
+    //   ? setCurrentRoomData(userRoomsData.find((room) => room._id === roomId))
+    //   : setCurrentRoomData({});
+
     socketRef.current.on("message-history", (messagesHistory) => {
       const sortByDate = messagesHistory.messages.sort((a, b) => {
         return a.createdAt.localeCompare(b.createdAt);
@@ -138,11 +142,18 @@ const ChatRoom = () => {
     };
   }, [roomId]);
 
-  console.log(currentRoomData);
+  useEffect(() => {
+    if (userRoomsData.length) {
+      setCurrentRoomData(userRoomsData.find((room) => room._id === roomId));
+    }
+  }, [userRoomsData, roomId]);
+  console.log(userData);
+
   return (
     <HomeCenter>
       <ChatNav>
         <RoomName>{currentRoomData.name}</RoomName>
+        {currentRoomData.ownerId === userData._id ? <TrashIcon /> : null}
       </ChatNav>
       <MessagesWrapper>
         {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}

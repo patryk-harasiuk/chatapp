@@ -34,7 +34,6 @@ const Sidebar = () => {
     createRoomClicker,
     joinRoomClicker,
     setUserData,
-    updateUserData,
   } = useUserProvider();
 
   const history = useHistory();
