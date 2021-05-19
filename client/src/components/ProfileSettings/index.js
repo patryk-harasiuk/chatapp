@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useUserProvider } from "../../context/UserProvider";
@@ -10,17 +10,7 @@ import {
   ProfileCardImage,
   ProfileName,
 } from "../Sidebar/SidebarStyles";
-import {
-  Wrapper,
-  ProfileCardSettings,
-  ChangeAvatar,
-  ChangeAvatarForm,
-  ChangeAvatarSubmit,
-  ProfileEmail,
-  ChangeAvatarLabel,
-  FileNameInformation,
-  LogoutButton,
-} from "./ProfileSettingsStyles";
+import * as S from "./ProfileSettingsStyles";
 
 const ProfileSettings = () => {
   const { userData, setUserData, updateUserData } = useUserProvider();
@@ -30,6 +20,12 @@ const ProfileSettings = () => {
   const imageInput = useRef();
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
+
+  // console.log(userData);
 
   const logoutHandler = () => {
     localStorage.removeItem("tokenauth");
@@ -88,47 +84,49 @@ const ProfileSettings = () => {
   };
 
   return (
-    <Wrapper>
-      <ProfileCardSettings>
+    <S.Wrapper>
+      <S.ProfileCardSettings>
         <ProfileCardInfoWrapper>
           <ProfileCardImage src={userData.userAvatar} />
           <ProfileName>{userData.username}</ProfileName>
-          <ProfileEmail>{userData.email}</ProfileEmail>
-          <ChangeAvatarForm
+          <S.ProfileEmail>{userData.email}</S.ProfileEmail>
+          <S.ChangeAvatarForm
             onSubmit={handleSubmit}
             encType="multipart/form-data"
           >
-            <ChangeAvatarLabel htmlFor="file">
+            <S.ChangeAvatarLabel htmlFor="file">
               {" "}
               Change avatar
-              <ChangeAvatar
+              <S.ChangeAvatar
                 type="file"
                 accept=".png, .jpg, .jpeg"
                 name="file"
                 ref={imageInput}
                 onChange={handleFileInformation}
               />
-            </ChangeAvatarLabel>
+            </S.ChangeAvatarLabel>
             {fileName ? (
-              <FileNameInformation>{fileName}</FileNameInformation>
+              <S.FileNameInformation>{fileName}</S.FileNameInformation>
             ) : null}
             {click ? (
-              <FileNameInformation>Upload an image first</FileNameInformation>
+              <S.FileNameInformation>
+                Upload an image first
+              </S.FileNameInformation>
             ) : null}
-            <ChangeAvatarSubmit
+            <S.ChangeAvatarSubmit
               type="submit"
               onClick={() => (!fileName ? setClick(true) : null)}
             >
               Change
-            </ChangeAvatarSubmit>
-          </ChangeAvatarForm>
+            </S.ChangeAvatarSubmit>
+          </S.ChangeAvatarForm>
 
-          <LogoutButton to="/login" onClick={logoutHandler}>
+          <S.LogoutButton to="/login" onClick={logoutHandler}>
             Logout
-          </LogoutButton>
+          </S.LogoutButton>
         </ProfileCardInfoWrapper>
-      </ProfileCardSettings>
-    </Wrapper>
+      </S.ProfileCardSettings>
+    </S.Wrapper>
   );
 };
 

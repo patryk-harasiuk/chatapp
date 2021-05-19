@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GrEmoji } from "react-icons/gr";
 import { BsTrashFill } from "react-icons/bs";
+import { FiUsers } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 export const HomeCenter = styled.div`
@@ -20,8 +21,8 @@ export const ChatNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  -webkit-box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 1px 3px 3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
 `;
 
 export const RoomName = styled.p`
@@ -29,6 +30,25 @@ export const RoomName = styled.p`
   color: #fff;
   margin-left: 25px;
   font-weight: 600;
+`;
+
+export const ChatNavIconsWrapper = styled.div`
+  width: 70px;
+  margin-right: 25px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const TrashIcon = styled(BsTrashFill)`
+  font-size: 22px;
+  color: #3ba55c;
+  cursor: pointer;
+`;
+
+export const RoomUsersIcon = styled(FiUsers)`
+  font-size: 22px;
+  color: #3ba55c;
+  cursor: pointer;
 `;
 
 export const MessagesWrapper = styled.div`
@@ -170,16 +190,5 @@ export const JoinGlobalRoomButton = styled(Link)`
 export const LoadingMessage = styled.span`
   font-size: 14px;
   color: #3ba55c;
-  /* position: absolute;
-  top: 0;
-  left: 50%; */
-  /* transform: translate(50%, 50%); */
   text-align: center;
-`;
-
-export const TrashIcon = styled(BsTrashFill)`
-  font-size: 22px;
-  color: #3ba55c;
-  margin-right: 25px;
-  cursor: pointer;
 `;

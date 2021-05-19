@@ -22,6 +22,8 @@ import {
   ChatNav,
   RoomName,
   TrashIcon,
+  RoomUsersIcon,
+  ChatNavIconsWrapper,
 } from "./ChatRoomStyles";
 
 const ChatRoom = () => {
@@ -114,10 +116,6 @@ const ChatRoom = () => {
       query: { roomId },
     });
 
-    // userRoomsData.length
-    //   ? setCurrentRoomData(userRoomsData.find((room) => room._id === roomId))
-    //   : setCurrentRoomData({});
-
     socketRef.current.on("message-history", (messagesHistory) => {
       const sortByDate = messagesHistory.messages.sort((a, b) => {
         return a.createdAt.localeCompare(b.createdAt);
@@ -135,9 +133,7 @@ const ChatRoom = () => {
 
     return () => {
       socketRef.current.disconnect();
-
       setPageIndex(0);
-
       setChatMessages([]);
     };
   }, [roomId]);
@@ -147,13 +143,15 @@ const ChatRoom = () => {
       setCurrentRoomData(userRoomsData.find((room) => room._id === roomId));
     }
   }, [userRoomsData, roomId]);
-  console.log(userData);
 
   return (
     <HomeCenter>
       <ChatNav>
         <RoomName>{currentRoomData.name}</RoomName>
-        {currentRoomData.ownerId === userData._id ? <TrashIcon /> : null}
+        <ChatNavIconsWrapper>
+          <RoomUsersIcon />
+          {currentRoomData.ownerId === userData._id ? <TrashIcon /> : null}
+        </ChatNavIconsWrapper>
       </ChatNav>
       <MessagesWrapper>
         {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
