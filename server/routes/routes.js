@@ -1,11 +1,16 @@
 const router = require("express").Router();
 const User = require("../model/user");
 const Room = require("../model/roomModel");
+
 const addUserToRoom = require("../services/room");
 const addRoomToUser = require("../services/user");
 const getRoomsWithPopulate = require("../services/getRooms");
 const getMoreMessages = require("../services/getMoreMessages");
-const bcrypt = require("bcrypt");
+const handleEmailDuplicate = require("../services/register/emailDuplicate");
+const handlePasswordHash = require("../services/passwordHash");
+const handleUsernameDuplicate = require("../services/register/usernameDuplicate");
+
+// const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
   registerValidation,
@@ -26,29 +31,16 @@ router.post("/register", async (req, res) => {
       path: error.details[0].path[0],
     });
 
-  // Checking if email is already in db
-  const emailDuplicate = await User.findOne({ email: email });
-  if (emailDuplicate)
-    return res
-      .status(400)
-      .send({ errorMessage: "Email adress already exists", path: "email" });
+  // await handleEmailDuplicate(email, res);
 
-  // Checking if username is already in db
-  const usernameDuplicate = await User.findOne({ username: username });
-  if (usernameDuplicate)
-    return res
-      .status(400)
-      .send({ errorMessage: "Username already exists", path: "username" });
-
-  // Hashing the password
-  const salt = await bcrypt.genSalt(10);
-  const hashPassowrd = await bcrypt.hash(plainTextPassword, salt);
+  // await handleUsernameDuplicate(username, res);
 
   // Creating new user
+
   const user = new User({
-    username: username,
-    password: hashPassowrd,
-    email: email,
+    username: await handleUsernameDuplicate(username, res),
+    password: await handlePasswordHash(plainTextPassword),
+    email: await handleEmailDuplicate(email, res),
   });
   try {
     const result = await user.save();
