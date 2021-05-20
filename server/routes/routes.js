@@ -56,7 +56,6 @@ router.post("/register", async (req, res) => {
     res.send(data);
   } catch (err) {
     res.status(400).send(err);
-    console.log(err.code);
   }
 });
 
@@ -214,7 +213,6 @@ router.get("/get-messages", async (req, res) => {
     const oldMessages = await getMoreMessages(roomId, pageIndex);
     res.send(oldMessages.messages);
   } catch (error) {
-    console.log(error);
     res
       .status(400)
       .send({ errorMessage: "There was an error retrieving your messages" });

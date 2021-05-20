@@ -21,9 +21,10 @@ const ChatRoom = () => {
   const socketRef = useRef();
   const observer = useRef();
   const lastMessageRef = useRef();
+  const MESSAGES_LENGTH = 35;
 
   useEffect(() => {
-    if (chatMessages.length >= 35) {
+    if (chatMessages.length >= MESSAGES_LENGTH) {
       setLoading(true);
       setError({});
       axios
