@@ -4,27 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
-import {
-  HomeCenter,
-  Form,
-  InputBox,
-  Input,
-  SubmitMessageButton,
-  MessageBox,
-  Message,
-  MessageUsername,
-  MessageAvatatr,
-  ColumnPlacement,
-  MessageTimeStamp,
-  EmojiIcon,
-  MessagesWrapper,
-  LoadingMessage,
-  ChatNav,
-  RoomName,
-  TrashIcon,
-  RoomUsersIcon,
-  ChatNavIconsWrapper,
-} from "./ChatRoomStyles";
+import * as S from "./ChatRoomStyles";
 
 const ChatRoom = () => {
   const { userData, userRoomsData } = useUserProvider();
@@ -145,16 +125,16 @@ const ChatRoom = () => {
   }, [userRoomsData, roomId]);
 
   return (
-    <HomeCenter>
-      <ChatNav>
-        <RoomName>{currentRoomData.name}</RoomName>
-        <ChatNavIconsWrapper>
-          <RoomUsersIcon />
-          {currentRoomData.ownerId === userData._id ? <TrashIcon /> : null}
-        </ChatNavIconsWrapper>
-      </ChatNav>
-      <MessagesWrapper>
-        {loading ? <LoadingMessage>Loading...</LoadingMessage> : null}
+    <S.HomeCenter>
+      <S.ChatNav>
+        <S.RoomName>{currentRoomData.name}</S.RoomName>
+        <S.ChatNavIconsWrapper>
+          <S.RoomUsersIcon />
+          {currentRoomData.ownerId === userData._id ? <S.TrashIcon /> : null}
+        </S.ChatNavIconsWrapper>
+      </S.ChatNav>
+      <S.MessagesWrapper>
+        {loading ? <S.LoadingMessage>Loading...</S.LoadingMessage> : null}
         {chatMessages.map((message, index) => {
           const lastMessage = chatMessages.length - 1 === index;
           if (
@@ -162,42 +142,48 @@ const ChatRoom = () => {
             userData.username === message.username
           ) {
             return (
-              <MessageBox key={index} ref={lastMessage ? lastMessageRef : null}>
-                <ColumnPlacement>
-                  <MessageUsername>{message.username}</MessageUsername>
+              <S.MessageBox
+                key={index}
+                ref={lastMessage ? lastMessageRef : null}
+              >
+                <S.ColumnPlacement>
+                  <S.MessageUsername>{message.username}</S.MessageUsername>
 
-                  <Message ref={index === 0 ? firstMessageRef : null}>
+                  <S.Message ref={index === 0 ? firstMessageRef : null}>
                     {message.body}
-                    <MessageTimeStamp>
+                    <S.MessageTimeStamp>
                       {message.messageTimeStamp}
-                    </MessageTimeStamp>
-                  </Message>
-                </ColumnPlacement>
-                <MessageAvatatr src={`/${message.userAvatar}`} />
-              </MessageBox>
+                    </S.MessageTimeStamp>
+                  </S.Message>
+                </S.ColumnPlacement>
+                <S.MessageAvatatr src={`/${message.userAvatar}`} />
+              </S.MessageBox>
             );
           } else {
             return (
-              <MessageBox otherUser key={index}>
-                <MessageAvatatr src={`/${message.userAvatar}`} />
-                <ColumnPlacement>
-                  <MessageUsername>{message.username}</MessageUsername>
+              <S.MessageBox otherUser key={index}>
+                <S.MessageAvatatr src={`/${message.userAvatar}`} />
+                <S.ColumnPlacement>
+                  <S.MessageUsername>{message.username}</S.MessageUsername>
 
-                  <Message otherUser ref={index === 0 ? firstMessageRef : null}>
+                  <S.Message
+                    otherUser
+                    ref={index === 0 ? firstMessageRef : null}
+                  >
                     {message.body}
-                    <MessageTimeStamp>
+                    <S.MessageTimeStamp>
                       {message.messageTimeStamp}
-                    </MessageTimeStamp>
-                  </Message>
-                </ColumnPlacement>
-              </MessageBox>
+                    </S.MessageTimeStamp>
+                  </S.Message>
+                </S.ColumnPlacement>
+              </S.MessageBox>
             );
           }
         })}
-      </MessagesWrapper>
-      <Form onSubmit={sendMessage}>
-        <InputBox>
-          <Input
+      </S.MessagesWrapper>
+      <S.Form onSubmit={sendMessage}>
+        <S.InputBox>
+          <S.Input
             value={chatMessage}
             onChange={(e) => setChatMessage(e.target.value)}
             placeholder="Aa..."
@@ -216,12 +202,12 @@ const ChatRoom = () => {
             disableAutoFocus={true}
           />
 
-          <EmojiIcon onClick={() => setEmocjiClick(!emojiClick)} />
+          <S.EmojiIcon onClick={() => setEmocjiClick(!emojiClick)} />
 
-          <SubmitMessageButton type="submit">Submit</SubmitMessageButton>
-        </InputBox>
-      </Form>
-    </HomeCenter>
+          <S.SubmitMessageButton type="submit">Submit</S.SubmitMessageButton>
+        </S.InputBox>
+      </S.Form>
+    </S.HomeCenter>
   );
 };
 
