@@ -1,7 +1,4 @@
-const User = require("../../model/user");
-
-const handleUserExists = (email) => {
-  const userExists = User.findOne({ email: email });
+const handleUserExists = (userExists) => {
   if (!userExists)
     return res
       .status(400)

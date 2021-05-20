@@ -9,6 +9,9 @@ const getMoreMessages = require("../services/getMoreMessages");
 const handleEmailDuplicate = require("../services/register/emailDuplicate");
 const handlePasswordHash = require("../services/passwordHash");
 const handleUsernameDuplicate = require("../services/register/usernameDuplicate");
+const handleUserExists = require("../services/login/emailCheck");
+const handlePasswordCheck = require("../services/login/passwordCompare");
+const handleTokenGenerate = require("../services/login/tokenGenerate");
 
 // const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -30,12 +33,6 @@ router.post("/register", async (req, res) => {
       errorMessage: error.details[0].message,
       path: error.details[0].path[0],
     });
-
-  // await handleEmailDuplicate(email, res);
-
-  // await handleUsernameDuplicate(username, res);
-
-  // Creating new user
 
   const user = new User({
     username: await handleUsernameDuplicate(username, res),
@@ -61,26 +58,11 @@ router.post("/login", async (req, res) => {
       path: error.details[0].path[0],
     });
 
-  // Checking if email is in db
   const userExists = await User.findOne({ email: email });
-  if (!userExists)
-    return res
-      .status(400)
-      .send({ errorMessage: "Email is not found", path: "email" });
+  handleUserExists(userExists);
+  await handlePasswordCheck(password, userExists.password, res);
 
-  // Checking if password is correct
-  const validPassword = await bcrypt.compare(password, userExists.password);
-  if (!validPassword)
-    return res
-      .status(400)
-      .send({ errorMessage: "Password is wrong", path: "password" });
-
-  const generateToken = jwt.sign(
-    { id: userExists._id },
-    process.env.TOKEN_SECRET,
-    { expiresIn: "86400s" }
-  );
-  res.send({ accessToken: generateToken });
+  res.send({ accessToken: handleTokenGenerate(userExists._id) });
 });
 
 router.get("/auth", authToken, async (req, res) => {

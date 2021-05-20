@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
-const handlePasswordCheck = () => {
-  const validPassword = bcrypt.compare(password, userExists.password);
+const handlePasswordCheck = async (password, actualPassword, res) => {
+  const validPassword = await bcrypt.compare(password, actualPassword);
   if (!validPassword)
     return res
       .status(400)
