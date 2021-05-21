@@ -2,18 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import LoadingAnimation from "../LoadingAnimation";
-import {
-  RegisterWrapper,
-  Login,
-  RegisterForm,
-  Input,
-  InputBox,
-  Label,
-  RegisterHeading,
-  ButtonSingUp,
-  LoginLink,
-  ErrorInfo,
-} from "./RegisterPageStyles";
+import * as S from "./RegisterPageStyles";
 
 const RegisterPage = () => {
   const [registerState, setRegisterState] = useState({
@@ -53,11 +42,11 @@ const RegisterPage = () => {
   }
 
   return (
-    <RegisterWrapper>
-      <RegisterForm onSubmit={submitHandler}>
-        <RegisterHeading>Create your account!</RegisterHeading>
-        <InputBox>
-          <Input
+    <S.RegisterWrapper>
+      <S.RegisterForm onSubmit={submitHandler}>
+        <S.RegisterHeading>Create your account!</S.RegisterHeading>
+        <S.InputBox>
+          <S.Input
             autoComplete="off"
             required="required"
             type="text"
@@ -68,13 +57,13 @@ const RegisterPage = () => {
             }
           />
           {error.path === "username" ? (
-            <ErrorInfo>{error.errorMessage}</ErrorInfo>
+            <S.ErrorInfo>{error.errorMessage}</S.ErrorInfo>
           ) : null}
-          <Label htmlFor="username">Username</Label>
-        </InputBox>
+          <S.Label htmlFor="username">Username</S.Label>
+        </S.InputBox>
 
-        <InputBox>
-          <Input
+        <S.InputBox>
+          <S.Input
             autoComplete="off"
             required="required"
             type="password"
@@ -85,13 +74,13 @@ const RegisterPage = () => {
             }
           />
           {error.path === "password" ? (
-            <ErrorInfo>{error.errorMessage}</ErrorInfo>
+            <S.ErrorInfo>{error.errorMessage}</S.ErrorInfo>
           ) : null}
-          <Label htmlFor="password">Password</Label>
-        </InputBox>
+          <S.Label htmlFor="password">Password</S.Label>
+        </S.InputBox>
 
-        <InputBox>
-          <Input
+        <S.InputBox>
+          <S.Input
             autoComplete="off"
             required="required"
             type="text"
@@ -102,16 +91,16 @@ const RegisterPage = () => {
             }
           />
           {error.path === "email" ? (
-            <ErrorInfo>{error.errorMessage}</ErrorInfo>
+            <S.ErrorInfo>{error.errorMessage}</S.ErrorInfo>
           ) : null}
-          <Label htmlFor="e-mail">Email</Label>
-        </InputBox>
-        <ButtonSingUp type="submit">Sign up</ButtonSingUp>
-        <Login>
-          Already have an account? <LoginLink to="/login">Log in</LoginLink>
-        </Login>
-      </RegisterForm>
-    </RegisterWrapper>
+          <S.Label htmlFor="e-mail">Email</S.Label>
+        </S.InputBox>
+        <S.ButtonSingUp type="submit">Sign up</S.ButtonSingUp>
+        <S.Login>
+          Already have an account? <S.LoginLink to="/login">Log in</S.LoginLink>
+        </S.Login>
+      </S.RegisterForm>
+    </S.RegisterWrapper>
   );
 };
 

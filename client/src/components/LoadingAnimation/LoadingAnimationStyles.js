@@ -9,8 +9,8 @@ export const AnimationContainer = styled.div`
 `;
 
 const jump = keyframes`
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    0% { transform: translateY(0) }
+    50% { transform: translateY(-10px) }
 `;
 
 export const AnimationDot = styled.div`

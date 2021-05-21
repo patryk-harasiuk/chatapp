@@ -1,23 +1,17 @@
 import React from "react";
-import {
-  TextBox,
-  Wrapper,
-  Text,
-  Button,
-  StatusCode,
-} from "./NotFoundPageStyles";
+import * as S from "./NotFoundPageStyles";
 
 const NotFoundPage = () => {
   return (
-    <Wrapper>
-      <TextBox>
-        <StatusCode>404</StatusCode>
+    <S.Wrapper>
+      <S.TextBox>
+        <S.StatusCode>404</S.StatusCode>
 
-        <Text>Oops! This page does not exist.</Text>
+        <S.Text>Oops! This page does not exist.</S.Text>
 
-        <Button to="/">Go back</Button>
-      </TextBox>
-    </Wrapper>
+        <S.Button to="/">Go back</S.Button>
+      </S.TextBox>
+    </S.Wrapper>
   );
 };
 

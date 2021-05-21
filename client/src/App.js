@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useUserProvider } from "./context/UserProvider";
 import ReactNotification from "react-notifications-component";
+
+//COMPONENT IMPORTS
 import Modal from "./components/Modal";
 import Sidebar from "./components/Sidebar";
 import ChatRoom from "./components/ChatRoom";
@@ -38,7 +40,7 @@ const App = () => {
             <LoginPage />
           </Route>
 
-          <Route path="/settings">
+          <Route exact path="/settings">
             <ProfileSettings />
           </Route>
 

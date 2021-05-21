@@ -69,7 +69,6 @@ router.get("/auth", authToken, async (req, res) => {
   try {
     const userData = await User.findOne({ _id: req.user.id });
     const { __v, password, ...data } = await userData._doc;
-
     res.send(data);
   } catch (err) {
     res.status(400).send(err);
@@ -120,12 +119,9 @@ router.post("/create-room", authToken, async (req, res) => {
       path: error.details[0].path[0],
     });
 
-  const salt = await bcrypt.genSalt(10);
-  const hashPassowrd = await bcrypt.hash(password, salt);
-
   const room = new Room({
     name,
-    password: hashPassowrd,
+    password: await handlePasswordHash(password),
     ownerId: req.user.id,
     users: [],
   });

@@ -7,24 +7,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
-import {
-  SidebarRooms,
-  ProfileCard,
-  ProfileCardInfoWrapper,
-  ProfileCardImage,
-  ProfileName,
-  ActivityCheckbox,
-  Label,
-  SettingsLink,
-  SettingsIcon,
-  SidebarRoomsNav,
-  RoomButton,
-  ChatRoomsText,
-  RoomList,
-  Room,
-  RoomName,
-  GetIdIcon,
-} from "./SidebarStyles";
+import * as S from "./SidebarStyles";
 
 const Sidebar = () => {
   const {
@@ -85,50 +68,50 @@ const Sidebar = () => {
   };
 
   return (
-    <SidebarRooms>
-      <ProfileCard>
-        <ProfileCardInfoWrapper>
-          <ProfileCardImage src={`/${userData.userAvatar}`} />
-          <ProfileName>{userData.username}</ProfileName>
-          <ActivityCheckbox
+    <S.SidebarRooms>
+      <S.ProfileCard>
+        <S.ProfileCardInfoWrapper>
+          <S.ProfileCardImage src={`/${userData.userAvatar}`} />
+          <S.ProfileName>{userData.username}</S.ProfileName>
+          <S.ActivityCheckbox
             type="checkbox"
             name="checkbox"
             onChange={activityStatusHandler}
             checked={activeClick ? false : true}
           />
-          <Label
+          <S.Label
             htmlFor="checkbox"
             style={activeClick ? { color: "#3ba55c" } : { color: "#e74c3c" }}
           >
             {activeClick ? "Active" : "Away"}
-          </Label>
-          <SettingsLink to="/settings">
-            <SettingsIcon />
-          </SettingsLink>
-        </ProfileCardInfoWrapper>
-      </ProfileCard>
+          </S.Label>
+          <S.SettingsLink to="/settings">
+            <S.SettingsIcon />
+          </S.SettingsLink>
+        </S.ProfileCardInfoWrapper>
+      </S.ProfileCard>
 
-      <SidebarRoomsNav>
-        <ChatRoomsText>Chat rooms</ChatRoomsText>
+      <S.SidebarRoomsNav>
+        <S.ChatRoomsText>Chat rooms</S.ChatRoomsText>
 
-        <RoomButton onClick={createRoomClicker}>Create room</RoomButton>
-        <RoomButton onClick={joinRoomClicker}>Join room</RoomButton>
-      </SidebarRoomsNav>
-      <RoomList>
+        <S.RoomButton onClick={createRoomClicker}>Create room</S.RoomButton>
+        <S.RoomButton onClick={joinRoomClicker}>Join room</S.RoomButton>
+      </S.SidebarRoomsNav>
+      <S.RoomList>
         {userRoomsData.length !== 0
           ? userRoomsData.map((room, index) => {
               return (
-                <Room key={index}>
-                  <RoomName to={`/room/${room._id}`}>{room.name}</RoomName>
+                <S.Room key={index}>
+                  <S.RoomName to={`/room/${room._id}`}>{room.name}</S.RoomName>
                   <CopyToClipboard text={room._id} onCopy={copyIdHandler}>
-                    <GetIdIcon />
+                    <S.GetIdIcon />
                   </CopyToClipboard>
-                </Room>
+                </S.Room>
               );
             })
           : null}
-      </RoomList>
-    </SidebarRooms>
+      </S.RoomList>
+    </S.SidebarRooms>
   );
 };
 
