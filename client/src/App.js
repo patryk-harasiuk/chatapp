@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useUserProvider } from "./context/UserProvider";
 import ReactNotification from "react-notifications-component";
 
+import GlobalStyle from "./globalStyles";
+
 //COMPONENT IMPORTS
 import Modal from "./components/Modal";
 import Sidebar from "./components/Sidebar";
@@ -16,6 +18,7 @@ const App = () => {
 
   return (
     <Router>
+      <GlobalStyle />
       {createRoomPopup || joinRoomPopup ? <Modal /> : null}
       <div className={createRoomPopup || joinRoomPopup ? "modal" : null}>
         <ReactNotification />
