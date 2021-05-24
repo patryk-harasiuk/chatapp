@@ -1,4 +1,11 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import { useUserProvider } from "./context/UserProvider";
 import ReactNotification from "react-notifications-component";
 
@@ -14,7 +21,33 @@ import ProfileSettings from "./components/ProfileSettings";
 import NotFoundPage from "./components/NotFoundPage";
 
 const App = () => {
-  const { createRoomPopup, joinRoomPopup } = useUserProvider();
+  const { createRoomPopup, joinRoomPopup, setUserData } = useUserProvider();
+  const history = useHistory();
+
+  const updateUserData = () => {
+    const token = localStorage.getItem("tokenauth");
+    if (token === null) {
+      setUserData({});
+    } else {
+      axios
+        .get("/auth", {
+          withCredentials: true,
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setUserData(response.data);
+        })
+        .catch((error) => {
+          setUserData({});
+          localStorage.removeItem("tokenauth");
+          history.push("/login");
+        });
+    }
+  };
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
 
   return (
     <Router>
@@ -40,7 +73,7 @@ const App = () => {
           </Route>
 
           <Route path="/login">
-            <LoginPage />
+            <LoginPage updateUserData={updateUserData} />
           </Route>
 
           <Route exact path="/settings">

@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { GrEmoji } from "react-icons/gr";
 import { BsTrashFill } from "react-icons/bs";
 import { FiUsers } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { IoIosNotifications } from "react-icons/io";
 
 export const HomeCenter = styled.div`
   width: 100%;
@@ -46,6 +47,12 @@ export const TrashIcon = styled(BsTrashFill)`
 `;
 
 export const RoomUsersIcon = styled(FiUsers)`
+  font-size: 22px;
+  color: #3ba55c;
+  cursor: pointer;
+`;
+
+export const NotificationsOnIcon = styled(IoIosNotifications)`
   font-size: 22px;
   color: #3ba55c;
   cursor: pointer;

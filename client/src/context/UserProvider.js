@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+// import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const UserContext = React.createContext();
@@ -8,8 +9,8 @@ const UserProvider = ({ children }) => {
   const [userRoomsData, setUserRoomsData] = useState([]);
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
-  const token = localStorage.getItem("tokenauth");
-  // console.log(userRoomsData);
+  const [isOnline, setIsOnline] = useState(false);
+
   const createRoomClicker = () => {
     setCreateRoomPopup(true);
     setJoinRoomPopup(false);
@@ -25,27 +26,29 @@ const UserProvider = ({ children }) => {
     setCreateRoomPopup(false);
   };
 
-  const updateUserData = async () => {
-    if (token === null) {
-      setUserData({});
-    } else {
-      await axios
-        .get("/auth", {
-          withCredentials: true,
-          headers: { authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          setUserData(response.data);
-        })
-        .catch((error) => {
-          setUserData({});
-        });
-    }
-  };
+  // const updateUserData = () => {
+  //   const token = localStorage.getItem("tokenauth");
+  //   if (token === null) {
+  //     setUserData({});
+  //   } else {
+  //     axios
+  //       .get("/auth", {
+  //         withCredentials: true,
+  //         headers: { authorization: `Bearer ${token}` },
+  //       })
+  //       .then((response) => {
+  //         setUserData(response.data);
+  //       })
+  //       .catch((error) => {
+  //         setUserData({});
+  //       });
+  //   }
+  // };
 
-  const updateRoomsData = async () => {
+  const updateRoomsData = () => {
+    const token = localStorage.getItem("tokenauth");
     setUserRoomsData([]);
-    await axios
+    axios
       .get("/get-rooms", {
         withCredentials: true,
         headers: { authorization: `Bearer ${token}` },
@@ -69,10 +72,12 @@ const UserProvider = ({ children }) => {
         joinRoomClicker,
         userData,
         setUserData,
-        updateUserData,
+        // updateUserData,
         updateRoomsData,
         userRoomsData,
         handleModalClose,
+        isOnline,
+        setIsOnline,
       }}
     >
       {children}

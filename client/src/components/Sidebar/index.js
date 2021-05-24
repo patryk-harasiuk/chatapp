@@ -27,21 +27,21 @@ const Sidebar = () => {
       : true;
   });
 
-  useEffect(() => {
-    axios
-      .get("/auth", {
-        withCredentials: true,
-        headers: { authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        setUserData({});
-        localStorage.removeItem("tokenauth");
-        history.push("/login");
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/auth", {
+  //       withCredentials: true,
+  //       headers: { authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       setUserData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       setUserData({});
+  //       localStorage.removeItem("tokenauth");
+  //       history.push("/login");
+  //     });
+  // }, []);
 
   useEffect(() => {
     updateRoomsData();

@@ -19,8 +19,8 @@ import {
   ErrorInfo,
 } from "../RegisterPage/RegisterPageStyles";
 
-const LoginPage = () => {
-  const { updateUserData, updateRoomsData } = useUserProvider();
+const LoginPage = ({ updateUserData }) => {
+  const { updateRoomsData, setIsOnline } = useUserProvider();
 
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -48,6 +48,7 @@ const LoginPage = () => {
         localStorage.setItem("tokenauth", response.data.accessToken);
         updateUserData();
         updateRoomsData();
+        setIsOnline(true);
         history.push("/");
 
         store.addNotification({

@@ -22,6 +22,7 @@ const ChatRoom = () => {
   const observer = useRef();
   const lastMessageRef = useRef();
   const MESSAGES_LENGTH = 35;
+  const activityStatus = JSON.parse(localStorage.getItem("activityStatus"));
 
   useEffect(() => {
     if (chatMessages.length >= MESSAGES_LENGTH) {
@@ -132,6 +133,7 @@ const ChatRoom = () => {
         <S.ChatNavIconsWrapper>
           <S.RoomUsersIcon />
           {currentRoomData.ownerId === userData._id ? <S.TrashIcon /> : null}
+          {/* <S.NotificationsOnIcon /> */}
         </S.ChatNavIconsWrapper>
       </S.ChatNav>
       <S.MessagesWrapper>

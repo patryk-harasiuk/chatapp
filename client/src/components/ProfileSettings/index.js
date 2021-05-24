@@ -13,7 +13,8 @@ import {
 import * as S from "./ProfileSettingsStyles";
 
 const ProfileSettings = () => {
-  const { userData, setUserData, updateUserData } = useUserProvider();
+  const { userData, setUserData, updateUserData, setIsOnline } =
+    useUserProvider();
   const [click, setClick] = useState(false);
   const [error, setError] = useState({});
   const [fileName, setFileName] = useState("");
@@ -21,13 +22,8 @@ const ProfileSettings = () => {
   const token = localStorage.getItem("tokenauth");
   const history = useHistory();
 
-  useEffect(() => {
-    updateUserData();
-  }, []);
-
-  // console.log(userData);
-
   const logoutHandler = () => {
+    setIsOnline(false);
     localStorage.removeItem("tokenauth");
     history.push("/login");
 
