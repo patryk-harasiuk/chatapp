@@ -8,10 +8,10 @@ import React, {
 import { useUserProvider } from "../../context/UserProvider";
 import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
-import io from "socket.io-client";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";
 import useOldMessagesLoad from "../../hooks/useOldMessagesLoad";
+import useRoom from "../../hooks/useRoom";
 
 const ChatRoom = () => {
   const { userData } = useContext(UserContext);
@@ -23,7 +23,6 @@ const ChatRoom = () => {
   const [emojiClick, setEmocjiClick] = useState(false);
   const [pageIndex, setPageIndex] = useState(0);
   const [currentRoomData, setCurrentRoomData] = useState({});
-  const socketRef = useRef();
   const observer = useRef();
   const lastMessageRef = useRef();
   // const activityStatus = JSON.parse(localStorage.getItem("activityStatus"));
@@ -75,32 +74,7 @@ const ChatRoom = () => {
     setChatMessage((prevState) => prevState + emojiObject.emoji);
   };
 
-  useEffect(() => {
-    socketRef.current = io("http://localhost:5000", {
-      query: { roomId },
-    });
-
-    socketRef.current.on("message-history", (messagesHistory) => {
-      const sortByDate = messagesHistory.messages.sort((a, b) => {
-        return a.createdAt.localeCompare(b.createdAt);
-      });
-      setChatMessages(sortByDate);
-    });
-
-    socketRef.current.on("send-message", (message) => {
-      const incomingMessage = {
-        ...message,
-        isOwner: message.senderId === socketRef.current.id,
-      };
-      setChatMessages((prevState) => [...prevState, incomingMessage]);
-    });
-
-    return () => {
-      socketRef.current.disconnect();
-      setPageIndex(0);
-      setChatMessages([]);
-    };
-  }, [roomId]);
+  const { socketRef } = useRoom(roomId, setChatMessages, setPageIndex);
 
   useEffect(() => {
     if (userRoomsData.length) {
