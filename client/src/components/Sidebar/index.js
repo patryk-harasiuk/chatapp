@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect, useContext } from "react";
 
 import { useUserProvider } from "../../context/UserProvider";
+import { UserContext } from "../../context/UserContext";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
@@ -10,38 +9,16 @@ import "animate.css/animate.min.css";
 import * as S from "./SidebarStyles";
 
 const Sidebar = () => {
-  const {
-    userData,
-    userRoomsData,
-    updateRoomsData,
-    createRoomClicker,
-    joinRoomClicker,
-    setUserData,
-  } = useUserProvider();
+  const { userData } = useContext(UserContext);
 
-  const history = useHistory();
-  const token = localStorage.getItem("tokenauth");
+  const { userRoomsData, updateRoomsData, createRoomClicker, joinRoomClicker } =
+    useUserProvider();
+
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
       : true;
   });
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/auth", {
-  //       withCredentials: true,
-  //       headers: { authorization: `Bearer ${token}` },
-  //     })
-  //     .then((response) => {
-  //       setUserData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       setUserData({});
-  //       localStorage.removeItem("tokenauth");
-  //       history.push("/login");
-  //     });
-  // }, []);
 
   useEffect(() => {
     updateRoomsData();

@@ -1,58 +1,40 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
 import { useUserProvider } from "../../context/UserProvider";
+import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import io from "socket.io-client";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";
+import useOldMessagesLoad from "../../hooks/useOldMessagesLoad";
 
 const ChatRoom = () => {
-  const { userData, userRoomsData } = useUserProvider();
+  const { userData } = useContext(UserContext);
+  const { userRoomsData } = useUserProvider();
 
   let { roomId } = useParams();
   const [chatMessages, setChatMessages] = useState([]);
   const [chatMessage, setChatMessage] = useState("");
   const [emojiClick, setEmocjiClick] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
   const [currentRoomData, setCurrentRoomData] = useState({});
   const socketRef = useRef();
   const observer = useRef();
   const lastMessageRef = useRef();
-  const MESSAGES_LENGTH = 35;
-  const activityStatus = JSON.parse(localStorage.getItem("activityStatus"));
+  // const activityStatus = JSON.parse(localStorage.getItem("activityStatus"));
+  console.log(chatMessages);
 
-  useEffect(() => {
-    if (chatMessages.length >= MESSAGES_LENGTH) {
-      setLoading(true);
-      setError({});
-      axios
-        .get("/get-messages", {
-          params: {
-            roomId: roomId,
-            pageIndex: pageIndex,
-          },
-        })
-        .then((response) => {
-          setLoading(false);
-          const sortByDate = response.data.sort((a, b) => {
-            return a.createdAt.localeCompare(b.createdAt);
-          });
-
-          setChatMessages((prevState) => {
-            return [...sortByDate, ...prevState];
-          });
-          setHasMore(response.data.length > 0);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-          setError(error);
-        });
-    }
-  }, [pageIndex]);
+  const { loading, error, hasMore } = useOldMessagesLoad(
+    chatMessages.length,
+    roomId,
+    pageIndex,
+    setChatMessages
+  );
 
   const firstMessageRef = useCallback(
     (node) => {

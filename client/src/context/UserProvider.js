@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 // import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-const UserContext = React.createContext();
+const AppContext = React.createContext();
 
 const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
   const [userRoomsData, setUserRoomsData] = useState([]);
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
@@ -26,25 +26,6 @@ const UserProvider = ({ children }) => {
     setCreateRoomPopup(false);
   };
 
-  // const updateUserData = () => {
-  //   const token = localStorage.getItem("tokenauth");
-  //   if (token === null) {
-  //     setUserData({});
-  //   } else {
-  //     axios
-  //       .get("/auth", {
-  //         withCredentials: true,
-  //         headers: { authorization: `Bearer ${token}` },
-  //       })
-  //       .then((response) => {
-  //         setUserData(response.data);
-  //       })
-  //       .catch((error) => {
-  //         setUserData({});
-  //       });
-  //   }
-  // };
-
   const updateRoomsData = () => {
     const token = localStorage.getItem("tokenauth");
     setUserRoomsData([]);
@@ -62,7 +43,7 @@ const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider
+    <AppContext.Provider
       value={{
         createRoomPopup,
         joinRoomPopup,
@@ -70,8 +51,8 @@ const UserProvider = ({ children }) => {
         setJoinRoomPopup,
         createRoomClicker,
         joinRoomClicker,
-        userData,
-        setUserData,
+        // userData,
+        // setUserData,
         // updateUserData,
         updateRoomsData,
         userRoomsData,
@@ -81,12 +62,12 @@ const UserProvider = ({ children }) => {
       }}
     >
       {children}
-    </UserContext.Provider>
+    </AppContext.Provider>
   );
 };
 
 export const useUserProvider = () => {
-  return useContext(UserContext);
+  return useContext(AppContext);
 };
 
-export { UserContext, UserProvider };
+export { AppContext, UserProvider };

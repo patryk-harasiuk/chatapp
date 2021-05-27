@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useUserProvider } from "../../context/UserProvider";
+import { UserContext } from "../../context/UserContext";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
@@ -13,8 +14,8 @@ import {
 import * as S from "./ProfileSettingsStyles";
 
 const ProfileSettings = () => {
-  const { userData, setUserData, updateUserData, setIsOnline } =
-    useUserProvider();
+  const { userData } = useContext(UserContext);
+  const { setUserData, updateUserData, setIsOnline } = useUserProvider();
   const [click, setClick] = useState(false);
   const [error, setError] = useState({});
   const [fileName, setFileName] = useState("");

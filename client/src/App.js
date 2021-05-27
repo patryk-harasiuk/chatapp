@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -7,6 +7,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import { useUserProvider } from "./context/UserProvider";
+import { UserContext } from "./context/UserContext";
 import ReactNotification from "react-notifications-component";
 
 import GlobalStyle from "./globalStyles";
@@ -21,8 +22,9 @@ import ProfileSettings from "./components/ProfileSettings";
 import NotFoundPage from "./components/NotFoundPage";
 
 const App = () => {
-  const { createRoomPopup, joinRoomPopup, setUserData } = useUserProvider();
+  const { createRoomPopup, joinRoomPopup } = useUserProvider();
   const history = useHistory();
+  const [userData, setUserData] = useState({});
 
   const updateUserData = () => {
     const token = localStorage.getItem("tokenauth");
@@ -57,16 +59,22 @@ const App = () => {
         <ReactNotification />
 
         <Switch>
-          <Route exact path="/">
-            <Sidebar />
-          </Route>
-
-          <Route path="/room/:roomId">
-            <div className="content-wrapper">
+          <UserContext.Provider value={{ userData, setUserData }}>
+            <Route exact path="/">
               <Sidebar />
-              <ChatRoom />
-            </div>
-          </Route>
+            </Route>
+
+            <Route path="/room/:roomId">
+              <div className="content-wrapper">
+                <Sidebar />
+                <ChatRoom />
+              </div>
+            </Route>
+
+            <Route exact path="/settings">
+              <ProfileSettings />
+            </Route>
+          </UserContext.Provider>
 
           <Route path="/register">
             <RegisterPage />
@@ -74,10 +82,6 @@ const App = () => {
 
           <Route path="/login">
             <LoginPage updateUserData={updateUserData} />
-          </Route>
-
-          <Route exact path="/settings">
-            <ProfileSettings />
           </Route>
 
           <Route path="*">
