@@ -27,7 +27,7 @@ const LoginPage = ({ updateUserData }) => {
     password: "",
     loading: false,
   });
-
+  console.log("coest");
   const [error, setError] = useState({});
 
   const history = useHistory();

@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useUserProvider } from "../../context/UserProvider";
-import { UserContext } from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";

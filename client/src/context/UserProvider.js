@@ -1,11 +1,9 @@
 import React, { useState, useContext } from "react";
-// import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const AppContext = React.createContext();
 
 const UserProvider = ({ children }) => {
-  // const [userData, setUserData] = useState({});
   const [userRoomsData, setUserRoomsData] = useState([]);
   const [createRoomPopup, setCreateRoomPopup] = useState(false);
   const [joinRoomPopup, setJoinRoomPopup] = useState(false);
@@ -51,9 +49,6 @@ const UserProvider = ({ children }) => {
         setJoinRoomPopup,
         createRoomClicker,
         joinRoomClicker,
-        // userData,
-        // setUserData,
-        // updateUserData,
         updateRoomsData,
         userRoomsData,
         handleModalClose,

@@ -9,9 +9,9 @@ const GlobalStyle = createGlobalStyle`
         list-style: none;
     }
 
-    .content-wrapper {
+    /* .content-wrapper {
         display: flex;
-    }
+    } */
 
     .modal {
         z-index: 999;

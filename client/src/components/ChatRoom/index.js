@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { useUserProvider } from "../../context/UserProvider";
-import { UserContext } from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import { useParams } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";
