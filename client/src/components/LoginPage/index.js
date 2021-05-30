@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useUserProvider } from "../../context/UserProvider";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 import LoadingAnimation from "../LoadingAnimation";
 import axios from "axios";
 import "react-notifications-component/dist/theme.css";
@@ -19,8 +20,9 @@ import {
   ErrorInfo,
 } from "../RegisterPage/RegisterPageStyles";
 
-const LoginPage = ({ updateUserData }) => {
+const LoginPage = () => {
   const { updateRoomsData, setIsOnline } = useUserProvider();
+  const { updateUserData, setUserData } = useContext(UserContext);
 
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -32,22 +34,23 @@ const LoginPage = ({ updateUserData }) => {
 
   const history = useHistory();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoginForm({ ...loginForm, loading: true });
     setError({});
+    setUserData({});
 
-    axios
+    await axios
       .post("/login", {
         email: loginForm.email,
         password: loginForm.password,
       })
-      .then((response) => {
+      .then(async (response) => {
         setLoginForm({ ...loginForm, loading: false });
         setError({});
         localStorage.setItem("tokenauth", response.data.accessToken);
-        updateUserData();
-        updateRoomsData();
+        await updateUserData();
+        await updateRoomsData();
         setIsOnline(true);
         history.push("/");
 

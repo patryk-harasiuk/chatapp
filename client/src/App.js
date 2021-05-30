@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./helpers/PrivateRoute";
 import { useUserProvider } from "./context/UserProvider";
-import UserContext from "./context/UserContext";
+
+import UserContextProvider from "./context/UserContext";
 import ReactNotification from "react-notifications-component";
 
 import GlobalStyle from "./globalStyles";
@@ -19,35 +18,10 @@ import ChatComponent from "./components/ChatComponent";
 
 const App = () => {
   const { createRoomPopup, joinRoomPopup } = useUserProvider();
-  const [userData, setUserData] = useState({});
-  const token = localStorage.getItem("tokenauth");
-
-  const updateUserData = () => {
-    if (token === null) {
-      setUserData({});
-    } else {
-      axios
-        .get("/auth", {
-          withCredentials: true,
-          headers: { authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          setUserData(response.data);
-        })
-        .catch((error) => {
-          setUserData({});
-          localStorage.removeItem("tokenauth");
-        });
-    }
-  };
-
-  useEffect(() => {
-    updateUserData();
-  }, []);
 
   return (
     <Router>
-      <UserContext.Provider value={{ userData, setUserData, updateUserData }}>
+      <UserContextProvider>
         <ReactNotification />
         <GlobalStyle />
         {createRoomPopup || joinRoomPopup ? <Modal /> : null}
@@ -59,21 +33,13 @@ const App = () => {
               path="/room/:roomId"
               component={ChatComponent}
             />
-
             <PrivateRoute exact path="/settings" component={ProfileSettings} />
-
             <Route exact path="/register" component={RegisterPage} />
-
-            <Route
-              exact
-              path="/login"
-              component={LoginPage}
-              updateUserData={updateUserData}
-            />
+            <Route exact path="/login" component={LoginPage} />
             <Route path="*" component={NotFoundPage} />
           </Switch>
         </div>
-      </UserContext.Provider>
+      </UserContextProvider>
     </Router>
   );
 };

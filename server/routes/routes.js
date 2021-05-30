@@ -89,7 +89,7 @@ router.post("/settings", authToken, async (req, res) => {
         res.status(500).send(err);
       }
 
-      const filePath = `uploads/${file.name}`;
+      const filePath = `/uploads/${file.name}`;
 
       try {
         await User.findOneAndUpdate(

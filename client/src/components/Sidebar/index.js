@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import { useUserProvider } from "../../context/UserProvider";
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
@@ -48,7 +48,7 @@ const Sidebar = () => {
     <S.SidebarRooms>
       <S.ProfileCard>
         <S.ProfileCardInfoWrapper>
-          <S.ProfileCardImage src={`/${userData.userAvatar}`} />
+          <S.ProfileCardImage src={userData.userAvatar} />
           <S.ProfileName>{userData.username}</S.ProfileName>
           <S.ActivityCheckbox
             type="checkbox"

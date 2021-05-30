@@ -12,7 +12,6 @@ const useOldMessagesLoad = (
   const [hasMore, setHasMore] = useState(true);
   const MAX_MESSAGES_LENGTH = 35;
   useEffect(() => {
-    // console.log("lkh");
     if (messagesLength >= MAX_MESSAGES_LENGTH) {
       setLoading(true);
       setError({});

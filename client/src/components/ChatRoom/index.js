@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { useUserProvider } from "../../context/UserProvider";
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useParams } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";
@@ -115,13 +115,14 @@ const ChatRoom = () => {
                     </S.MessageTimeStamp>
                   </S.Message>
                 </S.ColumnPlacement>
-                <S.MessageAvatatr src={`/${message.userAvatar}`} />
+                <S.MessageAvatatr src={message.userAvatar} />
+                {/* {console.log(message.userAvatar)} */}
               </S.MessageBox>
             );
           } else {
             return (
               <S.MessageBox otherUser key={index}>
-                <S.MessageAvatatr src={`/${message.userAvatar}`} />
+                <S.MessageAvatatr src={message.userAvatar} />
                 <S.ColumnPlacement>
                   <S.MessageUsername>{message.username}</S.MessageUsername>
 

@@ -36,6 +36,7 @@ const UserProvider = ({ children }) => {
         setUserRoomsData(response.data);
       })
       .catch((error) => {
+        console.log(error);
         setUserRoomsData([]);
       });
   };
