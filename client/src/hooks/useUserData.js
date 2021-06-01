@@ -24,7 +24,7 @@ const useUserData = (setUserData) => {
       }
     };
     updateUserData();
-  }, []);
+  }, [setUserData]);
 };
 
 export default useUserData;

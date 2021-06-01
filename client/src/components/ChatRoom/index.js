@@ -110,19 +110,16 @@ const ChatRoom = () => {
 
                   <S.Message ref={index === 0 ? firstMessageRef : null}>
                     {message.body}
-                    <S.MessageTimeStamp>
-                      {message.messageTimeStamp}
-                    </S.MessageTimeStamp>
                   </S.Message>
                 </S.ColumnPlacement>
-                <S.MessageAvatatr src={message.userAvatar} />
-                {/* {console.log(message.userAvatar)} */}
+                <S.MessageAvatatr src={userData.userAvatar} />
+                {console.log(message.userAvatar)}
               </S.MessageBox>
             );
           } else {
             return (
               <S.MessageBox otherUser key={index}>
-                <S.MessageAvatatr src={message.userAvatar} />
+                <S.MessageAvatatr src={userData.userAvatar} />
                 <S.ColumnPlacement>
                   <S.MessageUsername>{message.username}</S.MessageUsername>
 
@@ -131,9 +128,6 @@ const ChatRoom = () => {
                     ref={index === 0 ? firstMessageRef : null}
                   >
                     {message.body}
-                    <S.MessageTimeStamp>
-                      {message.messageTimeStamp}
-                    </S.MessageTimeStamp>
                   </S.Message>
                 </S.ColumnPlacement>
               </S.MessageBox>

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const mongoosePaginate = require("mongoose-paginate-v2");
 
 const roomSchema = new mongoose.Schema({
   name: {
@@ -28,5 +27,4 @@ const roomSchema = new mongoose.Schema({
   ],
 });
 
-// roomSchema.plugin(mongoosePaginate);
 module.exports = mongoose.model("Room", roomSchema);

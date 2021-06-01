@@ -13,7 +13,6 @@ const handleUserExists = require("../services/login/emailCheck");
 const handlePasswordCheck = require("../services/login/passwordCompare");
 const handleTokenGenerate = require("../services/login/tokenGenerate");
 
-// const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const {
   registerValidation,

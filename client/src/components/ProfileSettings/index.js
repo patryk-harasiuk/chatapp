@@ -14,8 +14,8 @@ import {
 import * as S from "./ProfileSettingsStyles";
 
 const ProfileSettings = () => {
-  const { userData } = useContext(UserContext);
-  const { setUserData, updateUserData, setIsOnline } = useUserProvider();
+  const { userData, setUserData, updateUserData } = useContext(UserContext);
+  const { setIsOnline } = useUserProvider();
   const [click, setClick] = useState(false);
   const [error, setError] = useState({});
   const [fileName, setFileName] = useState("");
@@ -65,15 +65,15 @@ const ProfileSettings = () => {
             authorization: `Bearer ${token}`,
           },
         })
-        .then((response) => {
+        .then(async (response) => {
           setError({});
           setUserData({ ...userData, userAvatar: response });
-          updateUserData();
+          await updateUserData();
           setFileName("");
         })
         .catch((error) => {
           setError(error.response.data);
-          console.log(error.response.data);
+          console.log(error.response);
         });
     } else {
       setError({ errorMessage: "You must upload an image" });
