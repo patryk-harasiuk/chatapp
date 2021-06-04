@@ -5,10 +5,10 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-// import { useUserProvider } from "../../context/UserProvider";
+
 import { UserContext } from "../../context/UserContext";
 import { RoomContext } from "../../context/RoomContext";
-import { useUserProvider } from "../../context/UserProvider";
+
 import { useParams } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";

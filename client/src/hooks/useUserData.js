@@ -15,7 +15,6 @@ const useUserData = (setUserData) => {
           });
 
           await setUserData(result.data);
-          await console.log("userdatafunction");
         } catch (error) {
           console.log(error);
           setUserData({});
