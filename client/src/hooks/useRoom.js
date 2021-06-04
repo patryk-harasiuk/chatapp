@@ -15,7 +15,6 @@ const useRoom = (roomId, setChatMessages, setPageIndex) => {
         return a.createdAt.localeCompare(b.createdAt);
       });
       setChatMessages(sortByDate);
-      console.log("jope");
     });
 
     socketRef.current.on("send-message", (message) => {

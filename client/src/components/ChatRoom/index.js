@@ -74,7 +74,6 @@ const ChatRoom = () => {
   };
 
   const onEmojiClick = (e, emojiObject) => {
-    console.log("emojiC");
     setChatMessage((prevState) => prevState + emojiObject.emoji);
   };
 
@@ -93,7 +92,6 @@ const ChatRoom = () => {
         <S.ChatNavIconsWrapper>
           <S.RoomUsersIcon />
           {currentRoomData.ownerId === userData._id ? <S.TrashIcon /> : null}
-          {/* <S.NotificationsOnIcon /> */}
         </S.ChatNavIconsWrapper>
       </S.ChatNav>
       <S.MessagesWrapper>
@@ -117,6 +115,7 @@ const ChatRoom = () => {
                   </S.Message>
                 </S.ColumnPlacement>
                 <S.MessageAvatatr src={userData.userAvatar} />
+                {console.log(message)}
               </S.MessageBox>
             );
           } else {

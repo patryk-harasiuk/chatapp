@@ -5,6 +5,7 @@ import { useUserProvider } from "./context/UserProvider";
 import UserContextProvider from "./context/UserContext";
 import RoomContextProvider from "./context/RoomContext";
 import ReactNotification from "react-notifications-component";
+import { UserProvider } from "./context/UserProvider";
 
 import GlobalStyle from "./globalStyles";
 
@@ -21,9 +22,9 @@ const App = () => {
   const { createRoomPopup, joinRoomPopup } = useUserProvider();
 
   return (
-    <Router>
-      <UserContextProvider>
-        <RoomContextProvider>
+    <UserContextProvider>
+      <RoomContextProvider>
+        <Router>
           <ReactNotification />
           <GlobalStyle />
           {createRoomPopup || joinRoomPopup ? <Modal /> : null}
@@ -45,9 +46,9 @@ const App = () => {
               <Route path="*" component={NotFoundPage} />
             </Switch>
           </div>
-        </RoomContextProvider>
-      </UserContextProvider>
-    </Router>
+        </Router>
+      </RoomContextProvider>
+    </UserContextProvider>
   );
 };
 

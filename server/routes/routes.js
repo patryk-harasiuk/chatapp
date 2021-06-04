@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../model/user");
 const Room = require("../model/roomModel");
+const bcrypt = require("bcrypt");
 
 const addUserToRoom = require("../services/room");
 const addRoomToUser = require("../services/user");
