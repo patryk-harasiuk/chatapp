@@ -17,8 +17,7 @@ import useRoom from "../../hooks/useRoom";
 
 const ChatRoom = () => {
   const { userData } = useContext(UserContext);
-  const { userRoomsData } = useUserProvider();
-  // const {} =  useUserProvider();
+  const { userRoomsData } = useContext(RoomContext);
 
   let { roomId } = useParams();
   const [chatMessages, setChatMessages] = useState([]);
@@ -28,8 +27,6 @@ const ChatRoom = () => {
   const [currentRoomData, setCurrentRoomData] = useState({});
   const observer = useRef();
   const lastMessageRef = useRef();
-
-  // console.log(chatMessages);
 
   const { loading, error, hasMore } = useOldMessagesLoad(
     chatMessages.length,
@@ -115,13 +112,13 @@ const ChatRoom = () => {
                   </S.Message>
                 </S.ColumnPlacement>
                 <S.MessageAvatatr src={userData.userAvatar} />
-                {console.log(message)}
               </S.MessageBox>
             );
           } else {
             return (
               <S.MessageBox otherUser key={index}>
-                <S.MessageAvatatr src={userData.userAvatar} />
+                <S.MessageAvatatr src={message.userAvatar} />
+
                 <S.ColumnPlacement>
                   <S.MessageUsername>{message.username}</S.MessageUsername>
 

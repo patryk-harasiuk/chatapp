@@ -10,7 +10,6 @@ const UserContextProvider = ({ children }) => {
   useUserData(setUserData);
 
   const updateUserData = async () => {
-    console.log("fire 2");
     const token = localStorage.getItem("tokenauth");
     if (token === null) {
       setUserData({});

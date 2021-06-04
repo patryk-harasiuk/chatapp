@@ -7,28 +7,7 @@ export const RoomContext = createContext();
 const RoomContextProvider = ({ children }) => {
   const [userRoomsData, setUserRoomsData] = useState([]);
 
-  //   useRoomsData(setUserRoomsData);
-
-  useEffect(() => {
-    const updateRoomsData = async () => {
-      const token = localStorage.getItem("tokenauth");
-      setUserRoomsData([]);
-      try {
-        const result = await axios.get("/get-rooms", {
-          withCredentials: true,
-          headers: { authorization: `Bearer ${token}` },
-        });
-
-        await setUserRoomsData(result.data);
-        await console.log("roomfunction");
-      } catch (error) {
-        console.log(error);
-        setUserRoomsData([]);
-        localStorage.removeItem("tokenauth");
-      }
-    };
-    updateRoomsData();
-  }, [setUserRoomsData]);
+  useRoomsData(setUserRoomsData);
 
   const updateRoomsData = async () => {
     const token = localStorage.getItem("tokenauth");
@@ -41,7 +20,6 @@ const RoomContextProvider = ({ children }) => {
 
       setUserRoomsData(result.data);
     } catch (error) {
-      console.log(error);
       setUserRoomsData([]);
       localStorage.removeItem("tokenauth");
     }

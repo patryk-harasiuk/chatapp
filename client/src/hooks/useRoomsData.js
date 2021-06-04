@@ -12,10 +12,8 @@ const useRoomsData = (setUserRoomsData) => {
           headers: { authorization: `Bearer ${token}` },
         });
 
-        await setUserRoomsData(result.data);
-        await console.log("roomfunction");
+        setUserRoomsData(result.data);
       } catch (error) {
-        console.log(error);
         setUserRoomsData([]);
         localStorage.removeItem("tokenauth");
       }
