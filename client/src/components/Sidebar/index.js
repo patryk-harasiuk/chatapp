@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { useUserProvider } from "../../context/UserProvider";
 import { UserContext } from "../../context/UserContext";
+import { RoomContext } from "../../context/RoomContext";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
@@ -11,18 +12,15 @@ import * as S from "./SidebarStyles";
 const Sidebar = () => {
   const { userData } = useContext(UserContext);
 
-  const { userRoomsData, updateRoomsData, createRoomClicker, joinRoomClicker } =
-    useUserProvider();
+  const { createRoomClicker, joinRoomClicker } = useUserProvider();
+
+  const { userRoomsData } = useContext(RoomContext);
 
   const [activeClick, setActiveClick] = useState(() => {
     return localStorage.getItem("activityStatus")
       ? JSON.parse(localStorage.getItem("activityStatus"))
       : true;
   });
-
-  useEffect(() => {
-    updateRoomsData();
-  }, []);
 
   const activityStatusHandler = () => {
     setActiveClick(!activeClick);

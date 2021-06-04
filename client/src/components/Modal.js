@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useUserProvider } from "../context/UserProvider";
+import { RoomContext } from "../context/RoomContext";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
@@ -52,12 +53,12 @@ const CloseIcon = styled(AiOutlineClose)`
 
 const Modal = () => {
   const {
-    updateRoomsData,
     setCreateRoomPopup,
     setJoinRoomPopup,
     createRoomPopup,
     joinRoomPopup,
   } = useUserProvider();
+  const { updateRoomsData } = useContext(RoomContext);
   const [error, setError] = useState({});
   const [roomData, setRoomData] = useState({
     name: "",
@@ -84,10 +85,10 @@ const Modal = () => {
           },
         }
       )
-      .then((response) => {
+      .then(async (response) => {
         setRoomData({ name: "", password: "" });
         setError({});
-        updateRoomsData();
+        await updateRoomsData();
 
         store.addNotification({
           message: "Successfully created room",

@@ -5,8 +5,10 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import { useUserProvider } from "../../context/UserProvider";
+// import { useUserProvider } from "../../context/UserProvider";
 import { UserContext } from "../../context/UserContext";
+import { RoomContext } from "../../context/RoomContext";
+import { useUserProvider } from "../../context/UserProvider";
 import { useParams } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import * as S from "./ChatRoomStyles";
@@ -16,6 +18,7 @@ import useRoom from "../../hooks/useRoom";
 const ChatRoom = () => {
   const { userData } = useContext(UserContext);
   const { userRoomsData } = useUserProvider();
+  // const {} =  useUserProvider();
 
   let { roomId } = useParams();
   const [chatMessages, setChatMessages] = useState([]);
@@ -25,8 +28,8 @@ const ChatRoom = () => {
   const [currentRoomData, setCurrentRoomData] = useState({});
   const observer = useRef();
   const lastMessageRef = useRef();
-  // const activityStatus = JSON.parse(localStorage.getItem("activityStatus"));
-  console.log(chatMessages);
+
+  // console.log(chatMessages);
 
   const { loading, error, hasMore } = useOldMessagesLoad(
     chatMessages.length,
@@ -71,6 +74,7 @@ const ChatRoom = () => {
   };
 
   const onEmojiClick = (e, emojiObject) => {
+    console.log("emojiC");
     setChatMessage((prevState) => prevState + emojiObject.emoji);
   };
 
@@ -113,7 +117,6 @@ const ChatRoom = () => {
                   </S.Message>
                 </S.ColumnPlacement>
                 <S.MessageAvatatr src={userData.userAvatar} />
-                {console.log(message.userAvatar)}
               </S.MessageBox>
             );
           } else {

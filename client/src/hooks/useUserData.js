@@ -3,7 +3,6 @@ import axios from "axios";
 
 const useUserData = (setUserData) => {
   useEffect(() => {
-    console.log("fire 1");
     const updateUserData = async () => {
       const token = localStorage.getItem("tokenauth");
       if (token === null) {
@@ -15,7 +14,8 @@ const useUserData = (setUserData) => {
             headers: { authorization: `Bearer ${token}` },
           });
 
-          setUserData(result.data);
+          await setUserData(result.data);
+          await console.log("userdatafunction");
         } catch (error) {
           console.log(error);
           setUserData({});

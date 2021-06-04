@@ -15,6 +15,7 @@ const useRoom = (roomId, setChatMessages, setPageIndex) => {
         return a.createdAt.localeCompare(b.createdAt);
       });
       setChatMessages(sortByDate);
+      console.log("jope");
     });
 
     socketRef.current.on("send-message", (message) => {
@@ -22,15 +23,16 @@ const useRoom = (roomId, setChatMessages, setPageIndex) => {
         ...message,
         isOwner: message.senderId === socketRef.current.id,
       };
+
       setChatMessages((prevState) => [...prevState, incomingMessage]);
     });
 
     return () => {
-      socketRef.current.disconnect();
       setPageIndex(0);
       setChatMessages([]);
+      socketRef.current.disconnect();
     };
-  }, [roomId]);
+  }, [roomId, setChatMessages, setPageIndex]);
   return { socketRef };
 };
 

@@ -24,21 +24,37 @@ const UserProvider = ({ children }) => {
     setCreateRoomPopup(false);
   };
 
-  const updateRoomsData = () => {
+  // const updateRoomsData = () => {
+  //   const token = localStorage.getItem("tokenauth");
+  //   setUserRoomsData([]);
+  //   axios
+  //     .get("/get-rooms", {
+  //       withCredentials: true,
+  //       headers: { authorization: `Bearer ${token}` },
+  //     })
+  //     .then((response) => {
+  //       setUserRoomsData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setUserRoomsData([]);
+  //     });
+  // };
+  const updateRoomsData = async () => {
     const token = localStorage.getItem("tokenauth");
     setUserRoomsData([]);
-    axios
-      .get("/get-rooms", {
+    try {
+      const result = await axios.get("/get-rooms", {
         withCredentials: true,
         headers: { authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserRoomsData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        setUserRoomsData([]);
       });
+
+      setUserRoomsData(result.data);
+    } catch (error) {
+      console.log(error);
+      setUserRoomsData([]);
+      localStorage.removeItem("tokenauth");
+    }
   };
 
   return (

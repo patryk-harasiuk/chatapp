@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useUserProvider } from "../../context/UserProvider";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { RoomContext } from "../../context/RoomContext";
 import LoadingAnimation from "../LoadingAnimation";
 import axios from "axios";
 import "react-notifications-component/dist/theme.css";
@@ -21,15 +22,16 @@ import {
 } from "../RegisterPage/RegisterPageStyles";
 
 const LoginPage = () => {
-  const { updateRoomsData, setIsOnline } = useUserProvider();
+  const { setIsOnline } = useUserProvider();
   const { updateUserData, setUserData } = useContext(UserContext);
+  const { updateRoomsData } = useContext(RoomContext);
 
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
     loading: false,
   });
-  console.log("coest");
+
   const [error, setError] = useState({});
 
   const history = useHistory();
