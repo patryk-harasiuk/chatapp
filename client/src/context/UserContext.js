@@ -6,25 +6,24 @@ export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
+  const [error, setError] = useState({});
 
-  useUserData(setUserData);
+  useUserData(setUserData, setError);
 
   const updateUserData = async () => {
     const token = localStorage.getItem("tokenauth");
-    if (token === null) {
-      setUserData({});
-    } else {
-      try {
-        const result = await axios.get("/auth", {
-          withCredentials: true,
-          headers: { authorization: `Bearer ${token}` },
-        });
+    if (!token) setUserData({});
 
-        setUserData(result.data);
-      } catch (error) {
-        setUserData({});
-        localStorage.removeItem("tokenauth");
-      }
+    try {
+      const result = await axios.get("/auth", {
+        withCredentials: true,
+        headers: { authorization: `Bearer ${token}` },
+      });
+
+      setUserData(result.data);
+    } catch (error) {
+      setUserData({});
+      localStorage.removeItem("tokenauth");
     }
   };
 

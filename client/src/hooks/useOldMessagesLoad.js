@@ -34,10 +34,9 @@ const useOldMessagesLoad = (
           });
           setHasMore(response.data.length > 0);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           setLoading(false);
-          setError(error);
+          setError({ errorMessage: "Error occured during message loading" });
         });
     }
   }, [pageIndex]);
