@@ -9,7 +9,7 @@ const socket = require("socket.io");
 
 const io = socket(server, {
   cors: {
-    origin: true,
+    origin: "http://74.248.33.104",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
