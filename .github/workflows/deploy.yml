@@ -2,7 +2,7 @@ name: MERN Stack Application CI/CD Deployment
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   deploy:
@@ -21,7 +21,7 @@ jobs:
               cd mern-app
             else
               cd mern-app
-              git pull origin main
+              git pull origin master
             fi
 
             sudo docker-compose down
