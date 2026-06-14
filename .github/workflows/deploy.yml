@@ -1,28 +1,50 @@
-name: MERN Stack Application CI/CD Deployment
+name: MERN Stack CI/CD Deployment
 
 on:
   push:
-    branches: [master]
+    branches: [main, master] # Obsługuje obie popularne nazwy gałęzi głównych
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy application on Azure
+      # KROK 1: Pobranie kodu z repozytorium w bezpieczny sposób
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # KROK 2: Wdrożenie kodu na maszynę w Azure
+      - name: Kopiowanie kodu i uruchomienie przez SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AZURE_VM_IP }}
           username: azureuser
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
           script: |
-            if [ ! -d "mern-app" ]; then
-              git clone https://github.com/${{ github.repository }}.git mern-app
-              cd mern-app
-            else
-              cd mern-app
-              git pull origin master
-            fi
+            # Tworzymy folder na projekt, jeśli go nie ma
+            mkdir -p ~/mern-app
+            cd ~/mern-app
 
-            sudo docker-compose down
+            # Czyścimy stare kontenery przed pobraniem nowego kodu
+            sudo docker-compose down --remove-orphans || true
+
+      # KROK 3: Bezpieczne skopiowanie plików projektu na serwer
+      - name: Kopiowanie plików na maszynę VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.AZURE_VM_IP }}
+          username: azureuser
+          key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/home/azureuser/mern-app"
+
+      # KROK 4: Uruchomienie aplikacji w Docker Compose
+      - name: Odpalenie Docker Compose na VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_VM_IP }}
+          username: azureuser
+          key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/mern-app
             sudo docker-compose up --build -d
