@@ -12,7 +12,6 @@ const io = socket(server, {
     origin: "http://74.248.33.104",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
 const fileUpload = require("express-fileupload");
@@ -50,7 +49,14 @@ app.use(
   }),
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://74.248.33.104",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 io.on("connection", async (socket) => {
   const { roomId } = socket.handshake.query;
