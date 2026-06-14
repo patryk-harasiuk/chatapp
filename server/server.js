@@ -6,10 +6,13 @@ const server = http.createServer(app);
 const mongoose = require("mongoose");
 const routes = require("./routes/routes");
 const socket = require("socket.io");
+
 const io = socket(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   },
 });
 const fileUpload = require("express-fileupload");
