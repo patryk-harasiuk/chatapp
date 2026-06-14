@@ -2,34 +2,29 @@ name: MERN Stack CI/CD Deployment
 
 on:
   push:
-    branches: [main, master] # Obsługuje obie popularne nazwy gałęzi głównych
+    branches: [master]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # KROK 1: Pobranie kodu z repozytorium w bezpieczny sposób
       - name: Checkout repository code
         uses: actions/checkout@v4
 
-      # KROK 2: Wdrożenie kodu na maszynę w Azure
-      - name: Kopiowanie kodu i uruchomienie przez SSH
+      - name: Copy code and run with ssh
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AZURE_VM_IP }}
           username: azureuser
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
           script: |
-            # Tworzymy folder na projekt, jeśli go nie ma
             mkdir -p ~/mern-app
             cd ~/mern-app
 
-            # Czyścimy stare kontenery przed pobraniem nowego kodu
             sudo docker-compose down --remove-orphans || true
 
-      # KROK 3: Bezpieczne skopiowanie plików projektu na serwer
-      - name: Kopiowanie plików na maszynę VM
+      - name: Copy files on VM
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.AZURE_VM_IP }}
@@ -38,8 +33,7 @@ jobs:
           source: "."
           target: "/home/azureuser/mern-app"
 
-      # KROK 4: Uruchomienie aplikacji w Docker Compose
-      - name: Odpalenie Docker Compose na VM
+      - name: Run Docker Compose on VM
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AZURE_VM_IP }}
