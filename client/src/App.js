@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./helpers/PrivateRoute";
 import { useUserProvider } from "./context/UserProvider";
+import axios from "axios";
 
 import UserContextProvider from "./context/UserContext";
 import RoomContextProvider from "./context/RoomContext";
@@ -17,6 +18,8 @@ import LoginPage from "./components/LoginPage";
 import ProfileSettings from "./components/ProfileSettings";
 import NotFoundPage from "./components/NotFoundPage";
 import ChatComponent from "./components/ChatComponent";
+
+axios.defaults.baseURL = "http://74.248.33.104:4000";
 
 const App = () => {
   const { createRoomPopup, joinRoomPopup } = useUserProvider();

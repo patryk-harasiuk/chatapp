@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 const useRoom = (roomId, setChatMessages, setPageIndex) => {
   const socketRef = useRef();
-  const SERVER_ADRESS = "http://localhost:5000";
+  const SERVER_ADRESS = "http://74.248.33.104:4000";
 
   useEffect(() => {
     socketRef.current = io(SERVER_ADRESS, {

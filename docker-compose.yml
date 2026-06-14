@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  database:
+    image: mongo:latest
+    container_name: mern-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  backend:
+    build: ./server
+    container_name: mern-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URI=mongodb://database:27017/chat_app
+    depends_on:
+      - database
+    restart: always
+
+  frontend:
+    build: ./client
+    container_name: mern-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  mongo-data:

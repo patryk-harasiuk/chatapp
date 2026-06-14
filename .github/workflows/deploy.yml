@@ -1,0 +1,28 @@
+name: MERN Stack Application CI/CD Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy application on Azure
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_VM_IP }}
+          username: azureuser
+          key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+          script: |
+            if [ ! -d "mern-app" ]; then
+              git clone https://github.com/${{ github.repository }}.git mern-app
+              cd mern-app
+            else
+              cd mern-app
+              git pull origin main
+            fi
+
+            sudo docker-compose down
+            sudo docker-compose up --build -d
