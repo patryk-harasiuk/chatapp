@@ -44,7 +44,7 @@ const RegisterPage = () => {
   return (
     <S.RegisterWrapper>
       <S.RegisterForm onSubmit={submitHandler}>
-        <S.RegisterHeading>Create your account!</S.RegisterHeading>
+        <S.RegisterHeading>Create your account! DZIALAa</S.RegisterHeading>
         <S.InputBox>
           <S.Input
             autoComplete="off"
